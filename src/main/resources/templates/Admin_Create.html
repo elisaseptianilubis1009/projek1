@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head><!DOCTYPE html>
+<html lang="en">
+<head th:replace="index::head"></head>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+
+	<!-- Navbar -->
+	<nav th:replace="index::navv"></nav>
+	<!-- /.navbar -->
+
+	<aside th:replace="index::sidebar" ></aside>
+
+ 	<!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard v1</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+<div class="container"> 
+        <div class="ror"> 
+          <div class="col-8"> 
+            <h1 class="mt-3">Tambah Data Admin</h1>             
+              <form method="post" action="/admin/save">
+
+              <input 
+                  type="hidden"                   
+                  th:name="${_csrf.parameterName}"
+                  th:value="${_csrf.token}" />
+          
+                 <div class="form-group">
+                      <input type="hidden" class="form-control" id="id"  name="id" th:value="${admin.id}">
+                      <input type="hidden" class="form-control" id="id"  name="login.id" th:value="${admin.login.id}">
+                      <input type="hidden" class="form-control" id="id"  name="login.akses" th:value="${admin.login.akses}">
+                      <input type="hidden" class="form-control" id="id"  name="login.active" th:value="${admin.login.active}">
+                </div>
+                <div class="form-group">
+                     <label for="nama">Nama Lengkap</label>
+                      <input type="text" class="form-control" id="nama"  name="namaLengkap" th:value="${admin.namaLengkap}">
+                </div>     
+                <div class="form-group">
+                     <label for="alamat">Alamat</label>
+                      <input type="text" class="form-control" id="alamat"  name="alamat" th:value="${admin.alamat}">
+                </div>
+                <div class="form-group">
+                     <label for="email">Email</label>
+                      <input type="email" class="form-control" id="email"  name="email" th:value="${admin.email}">
+                </div>
+                <div class="form-group">
+                     <label for="tlp">No Telepon</label>
+                      <input type="text" class="form-control" id="tlp"  name="noTelp" th:value="${admin.noTelp}">
+                </div>
+                <div class="form-group">
+                     <label for="tgl">Username</label>
+                      <input type="text" class="form-control" id="tgl"  name="login.username" th:value="${admin.login.username}">
+                </div>
+                <div class="form-group">
+                     <label for="tgl">Password</label>
+                      <input type="text" class="form-control" id="tgl"  name="login.password" th:value="${admin.login.password}">
+                </div>          
+                <button type="submit" class="btn btn-primary">Simpan Data</button>
+                <a th:href="@{'/admin/tampil'}"  class="btn btn-danger">Kembali</a>
+              </form>
+          </div>
+        </div>
+    </div>                
+
+  </div>
+  <!-- /.content-wrapper -->
+  
+  
+  
+  <footer th:replace="index::foot" class="main-footer"></footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<div th:replace="index::js"></div>
+</body>
+</html>
+
+<body>
+
+</body>
+</html>

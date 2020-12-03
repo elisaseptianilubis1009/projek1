@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="index::head"></head>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+<!-- Navbar -->
+<nav th:replace="index::navv"></nav>
+<!-- /.navbar -->
+
+<aside th:replace="index::sidebar" ></aside>
+
+  <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard v1</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+<div class="container"> 
+        <div class="ror"> 
+          <div class="col-8"> 
+            <h1 class="mt-3">Tambah Detail Produk</h1>             
+              <form method="post" action="/produk/create">
+
+                 <input 
+                  type="hidden" 
+                  th:name="${_csrf.parameterName}"
+                  th:value="${_csrf.token}" />
+                    
+                <div class="form-group">
+                      <input type="hidden" th class="form-control" id="id"  name="kode" th:value="${detail.kode}">
+                </div>
+
+                
+                <div class="form-group">
+                     <label for="nama">Nama Produk</label>
+                      <input type="text" class="form-control" id="nama" placeholder="Nama Produk" name="nama_produk" th:value="${produk.nama_produk}">
+                </div>
+                
+                <div class="form-group">
+                      <label for="rs">Rasa</label>
+                      <select name="rasa" class="form-control">
+                      <option  th:each="row :${rasa}" th:value="${row.kode}" th:text="${row.nama_rasa}"></option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                      <label for="jr">Ukuran</label>
+                      <select name="ukuran" class="form-control">
+                      <option  th:each="row :${ukuran}" th:value="${row.kode}" th:text="${row.nama_ukuran}"></option>
+                    </select>
+                </div>
+                
+                
+
+                <div class="form-group">
+                     <label for="hrg">Harga</label>
+                      <input type="text" class="form-control" id="hrg" placeholder="Harga Produk" name="harga" th:value="${produk.harga}">
+                </div>
+
+                <div class="form-group">
+                     <label for="ket">Keterangan</label>
+                      <input type="text" class="form-control" id="ket" placeholder="Keterangan Produk" name="stok" th:value="${produk.keterangan}">
+                </div>
+
+                
+                <button type="submit" class="btn btn-primary">Tambah Data</button>
+                <a th:href="@{'/produk/tampil'}"  class="btn btn-danger">Kembali</a>
+              </form>
+          </div>
+        </div>
+    </div>                
+
+  </div>
+  <!-- /.content-wrapper -->
+  
+  
+  
+  <footer th:replace="index::foot" class="main-footer"></footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<div th:replace="index::js"></div>
+</body>
+</html>
