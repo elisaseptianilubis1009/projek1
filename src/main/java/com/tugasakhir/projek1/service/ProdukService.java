@@ -32,7 +32,7 @@ public class ProdukService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
-		pr.save(produk);
+	pr.save(produk);
 	}
 	
 	

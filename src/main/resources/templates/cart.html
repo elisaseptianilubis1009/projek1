@@ -20,33 +20,6 @@
         </div>
     </div>
     
-   <script type="text/javascript">
-   		$(document).ready(function()){
-   		
-   			$('[data-toggle="tooltip"]').tooltip();
-   			
-   			$('table .delete').on('click',function){
-   				var id = $(this).parent().find('#id').val();
-   				alert(id);
-   				//$("#deleteCartModal #id").val(id);	
-   			});
-   			
-   			$('table.edit').on('click',function){
-   				var kode=$(this).parent().find('#kode').val();
-   				$.ajax()({
-   					type: 'GET',
-   					url:  '${pageContext.request.contextPath}/api/cart/find/' +kode
-   					success: function(cartPembeli){
-   						$('#editCartModal #kode').val(cartPembeli.kode);
-   						$('#editCartModal #kuantitas').val(cartPembeli.kuantitas);
-   						
-   					}
-   				})
-   				$("#deleteCartModal #id").val(id);	
-   			});
-
-   		});
-   </script>
 
     <!-- Start Cart  -->
     <div class="cart-box-main">
@@ -61,8 +34,6 @@
                                     <th>Images</th>
                                     <th>Product Name</th>
                                     <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
                                     <th>Update</th>
                                     <th>Remove</th>
                                 </tr>
@@ -75,22 +46,15 @@
                                     </td>
                                     <td class="name-pr" th:text="${row.produk.namaProduk}"></td>
                                     <td class="price-pr" th:text="${row.produk.hargaJual}"></td>
-                                    <td class="quantity-box"><input type="number" name="kuantitas" th:value="${row.kuantitas}" min="0"  ></td>
-                                    <td class="total-pr" th:text="${row.total}"></td>
+                                    
                                     <td class="update-pr">
 									<a href="#editCartModal" class="edit" data-toggle="modal" >
-									<i class="fas fa-check" data-toogle="tooltip" title="Edit">
-									</i>
-									</a>
+									<i class="fas fa-check" data-toogle="tooltip" title="Edit"></i></a>
                                     </td>
+                                    
                                     <td class="remove-pr">
-                                         <a th:href="@{'/cart/delete/' + ${row.kode}}" th:id=${row.kode}>  
-                                       
-                                     <!--<a href="#deleteCartModal" class="delete" data-toggle="modal" >-->
-									<i class="fas fa-times" data-toogle="tooltip" title="Delete">
-									</i>
-									
-									<input type="hidden" id="id" th:value="${row.kode}">
+                                         <a th:href="@{'/cart/delete/' + ${row.kode}}" th:id=${row.kode}>
+                                     	<!--<a href="#deleteCartModal" class="delete" data-toggle="modal" >-->
 									</a>
 								</a>
                                     </td>

@@ -20,17 +20,12 @@ public class DashboardController {
 	return "index_user";
 	}
 	
-	@RequestMapping (value="/index_user", method = RequestMethod.GET)
-	public String indexn(Model model,Principal p) {	
-		model.addAttribute("user",p); 
-	return "index_user";
-	}
 	
-	@RequestMapping (value="/index", method = RequestMethod.GET)
-	public String indexAdmin(Model model,Principal p) {	
-		model.addAttribute("user",p); 
-	return "index";
-	}
+//	@RequestMapping (value="/index", method = RequestMethod.GET)
+//	public String indexAdmin(Model model,Principal p) {	
+//		model.addAttribute("user",p); 
+//	return "index";
+//	}
 	
 	@RequestMapping (value="/about", method = RequestMethod.GET)
 	public String about(Model model,Principal p) {	

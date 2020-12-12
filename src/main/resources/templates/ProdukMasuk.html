@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="index::head"></head>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+<!-- Navbar -->
+<nav th:replace="index::navv"></nav>
+<!-- /.navbar -->
+
+<aside th:replace="index::sidebar" ></aside>
+
+  <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dashboard Produk Masuk</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard v1</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+                       <div class="card mb-4">
+                            <div class="card-header">
+                              <a th:href="@{'/produkMasuk/create'}" class="btn btn-primary  text white mt-2"> Tambah Data</a>  
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th bgcolor="grey" style="text-align: center;">No</th>
+                                                <th bgcolor="grey" style="text-align: center;">Kode Produk</th>
+                                                <th bgcolor="grey" style="text-align: center;">Jumlah Produk</th>
+                                                <th bgcolor="grey" style="text-align: center;">Tanggal Masuk</th>
+                                                <th bgcolor="grey" style="text-align: center;">Expayed</th>
+                                                <th bgcolor="grey" style="text-align: center;">Action</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="row,var: ${pMasuk}">
+                                                <td style="text-align: center;" th:text="${var.count}"></td>
+                                                <td style="text-align: center;" th:text="${row.produk.kode}"></td>
+                                                <td style="text-align: center;" th:text="${row.jumlahProdukMasuk}"></td>
+                                                <td style="text-align: center;" th:text="${row.tglMasuk}"></td>
+                                                <td style="text-align: center;" th:text="${row.expayed}"></td>
+                                                <td style="text-align: center;">
+                                                    <a th:href="@{'/produkMasuk/edit/' +${row.kode}}" th:id="${row.kode}" class="btn btn-sm btn-success text white"> Ubah</a>
+                                                    <a th:href="@{'/produkMasuk/delete/' +${row.kode}}"  onclick="return confirm('Yakin ingin dihapus?')" class="btn btn-sm btn-danger">Hapus</a>
+                                                </td>
+
+                                            </tr>  
+                                        </tbody>
+                                    </table>
+                                    
+                                   <div th:if = "${totalPages > 1}">
+                                    	<div class ="row col-sm-10">
+                                    		<div class="col-sm-2">
+                                    			Total Rows : [[${totalItems}]]
+                                    		</div>
+                                    		<div class="col-sm-1">
+                                    			<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                    				<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}"> [[${i}]]</a>
+                                    				<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp; 
+                                    			</span>
+                                    		</div>
+                                    		<div class="col-sm-1">
+                                    			<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage +1}}">Next</a>
+                                    			<span th:unless="${currentPage < totalPages}">Next</span>
+                                    		</div>  
+                                    		
+                                    		<div class="col-sm-1"> 
+                                    			<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}}">Last</a>
+                                    		 	<span th:unless="${currentPage < totalPages}">Last</span>
+                                    		</div>      		
+                                    	</div>       
+                                    </div>  
+                                </div >
+                            </div>
+                        </div>
+
+  </div>
+  <!-- /.content-wrapper -->
+  
+  
+  
+  <footer th:replace="index::foot" class="main-footer"></footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<div th:replace="index::js"></div>
+</body>
+</html>

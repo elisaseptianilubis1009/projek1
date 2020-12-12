@@ -49,18 +49,16 @@
 		                     <select name="rasa" class="form-control">
 		                      		<option  th:each="row :${rasa}" th:value="${row.kode}" th:text="${row.namaRasa}"></option>
 		                     </select>
-		                
+		                     
 		                     <label for="rs">Ukuran</label>
 		                     <select name="ukuran" class="form-control">
-		                      		<option  th:each="row :${ukuran}" th:value="${row.kode}" th:text="${row.namaUkuran}"></option>
+		                      		<option  th:each="row :${rasa}" th:value="${row.kode}" th:text="${row.namaUkuran}"></option>
 		                     </select>
+		                     
 		
 		                     <label for="hrg">Harga</label>
 		                     <input type="text" class="form-control" id="hrg" placeholder="Harga Produk" name="hargaJual" th:value="${produk.hargaJual}">
-		              
-		                     <label for="stok">Stok</label>
-		                     <input type="text" class="form-control" id="stok" placeholder="Stok Produk" name="stok" th:value="${produk.stok}">
-		                
+		       
 		                     <div class="custom-file mb-2">
 		                		<label for="customFile">Add in image</label><br>
 		                      	<input type="file" name="pfile" class="custom-file" id="customFile" th:value="${produk.gambar}">

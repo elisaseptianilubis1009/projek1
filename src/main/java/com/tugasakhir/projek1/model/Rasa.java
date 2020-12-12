@@ -1,9 +1,11 @@
 package com.tugasakhir.projek1.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 
@@ -13,6 +15,7 @@ public class Rasa {
 
 	private Long kode;
 	private String namaRasa;
+	private String gambar;
 
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -28,6 +31,16 @@ public class Rasa {
 	}
 	public void setNamaRasa(String namaRasa) {
 		this.namaRasa = namaRasa;
+	}
+	
+	
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
+	public String getGambar() {
+		return gambar;
+	}
+	public void setGambar(String gambar) {
+		this.gambar = gambar;
 	}
 		
 }

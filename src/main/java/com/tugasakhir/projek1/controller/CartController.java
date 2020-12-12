@@ -40,7 +40,10 @@ public class CartController {
 	model.addAttribute("user",p);
 	
 	Login Userlogin = lr.findByUsername(p.getName()).get();
+	System.out.println("Id User yang login :" + Userlogin.getId());//berhasil
+	
 	Pembeli pembeli=pr.findByLogin(Userlogin).get();
+	System.out.println("Nama Pmebeli yang login :" + pembeli.getNamaLengkap());	//dapet
 	
 	List<Cart> pembeliCart=cr.findByPembeli(pembeli);
 	model.addAttribute("cartPembeli",pembeliCart);
@@ -49,7 +52,7 @@ public class CartController {
 	//return pembeliCart.toString;
 	}
 	
-	
+
 	
 	
 	
@@ -60,10 +63,10 @@ public class CartController {
 		Cart cart=new Cart();
 		
 		Login Userlogin = lr.findByUsername(p.getName()).get();//Dapatkan objek Login
-		System.out.println("Id User yang login :" + Userlogin.getId());//Menampilkan idUser yang sedang login
+		System.out.println("Id User yang login:" + Userlogin.getId());//berhasil
 		
 		Pembeli pembeli=pr.findByLogin(Userlogin).get();
-		System.out.println("Id Pembeli yang login :" + pembeli.getId());
+		System.out.println("Id Pembeli yang login :" + pembeli.getId());//dapat kok
 		
 		cart.setProduk(produk);
 		cart.setPembeli(pembeli);
@@ -98,10 +101,6 @@ public class CartController {
 		return "redirect:/shop/tampil";
 		
 	}
-	
-	
-	
-	
 
 	@RequestMapping (value="/checkout", method = RequestMethod.GET)
 	public String tampilAdmin(Model model,Principal p) {

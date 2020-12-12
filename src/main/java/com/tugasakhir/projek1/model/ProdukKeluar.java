@@ -1,22 +1,22 @@
 package com.tugasakhir.projek1.model;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-
 @Entity
-public class Cart {
-
+public class ProdukKeluar {
+	
 	private Long kode;
 	private Produk produk;
-	private Pembeli pembeli;
-	private Integer quantity;
-	private Integer total;
-	private Integer sub;
+	private Date tglKeluar;
+	private Integer jumlahProdukKeluar;
 
+	
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	public Long getKode() {
@@ -33,27 +33,17 @@ public class Cart {
 	public void setProduk(Produk produk) {
 		this.produk = produk;
 	}
-	
-	@ManyToOne
-	public Pembeli getPembeli() {
-		return pembeli;
+	public Date getTglKeluar() {
+		return tglKeluar;
 	}
-	public void setPembeli(Pembeli pembeli) {
-		this.pembeli = pembeli;
+	public void setTglKeluar(Date tglKeluar) {
+		this.tglKeluar = tglKeluar;
 	}
-	public Integer getQuantity() {
-		return quantity;
+	public Integer getJumlahProdukKeluar() {
+		return jumlahProdukKeluar;
 	}
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setJumlahProdukKeluar(Integer jumlahProdukKeluar) {
+		this.jumlahProdukKeluar = jumlahProdukKeluar;
 	}
-	public Integer getTotal() {
-		return total;
-	}
-	public void setTotal(Integer total) {
-		this.total = total;
-	}
-	
-	
 	
 }

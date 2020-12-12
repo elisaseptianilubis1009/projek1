@@ -43,6 +43,7 @@
                                             <tr>
                                                 <th bgcolor="grey" style="text-align: center;">No</th>
                                                 <th bgcolor="grey" style="text-align: center;">Rasa produk</th>
+                                                <th bgcolor="grey" style="text-align: center;">Gambar</th>
                                                 <th bgcolor="grey" style="text-align: center;">Action</th>
                                                 
                                             </tr>
@@ -51,6 +52,7 @@
                                             <tr th:each="row,var: ${rasa}">
                                                 <td style="text-align: center;" th:text="${var.count}"></td>
                                                 <td style="text-align: center;" th:text="${row.namaRasa}"></td>
+                                                <td style="text-align: center;"><img alt="" th:src="*{'data:image/jpeg;base64,'+{row.gambar}}" style="width: 115px;height: 115px;"></td>
                                                 <td style="text-align: center;">
                                                     <a th:href="@{'/rasa/edit/' +${row.kode}}" th:idku="${row.kode}" class="btn btn-sm btn-success text white"> Ubah</a>
 

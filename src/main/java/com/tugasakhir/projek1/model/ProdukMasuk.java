@@ -30,8 +30,8 @@ public class ProdukMasuk {
 	public Produk getProduk() {
 		return produk;
 	}
-	public void setProduk(Produk produk) {
-		this.produk = produk;
+	public void setProduk(Produk produkDetail) {
+		this.produk = produkDetail;
 	}
 	public Date getTglMasuk() {
 		return tglMasuk;

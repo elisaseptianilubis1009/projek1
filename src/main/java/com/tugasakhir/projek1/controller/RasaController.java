@@ -8,8 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.tugasakhir.projek1.model.Rasa;
 import com.tugasakhir.projek1.repository.RasaRepository;
+import com.tugasakhir.projek1.service.RasaService;
 
 @Controller
 @RequestMapping("/rasa")
@@ -17,6 +21,9 @@ public class RasaController {
     
 	@Autowired
 	RasaRepository rr;
+	
+	@Autowired
+	RasaService rs;
 
 	@RequestMapping (value="/tampil", method = RequestMethod.GET)
 	public String rasaProduk(Model model,Principal p) {
@@ -39,8 +46,9 @@ public class RasaController {
 	
 	
 	@RequestMapping (value="/save", method = RequestMethod.POST)
-	public String save_rasa(Rasa rasa) {
-		rr.save(rasa);
+	public String save_rasa(Rasa rasa,@RequestParam("pfile") MultipartFile file) {
+		
+		rs.saveRasa(rasa,file);
 		return "redirect:/rasa/tampil";
 	}
 	

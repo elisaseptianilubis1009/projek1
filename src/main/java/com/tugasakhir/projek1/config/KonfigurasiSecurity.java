@@ -69,28 +69,28 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter{
 	        //KHUSUS DASBOARD ADMIN
 	        
 	        //ADMIN
-	        .antMatchers("/admin/tampil").hasAuthority("ADMIN")
-	        .antMatchers("/admin/create").hasAuthority("ADMIN")
-	        .antMatchers("/admin/edit/{id}").hasAuthority("ADMIN")
-	        .antMatchers("/admin/delete/{id}").hasAuthority("ADMIN")
-	        
-	        //RASA
-	        .antMatchers("/rasa/tampil").hasAuthority("ADMIN")
-	        .antMatchers("/rasa/create").hasAuthority("ADMIN")
-	        .antMatchers("/rasa/edit/{id}").hasAuthority("ADMIN")
-	        .antMatchers("/rasa/delete/{id}").hasAuthority("ADMIN")
-	        
-	        //UKURAN
-	        .antMatchers("/ukuran/tampil").hasAuthority("ADMIN")
-	        .antMatchers("/ukuran/create").hasAuthority("ADMIN")
-	        .antMatchers("/ukuran/edit/{id}").hasAuthority("ADMIN")
-	        .antMatchers("/ukuran/delete/{id}").hasAuthority("ADMIN")
+//	        .antMatchers("/admin/tampil").hasAuthority("ADMIN")
+//	        .antMatchers("/admin/create").hasAuthority("ADMIN")
+//	        .antMatchers("/admin/edit/{id}").hasAuthority("ADMIN")
+//	        .antMatchers("/admin/delete/{id}").hasAuthority("ADMIN")
+//	        
+//	        //RASA
+//	        .antMatchers("/rasa/tampil").hasAuthority("ADMIN")
+//	        .antMatchers("/rasa/create").hasAuthority("ADMIN")
+//	        .antMatchers("/rasa/edit/{id}").hasAuthority("ADMIN")
+//	        .antMatchers("/rasa/delete/{id}").hasAuthority("ADMIN")
+//	        
+//	        //UKURAN
+//	        .antMatchers("/ukuran/tampil").hasAuthority("ADMIN")
+//	        .antMatchers("/ukuran/create").hasAuthority("ADMIN")
+//	        .antMatchers("/ukuran/edit/{id}").hasAuthority("ADMIN")
+//	        .antMatchers("/ukuran/delete/{id}").hasAuthority("ADMIN")
      
 	        //PRODUK
-	        .antMatchers("/produk/tampil").hasAuthority("ADMIN")
-	        .antMatchers("/produk/create").hasAuthority("ADMIN")
-	        .antMatchers("/produk/edit/{id}").hasAuthority("ADMIN")
-	        .antMatchers("/produk/delete/{id}").hasAuthority("ADMIN")
+//	        .antMatchers("/produk/tampil").hasAuthority("ADMIN")
+//	        .antMatchers("/produk/create").hasAuthority("ADMIN")
+//	        .antMatchers("/produk/edit/{id}").hasAuthority("ADMIN")
+//	        .antMatchers("/produk/delete/{id}").hasAuthority("ADMIN")
 	        
 	        
 	        
