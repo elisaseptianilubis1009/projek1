@@ -70,6 +70,9 @@ public class CartController {
 		
 		cart.setProduk(produk);
 		cart.setPembeli(pembeli);
+		cart.setQuantity(2);
+		cart.setTotal(cart.getTotal());
+		System.out.println("Total Produkkkkk :" + cart.getTotal());//dapat kok
 		cr.save(cart);
 		return "redirect:/shop/tampil";
 		

@@ -66,7 +66,6 @@
                                                 <th bgcolor="olive" style="text-align: center;color:white;">Ukuran</th>
                                                 <th bgcolor="olive" style="text-align: center;color:white;">Berat</th>
                                                 <th bgcolor="olive" style="text-align: center;color:white;">Harga</th>
-                                                <th bgcolor="olive" style="text-align: center;color:white;">Quantity</th>
                                                 <th bgcolor="olive" style="text-align: center;color:white;">Action</th>
                                                 
                                             </tr>
@@ -77,9 +76,6 @@
                                                 <td style="text-align: center;" th:text="${row.ukuran.namaUkuran}"></td>
                                                 <td bgcolor="lavender" style="text-align: center;" th:text="${row.ukuran.berat}+Gram"></td>
                                                 <td style="text-align: center;" th:text="${row.hargaJual}"></td>
-                                                <td bgcolor="lavender" style="text-align: center;">
-                                                	<input class="form-control" value="0" min="0" max="20" type="number">
-                                                </td>
                                                 <td bgcolor="lavender" style="text-align: center;">
 													<a class="btn hvr-hover" th:href="@{'/cart/save/'+${row.kode}}"><i class="fa fa-shopping-bag"></i> Add to cart</a>
                                                 </td>

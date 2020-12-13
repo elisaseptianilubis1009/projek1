@@ -10,6 +10,7 @@
 <!-- partial:index.partial.html -->
 <div class="login-page">
   <div class="form">
+  <center><h1>Login Page</h1></center>
      <form class="login-form" th:action="@{/login}" method="post">
     
     	<div th:if="${param.error}" class="alert alert-arror">
@@ -19,8 +20,7 @@
         <div th:if="${param.logout}" class="alert alert-success">
                         You Haved Been Logged Out
         </div>
-    
-    
+        
       <input type="text" placeholder="username" name="username"/>
       <input type="password" placeholder="password" name="password"/>
       <button type="submit">Sign In</button>

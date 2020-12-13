@@ -90,9 +90,7 @@ public class Produk {
 		
 		for(ProdukKeluar produkKeluar : this.produkKeluar) {
 			this.stok-=produkKeluar.getJumlahProdukKeluar();	
-		}
-		
-		
+		}		
 		return this.stok;
 		
 		

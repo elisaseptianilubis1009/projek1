@@ -15,7 +15,7 @@ public class Cart {
 	private Pembeli pembeli;
 	private Integer quantity;
 	private Integer total;
-	private Integer sub;
+
 
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -48,7 +48,10 @@ public class Cart {
 		this.quantity = quantity;
 	}
 	public Integer getTotal() {
-		return total;
+		this.total=0;
+		this.total=this.quantity*this.produk.getHargaJual();
+		
+		return this.total;
 	}
 	public void setTotal(Integer total) {
 		this.total = total;
