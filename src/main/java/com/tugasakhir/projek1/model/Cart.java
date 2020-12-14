@@ -1,5 +1,7 @@
 package com.tugasakhir.projek1.model;
 
+import java.beans.Transient;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +17,7 @@ public class Cart {
 	private Pembeli pembeli;
 	private Integer quantity;
 	private Integer total;
+	private Integer subtotal;
 
 
 	@Id 
@@ -56,6 +59,16 @@ public class Cart {
 	public void setTotal(Integer total) {
 		this.total = total;
 	}
+	
+	@Transient
+	public Integer getSubtotal() {
+		return subtotal;
+	}
+	public void setSubtotal(Integer subtotal) {
+		this.subtotal = subtotal;
+	}
+	
+	
 	
 	
 	

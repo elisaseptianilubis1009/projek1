@@ -13,6 +13,7 @@ import com.tugasakhir.projek1.model.Cart;
 import com.tugasakhir.projek1.model.Login;
 import com.tugasakhir.projek1.model.Pembeli;
 import com.tugasakhir.projek1.model.Produk;
+import com.tugasakhir.projek1.model.ProdukMasuk;
 import com.tugasakhir.projek1.repository.CartRepository;
 import com.tugasakhir.projek1.repository.LoginRepository;
 import com.tugasakhir.projek1.repository.PembeliRepository;
@@ -37,7 +38,9 @@ public class CartController {
 	
 	@RequestMapping (value="/tampil", method = RequestMethod.GET)
 	public String tampilCart(Model model,Principal p) {
+	int sub=0;
 	model.addAttribute("user",p);
+
 	
 	Login Userlogin = lr.findByUsername(p.getName()).get();
 	System.out.println("Id User yang login :" + Userlogin.getId());//berhasil
@@ -48,14 +51,16 @@ public class CartController {
 	List<Cart> pembeliCart=cr.findByPembeli(pembeli);
 	model.addAttribute("cartPembeli",pembeliCart);
 	
+	for(Cart cart: pembeliCart) {
+		sub+=cart.getTotal();
+	}
+	System.out.println("Subtotallllll cart :" + sub);
+	model.addAttribute("subtotal",sub);
 	return "cart";
 	//return pembeliCart.toString;
 	}
 	
-
-	
-	
-	
+ 
 	
 	@RequestMapping (value="/save/{produk}", method = RequestMethod.GET)
 	public String saveCart(Produk produk,Principal p) 
@@ -74,7 +79,7 @@ public class CartController {
 		cart.setTotal(cart.getTotal());
 		System.out.println("Total Produkkkkk :" + cart.getTotal());//dapat kok
 		cr.save(cart);
-		return "redirect:/shop/tampil";
+		return "redirect:/cart/tampil";
 		
 	}
 	
@@ -105,6 +110,16 @@ public class CartController {
 		return "Cart_Edit";
 		
 	}
+	
+	@RequestMapping (value="/allUpdate", method = RequestMethod.GET)
+	public String allUpdateCart(Cart cart,Principal p) 
+	{	
+		cart.setTotal(cart.getTotal());
+		cr.save(cart);
+		return "redirect:/cart/tampil";
+		
+	}
+	
 
 	@RequestMapping (value="/checkout", method = RequestMethod.GET)
 	public String tampilAdmin(Model model,Principal p) {
