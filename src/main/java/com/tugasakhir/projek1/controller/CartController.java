@@ -70,11 +70,20 @@ public class CartController {
 		
 		cart.setProduk(produk);
 		cart.setPembeli(pembeli);
-		cart.setQuantity(2);
+		cart.setQuantity(1);
 		cart.setTotal(cart.getTotal());
 		System.out.println("Total Produkkkkk :" + cart.getTotal());//dapat kok
 		cr.save(cart);
 		return "redirect:/shop/tampil";
+		
+	}
+	
+	@RequestMapping (value="/save/edit", method = RequestMethod.GET)
+	public String saveEditCart(Cart cart,Principal p) 
+	{	
+		cart.setTotal(cart.getTotal());
+		cr.save(cart);
+		return "redirect:/cart/tampil";
 		
 	}
 	
@@ -87,21 +96,13 @@ public class CartController {
 	
 	
 	
-	@RequestMapping (value="/update{id}", method = RequestMethod.GET)
-	public String updateCart(Produk produk,Principal p,@PathVariable Long id) 
+	@RequestMapping (value="/edit/{cart}", method = RequestMethod.GET)
+	public String updateCart(Cart cart,Principal p,Model model) 
 	{	
-		Cart cart=new Cart();
+		model.addAttribute("user",p);
+		model.addAttribute("cart",cart);
 		
-		Login Userlogin = lr.findByUsername(p.getName()).get();//Dapatkan objek Login
-		System.out.println("Id User yang login :" + Userlogin.getId());//Menampilkan idUser yang sedang login
-		
-		Pembeli pembeli=pr.findByLogin(Userlogin).get();
-		System.out.println("Id Pembeli yang login :" + pembeli.getId());
-		
-		cart.setProduk(produk);
-		cart.setPembeli(pembeli);
-		cr.save(cart);
-		return "redirect:/shop/tampil";
+		return "Cart_Edit";
 		
 	}
 

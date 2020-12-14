@@ -57,6 +57,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter{
 	       .antMatchers("/detail/tampil").hasAuthority("ADMIN")
 	        .antMatchers("/").hasAnyAuthority("ADMIN","PEMILIK","PEMBELI")
 	        .antMatchers("/cart/save").hasAnyAuthority("ADMIN","PEMBELI","PEMILIK")
+	        .antMatchers("/cart/save/edit").hasAnyAuthority("ADMIN","PEMBELI","PEMILIK")
 	        .antMatchers("/cart/tampil").hasAnyAuthority("PEMBELI","ADMIN")
 	        .antMatchers("/shop/tampil").hasAnyAuthority("ADMIN","PEMBELI","PEMILIK")
 	        .antMatchers("/login").hasAnyAuthority("ADMIN","PEMBELI","PEMILIK")

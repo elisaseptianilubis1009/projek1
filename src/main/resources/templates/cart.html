@@ -29,40 +29,41 @@
                     <div class="table-main table-responsive">
                         <table class="table">
                             <thead>
-                                <tr>
-                                	<th>No</th>
-                                    <th>Images</th>
-                                    <th>Product Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th>Update</th>
-                                    <th>Remove</th>
+                                <tr >
+                                <th style="background-color: olive">No</th>
+                                <th style="text-align: center;background-color: olive">Images</th>
+                                <th style="text-align: center;background-color: olive">Product Name</th>
+                                <th style="text-align: center;background-color: olive">Price</th>
+                                <th style="text-align: center;background-color: olive">Quantity</th>
+                                <th style="text-align: center;background-color: olive">Total</th>
+                                <th style="text-align: center;background-color: olive">Edit</th>
+                                <th style="text-align: center;background-color: olive">Remove</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr th:each="row,var: ${cartPembeli}">
-                                	<td style="text-align: center;" th:text="${var.count}"></td>
+                                	<td style="text-align: center; background-color: olive;color: white;" th:text="${var.count}"></td>
                                     <td class="thumbnail-img">
 									<img alt="" th:src="*{'data:image/jpeg;base64,'+{row.produk.gambar}}" style="width: 115px;height: 115px;">
                                     </td>
-                                    <td class="name-pr" th:text="${row.produk.namaProduk}"></td>
+                                    <td style="background-color: lavender;" class="name-pr" th:text="${row.produk.namaProduk}"></td>
                                     <td class="price-pr" th:text="${row.produk.hargaJual}"></td>
-                                    <td class="price-pr" th:text="${row.quantity}"></td>
+                                    <td style="background-color: lavender;" class="price-pr">
+                                    	<input style="text-align: center" class="form-control" name="quantity" th:value="${row.quantity}" min="0" max="20" type="number">
+                                    </td>
                                     <td class="price-pr" th:text="${row.total}"></td>
-                                    <td class="update-pr">
-									<a href="#editCartModal" class="edit" data-toggle="modal" >
-									<i class="fas fa-check" data-toogle="tooltip" title="Edit"></i></a>
+                                    
+                                    <td class="update-pr"><center>
+									<a th:href="@{'/cart/edit/' +${row.kode}}" th:id="${row.kode}">
+									<i style="background-color: lavender;" class="fas fa-edit" title="Edit"></i></a></center>
                                     </td>
                                     
-                                    <td class="remove-pr">
-                                         <a th:href="@{'/cart/delete/' + ${row.kode}}" th:id=${row.kode}>
-                                     	<!--<a href="#deleteCartModal" class="delete" data-toggle="modal" >-->
-									</a>
-								</a>
+                                    <td class="remove-pr"><center>
+									<a href="#editCartModal" class="edit" data-toggle="modal" >
+									<i style="background-color: lavender;" class="fas fa-times" data-toogle="tooltip" title="Remove"></i></a></center>
                                     </td>
                                 </tr>
-                            </tbody>
+                            </tbody> 
                         </table>
                     </div>
                 </div>
