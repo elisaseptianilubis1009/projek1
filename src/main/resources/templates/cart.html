@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-lg-6 col-sm-6">
                     <div class="update-box">
-                        <a href="'/cart/allUpdate"><input value="Update Cart" type="submit"></a>
+                        <a href="/cart/allUpdate"><input value="Update Cart" type="submit"></a>
                     </div>
                 </div>
             </div>
@@ -94,22 +94,22 @@
                         <h3>Order summary</h3>
                         <div class="d-flex">
                             <h4>Sub Total</h4>
-                            <div class="ml-auto font-weight-bold">[[${subtotal}]]</div>
+                            <div class="ml-auto font-weight-bold">Rp. [[${subtotal}]]</div>
                         </div>
                         <div class="d-flex">
                             <h4>Discount</h4>
-                            <div class="ml-auto font-weight-bold"> $ 40 </div>
+                            <div class="ml-auto font-weight-bold">[[${disc}]] % </div>
                         </div>
                         <hr class="my-1">
                        
                         <div class="d-flex">
                             <h4>Shipping Cost</h4>
-                            <div class="ml-auto font-weight-bold"> Free </div>
+                            <div class="ml-auto font-weight-bold">Rp. [[${shippingCost}]] </div>
                         </div>
                         <hr>
                         <div class="d-flex gr-total">
                             <h5>Grand Total</h5>
-                            <div class="ml-auto h5"> $ 388 </div>
+                            <div class="ml-auto h5"> $ [[${grandTotal}]] </div>
                         </div>
                         <hr> </div>
                 </div>

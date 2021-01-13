@@ -38,7 +38,7 @@ public class CartController {
 	
 	@RequestMapping (value="/tampil", method = RequestMethod.GET)
 	public String tampilCart(Model model,Principal p) {
-	int sub=0;
+	int sub=0,disc=0,grandTotal=0,shippingCost=10000;
 	model.addAttribute("user",p);
 
 	
@@ -54,8 +54,23 @@ public class CartController {
 	for(Cart cart: pembeliCart) {
 		sub+=cart.getTotal();
 	}
+	
+		
+	if(sub>100000) {
+		disc=10;
+		grandTotal=sub+shippingCost-(sub*10/100);
+	}else {
+		grandTotal=sub+shippingCost;
+	}
+	model.addAttribute("subtotal",sub);	
+	model.addAttribute("disc",disc);
+	model.addAttribute("shippingCost",shippingCost);
+	model.addAttribute("grandTotal",grandTotal);
+	
 	System.out.println("Subtotallllll cart :" + sub);
-	model.addAttribute("subtotal",sub);
+	System.out.println("Diskon cart :" + disc);
+	System.out.println("ShippingCost :" + shippingCost);
+	System.out.println("GrandTotal cart :" + grandTotal);
 	return "cart";
 	//return pembeliCart.toString;
 	}

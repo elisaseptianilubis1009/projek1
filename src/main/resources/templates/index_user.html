@@ -47,7 +47,7 @@
                     <div class="our-link">
                         <ul>
                             <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
-                            <li><a th:href="@{/index}"><i class="fas fa-user-arrow"></i>User([[${user.getName()}]]) </a></li>
+                            <li><a th:href="@{/index}"><i class="fas fa-user-arrow"></i>User </a></li>
                         </ul>
                     </div>
                 </div>
@@ -118,14 +118,14 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li class="nav-item active"><a class="nav-link" th:href="@{/index_user}">Home</a></li>
+                        <li class="nav-item active"><a class="nav-link" th:href="@{/}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
                         <li class="dropdown">
                             <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">SHOP</a>
                             <ul class="dropdown-menu">
 								<li><a th:href="@{/shop/tampil}">Sidebar Shop</a></li>
                                 <li><a th:href="@{/cart/tampil}">Cart</a></li>
-                                <li><a th:href="@{/checkout}">Checkout</a></li>
+                                <li><a th:href="@{/cart/checkout}">Checkout</a></li>
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" th:href="@{/akunPembeli/tampil}">My Account</a></li>

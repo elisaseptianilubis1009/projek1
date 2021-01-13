@@ -55,7 +55,8 @@
                                 <input style="text-align: center" class="form-control" name="quantity"  min="0" max="20" type="number" th:value="${cart.quantity}">
                         </div>
                         <button type="submit" class="btn hvr-hover">Update Cart</button>
-                    </form>
+                       <a style="color: white" class="btn hvr-hover" th:href="@{/cart/tampil}">Back To Cart</a>
+                    </form> 
                 </div>
             </div>
         </div>
