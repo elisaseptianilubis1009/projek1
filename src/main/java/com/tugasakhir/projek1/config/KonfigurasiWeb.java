@@ -13,8 +13,6 @@ public class KonfigurasiWeb extends WebMvcConfigurerAdapter {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login_user");
 		registry.addViewController("/contact-us").setViewName("contact-us");
-
-		
 	}
 }
 
