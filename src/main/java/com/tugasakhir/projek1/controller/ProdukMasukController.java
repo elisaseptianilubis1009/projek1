@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tugasakhir.projek1.model.Produk;
 import com.tugasakhir.projek1.model.ProdukMasuk;
+import com.tugasakhir.projek1.model.Rasa;
 import com.tugasakhir.projek1.repository.ProdukMasukRepository;
 import com.tugasakhir.projek1.repository.ProdukRepository;
 
@@ -43,6 +44,9 @@ public class ProdukMasukController {
 			produkMasuk.setProduk(produk);
 			model.addAttribute("produkMasuk",produkMasuk);
 			model.addAttribute("user",p);
+			
+			List<Produk> prod=pr.findAll();
+			model.addAttribute("produk", prod);
 			return "produkMasuk_Create";
 		}
 		

@@ -34,17 +34,20 @@
 		          <div class="col-8"> 
 		            <center><h1 class="mt-3">Kelola Produk Masuk</h1></center>             
 		              <form method="post" action="/produkMasuk/save" enctype="multipart/form-data">
-		                 <input 
+		                 <!-- <input 
 		                  type="hidden" 
 		                  th:name="${_csrf.parameterName}"
-		                  th:value="${_csrf.token}" />
+		                  th:value="${_csrf.token}" /> -->
 		                    
 		                <div class="form-group">
 		                     <input type="hidden" th class="form-control" id="id"  name="kode" th:value="${produkMasuk.kode}">
 		              
 		                     <label for="nama">Kode Produk</label>
-		                     <input type="text" class="form-control" id="nama" placeholder="Kode Produk" name="produk" th:value="${produkMasuk.produk.kode}">
+		                     <!-- <input type="text" class="form-control" id="nama" placeholder="Kode Produk" name="produk" th:value="${produkMasuk.produk.kode}"> -->
 		                
+		                	 <select name="produk" class="form-control">
+		                      		<option  th:each="row :${produk}" th:value="${row.kode}" th:text="${row.namaProduk}"></option>
+		                     </select>
 		                     <label for="hrg">Jumlah</label>
 		                     <input type="text" class="form-control" id="hrg" placeholder="Jumlah Produk" name="jumlahProdukMasuk" th:value="${produkMasuk.jumlahProdukMasuk}">
 		              

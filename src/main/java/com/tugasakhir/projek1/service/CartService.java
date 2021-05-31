@@ -15,6 +15,7 @@ import com.tugasakhir.projek1.model.Cart;
 import com.tugasakhir.projek1.model.Login;
 import com.tugasakhir.projek1.model.Pembeli;
 import com.tugasakhir.projek1.model.Produk;
+import com.tugasakhir.projek1.model.Rasa;
 import com.tugasakhir.projek1.repository.CartRepository;
 import com.tugasakhir.projek1.repository.LoginRepository;
 import com.tugasakhir.projek1.repository.PembeliRepository;
@@ -50,8 +51,12 @@ public void saveCart(Produk produk,Principal p)
 
 public Cart find(Long id) {
 	return cartRepository.findById(id).get();
+	
 }
 
+public List<Cart> findAllCartByUser(Pembeli pb){
+	return cartRepository.findByPembeli(pb);
+}
 
 
 

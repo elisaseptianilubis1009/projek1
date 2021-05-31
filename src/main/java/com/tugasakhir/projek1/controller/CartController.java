@@ -1,7 +1,9 @@
 package com.tugasakhir.projek1.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.tugasakhir.projek1.model.Cart;
 import com.tugasakhir.projek1.model.Login;
 import com.tugasakhir.projek1.model.Pembeli;
@@ -22,128 +27,143 @@ import com.tugasakhir.projek1.service.CartService;
 @Controller
 @RequestMapping("/cart")
 public class CartController {
-	
+
 	@Autowired
 	CartRepository cr;
-	
+
 	@Autowired
 	CartService cartService;
-	
+
 	@Autowired
 	LoginRepository lr;
-	
+
 	@Autowired
 	PembeliRepository pr;
-	
-	
-	@RequestMapping (value="/tampil", method = RequestMethod.GET)
-	public String tampilCart(Model model,Principal p) {
-	int sub=0,disc=0,grandTotal=0,shippingCost=10000;
-	model.addAttribute("user",p);
 
-	
-	Login Userlogin = lr.findByUsername(p.getName()).get();
-	System.out.println("Id User yang login :" + Userlogin.getId());//berhasil
-	
-	Pembeli pembeli=pr.findByLogin(Userlogin).get();
-	System.out.println("Nama Pmebeli yang login :" + pembeli.getNamaLengkap());	//dapet
-	
-	List<Cart> pembeliCart=cr.findByPembeli(pembeli);
-	model.addAttribute("cartPembeli",pembeliCart);
-	
-	for(Cart cart: pembeliCart) {
-		sub+=cart.getTotal();
+	@RequestMapping(value = "/tampil", method = RequestMethod.GET)
+	public String tampilCart(Model model, Principal p, @RequestParam("username") String username) {
+		int sub = 0, disc = 0, grandTotal = 0, shippingCost = 10000;
+		model.addAttribute("user", p);
+
+		Optional<Login> lg = lr.findByUsername(username);
+
+//		Login Userlogin = lr.findByUsername(p.getName()).get();
+//		System.out.println("Id User yang login :" + Userlogin.getId());// berhasil
+
+//		Pembeli pembeli2 = pr.findByLogin(Userlogin).get();
+//		System.out.println("Nama Pmebeli yang login :" + pembeli.getNamaLengkap()); // dapet
+//		System.out.println("LOGIN======:" + lg.get());
+		List<Cart> pembeliCart = new ArrayList<>();
+		Optional<Pembeli> pembeli = Optional.ofNullable(new Pembeli());
+		if (lg.isPresent()) {
+			pembeli = pr.findByLogin(lg.get());
+			if (pembeli.isPresent()) {
+				pembeliCart = cr.findByPembeli(pembeli.get());
+				model.addAttribute("cartPembeli", pembeliCart);
+			}else {
+				System.out.println("Pembeli tidak ditemukan");	
+			}
+		}else {
+			System.out.println("Login tidakk di temukan");
+		}
+
+		for (Cart cart : pembeliCart) {
+			sub += cart.getTotal();
+		}
+
+		if (sub > 100000) {
+			disc = 10;
+			grandTotal = sub + shippingCost - (sub * 10 / 100);
+		} else {
+			grandTotal = sub + shippingCost;
+		}
+		model.addAttribute("subtotal", sub);
+		model.addAttribute("disc", disc);
+		model.addAttribute("shippingCost", shippingCost);
+		model.addAttribute("grandTotal", grandTotal);
+
+		System.out.println("Subtotallllll cart :" + sub);
+		System.out.println("Diskon cart :" + disc);
+		System.out.println("ShippingCost :" + shippingCost);
+		System.out.println("GrandTotal cart :" + grandTotal);
+		return "cart";
+		// return pembeliCart.toString;
 	}
-	
-		
-	if(sub>100000) {
-		disc=10;
-		grandTotal=sub+shippingCost-(sub*10/100);
-	}else {
-		grandTotal=sub+shippingCost;
-	}
-	model.addAttribute("subtotal",sub);	
-	model.addAttribute("disc",disc);
-	model.addAttribute("shippingCost",shippingCost);
-	model.addAttribute("grandTotal",grandTotal);
-	
-	System.out.println("Subtotallllll cart :" + sub);
-	System.out.println("Diskon cart :" + disc);
-	System.out.println("ShippingCost :" + shippingCost);
-	System.out.println("GrandTotal cart :" + grandTotal);
-	return "cart";
-	//return pembeliCart.toString;
-	}
-	
- 
-	
-	@RequestMapping (value="/save/{produk}", method = RequestMethod.GET)
-	public String saveCart(Produk produk,Principal p) 
-	{	
-		Cart cart=new Cart();
-		
-		Login Userlogin = lr.findByUsername(p.getName()).get();//Dapatkan objek Login
-		System.out.println("Id User yang login:" + Userlogin.getId());//berhasil
-		
-		Pembeli pembeli=pr.findByLogin(Userlogin).get();
-		System.out.println("Id Pembeli yang login :" + pembeli.getId());//dapat kok
-		
-		cart.setProduk(produk);
-		cart.setPembeli(pembeli);
-		cart.setQuantity(1);
+
+//	@RequestMapping(value = "/save/", method = RequestMethod.GET)
+//	public String saveCart(Produk produk, Principal p) {
+//		List<Cart> list = new ArrayList<>();
+//		for (Cart cart : list) {
+//			Cart c = new Cart();
+//			
+//			Login Userlogin = lr.findByUsername(p.getName()).get();// Dapatkan objek Login
+//			System.out.println("Id User yang login:" + Userlogin.getId());// berhasil
+//
+//			Pembeli pembeli = pr.findByLogin(Userlogin).get();
+//			System.out.println("Id Pembeli yang login :" + pembeli.getId());// dapat kok
+//
+//			c.setProduk(produk);
+//			c.setPembeli(pembeli);
+//			c.setQuantity(1);
+//			c.setTotal(cart.getTotal());
+//			System.out.println("Total Produkkkkk :" + cart.getTotal());// dapat kok
+//			
+//		}
+//		cr.saveAll(list);
+//
+////		Login Userlogin = lr.findByUsername(p.getName()).get();// Dapatkan objek Login
+////		System.out.println("Id User yang login:" + Userlogin.getId());// berhasil
+////
+////		Pembeli pembeli = pr.findByLogin(Userlogin).get();
+////		System.out.println("Id Pembeli yang login :" + pembeli.getId());// dapat kok
+////
+////		cart.setProduk(produk);
+////		cart.setPembeli(pembeli);
+////		cart.setQuantity(1);
+////		cart.setTotal(cart.getTotal());
+////		System.out.println("Total Produkkkkk :" + cart.getTotal());// dapat kok
+////		cr.save(cart);
+//		return "redirect:/cart/tampil";
+//
+//	}
+
+	@RequestMapping(value = "/save/edit", method = RequestMethod.GET)
+	public String saveEditCart(Cart cart, Principal p) {
 		cart.setTotal(cart.getTotal());
-		System.out.println("Total Produkkkkk :" + cart.getTotal());//dapat kok
 		cr.save(cart);
 		return "redirect:/cart/tampil";
-		
+
 	}
-	
-	@RequestMapping (value="/save/edit", method = RequestMethod.GET)
-	public String saveEditCart(Cart cart,Principal p) 
-	{	
-		cart.setTotal(cart.getTotal());
-		cr.save(cart);
-		return "redirect:/cart/tampil";
-		
-	}
-	
-	
-	@RequestMapping (value="/delete/{id}", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteCart(@PathVariable Long id) {
 		cr.deleteById(id);
 		return "redirect:/cart/tampil";
 	}
-	
-	
-	
-	@RequestMapping (value="/edit/{cart}", method = RequestMethod.GET)
-	public String updateCart(Cart cart,Principal p,Model model) 
-	{	
-		model.addAttribute("user",p);
-		model.addAttribute("cart",cart);
-		
+
+	@RequestMapping(value = "/edit/{cart}", method = RequestMethod.GET)
+	public String updateCart(Cart cart, Principal p, Model model) {
+		model.addAttribute("user", p);
+		model.addAttribute("cart", cart);
+
 		return "Cart_Edit";
-		
+
 	}
-	
-	@RequestMapping (value="/allUpdate", method = RequestMethod.GET)
-	public String allUpdateCart(Cart cart,Principal p) 
-	{	
+
+	@RequestMapping(value = "/allUpdate", method = RequestMethod.GET)
+	public String allUpdateCart(Cart cart, Principal p) {
 		cart.setTotal(cart.getTotal());
 		cr.save(cart);
 		return "redirect:/cart/tampil";
-		
-	}
-	
 
-	@RequestMapping (value="/checkout", method = RequestMethod.GET)
-	public String tampilAdmin(Model model,Principal p) {
-	model.addAttribute("user",p);
-	
-	return "checkout";
-	
 	}
 
+	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
+	public String tampilAdmin(Model model, Principal p) {
+		model.addAttribute("user", p);
 
-	
+		return "checkout";
+
+	}
+
 }

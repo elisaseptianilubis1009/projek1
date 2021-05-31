@@ -10,6 +10,6 @@ import com.tugasakhir.projek1.model.Pembeli;
 
 public interface PembeliRepository extends JpaRepository<Pembeli,Long> {
 
-	Optional<Pembeli> findByLogin(Login login);
+	Optional<Pembeli> findByLogin(Login lg);
 	
 }

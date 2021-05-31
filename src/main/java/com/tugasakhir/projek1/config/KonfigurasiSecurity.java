@@ -48,8 +48,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter{
 	//INI TUH HANYA BUAT HAK AKSES DOANG
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	    http
-	        .authorizeRequests()
+	    http.authorizeRequests()
 	        
 	        .antMatchers("/index").hasAnyAuthority("ADMIN")
 	        .antMatchers("/admin/create").hasAuthority("ADMIN")
@@ -65,6 +64,8 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter{
 	        //AKUN
 	        .antMatchers("/akun/edit/{id}/{idLogin}").hasAuthority("PEMBELI")
 	        .antMatchers("/registrasi/update").hasAuthority("PEMBELI")
+	        .antMatchers("/api/cart/save").hasAnyAuthority("ADMIN","PEMBELI","PEMILIK")
+	        .antMatchers("/produk").hasAnyAuthority("ADMIN","PEMBELI","PEMILIK")
 	        
 	       
 	        //KHUSUS DASBOARD ADMIN
@@ -100,7 +101,9 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter{
 	        .loginPage("/login").permitAll()
 	        //.defaultSuccessUrl("/mahasiswa")
 	        .and()
-	        .logout();
+	        .logout().and().csrf().disable();
+
+//	        http.csrf().disable();
 	    
 	        
 	}

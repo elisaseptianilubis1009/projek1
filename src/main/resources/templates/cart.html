@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/js/sweetalert.js}"></script>
 
 <head th:replace="index_user::head"></head>
 <body>
@@ -35,13 +37,60 @@
                                 <th style="text-align: center;background-color: olive">Product Name</th>
                                 <th style="text-align: center;background-color: olive">Price</th>
                                 <th style="text-align: center;background-color: olive">Quantity</th>
-                                <th style="text-align: center;background-color: olive">Total</th>
-                                <th style="text-align: center;background-color: olive">Edit</th>
+                                <th style="text-align: center;background-color: olive">Check</th>
                                 <th style="text-align: center;background-color: olive">Remove</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr th:each="row,var: ${cartPembeli}">
+                            <script>
+			                        var getUrlParameter = function getUrlParameter(sParam) {
+			                            var sPageURL = window.location.search.substring(1),
+			                                sURLVariables = sPageURL.split('&'),
+			                                sParameterName,
+			                                i;
+			
+			                            for (i = 0; i < sURLVariables.length; i++) {
+			                                sParameterName = sURLVariables[i].split('=');
+			
+			                                if (sParameterName[0] === sParam) {
+			                                    return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+			                                }
+			                            }
+			                            return false;
+			                        };
+                        
+                                    function getAllCartByUser(){
+                                        var content = '';
+                                        var no=1;
+                                        var username= getUrlParameter('username');
+                                        console.log('==='+username);
+                                        $.ajax('http://localhost:9099/api/cart/getCart/'+username,{
+                                            dataType: 'json',
+                                            success: function(data){
+                                                console.log(JSON.stringify(data))
+                                                data.forEach(function(item){
+                                                    content+='<tr>'+
+                                                        '<td>'+no+'</td>'+
+                                                        '<td><img src="data:image/png;base64,'+item.produk.gambar+'" style="width: 115px;height: 115px;"></td>'+
+                                                        '<td>'+item.produk.namaProduk+'</td>'+
+                                                        '<td>'+'Rp. '+item.produk.hargaJual+'</td>'+
+                                                        '<td>8</td>'+
+                                                        '<td>'+'<input type="checkbox"'+
+                                                            'name="check"' +
+                                                            'value='+item.kode+'>'+'</td>'+
+                                                        '</tr>';
+                                                        console.log("STOK======:"+item.stok);
+                                                        no++;
+
+                                                })
+                                        		$('#cart').html(content);
+                                          	}
+                                        });
+                                    }
+                                    getAllCartByUser();
+
+                        </script>
+                            <tbody id="cart">
+                                <!-- <tr th:each="row,var: ${cartPembeli}">
                                 	<td style="text-align: center; background-color: olive;color: white;" th:text="${var.count}"></td>
                                     <td class="thumbnail-img">
 									<img alt="" th:src="*{'data:image/jpeg;base64,'+{row.produk.gambar}}" style="width: 115px;height: 115px;">
@@ -49,20 +98,18 @@
                                     <td style="background-color: lavender;" class="name-pr" th:text="${row.produk.namaProduk}"></td>
                                     <td class="price-pr" th:text="${row.produk.hargaJual}"></td>
                                     <td style="background-color: lavender;" class="price-pr">
-                                    	<input style="text-align: center" class="form-control" name="quantity" th:value="${row.quantity}" min="0" max="20" type="number">
+                                    	<input style="text-align: center" class="form-control" name="quantity" th:value="${row.quantity}" min="0" max="20" type="number" onkeypress="changeTotal(this)" onkeyup="changeTotal(this)">
                                     </td>
-                                    <td class="price-pr" th:text="${row.total}"></td>
-                                    
-                                    <td class="update-pr"><center>
-									<a th:href="@{'/cart/edit/' +${row.kode}}" th:id="${row.kode}">
-									<i style="background-color: lavender;" class="fas fa-edit" title="Edit"></i></a></center>
+                                    <td class="price-pr" style="text-align: center;">
+                                        <input  type="checkbox" name="check">
                                     </td>
+
                                     
                                     <td class="remove-pr"><center>
 									<a th:href="@{'/cart/delete/' +${row.kode}}" th:id="${row.kode}">
 									<i style="background-color: lavender;" class="fas fa-times" title="Remove"></i></a></center>
                                     </td>
-                                </tr>
+                                </tr> -->
                             </tbody> 
                         </table>
                     </div>
@@ -102,10 +149,7 @@
                         </div>
                         <hr class="my-1">
                        
-                        <div class="d-flex">
-                            <h4>Shipping Cost</h4>
-                            <div class="ml-auto font-weight-bold">Rp. [[${shippingCost}]] </div>
-                        </div>
+                        
                         <hr>
                         <div class="d-flex gr-total">
                             <h5>Grand Total</h5>
@@ -239,4 +283,9 @@
     <div th:replace="index_user::js"></div>
  
 </body>
+<script>
+	function changeTotal(obj){
+		console.log('value: '+obj.value);
+	}
+</script>	
 </html>

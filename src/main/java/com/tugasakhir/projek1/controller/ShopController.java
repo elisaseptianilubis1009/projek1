@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.tugasakhir.projek1.model.Produk;
 import com.tugasakhir.projek1.model.Rasa;
 import com.tugasakhir.projek1.repository.ProdukRepository;
@@ -34,12 +36,13 @@ public class ShopController {
 	
 	}
 	
-	@RequestMapping (value="/pilih/{rasa}", method = RequestMethod.GET)
-	public String shopPilih(Model model,Rasa rasa,Principal p) {
+	@RequestMapping (value="/pilih", method = RequestMethod.GET)
+	public String shopPilih(Model model,Principal p,@RequestParam("rasa") Long rasa) {
 	model.addAttribute("user",p);
-	List<Produk> listProduk=prd.findByRasa(rasa);
+	Rasa rasa2 = rr.findById(rasa).orElse(null);
+	List<Produk> listProduk=prd.findByRasa(rasa2);
 	model.addAttribute("listProduk",listProduk);
-	model.addAttribute("rasa",rasa);
+	model.addAttribute("rasa",rasa2);
 	return "shop-detail";
 	
 	}

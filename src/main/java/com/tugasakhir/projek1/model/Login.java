@@ -50,6 +50,11 @@ public class Login {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	@Override
+	public String toString() {
+		return "Login [id=" + id + ", username=" + username + ", password=" + password + ", akses=" + akses
+				+ ", active=" + active + "]";
+	}
 	
 	
 

@@ -23,8 +23,8 @@ public class Produk {
 	private String gambar;
 	private String Keterangan;
 	private Integer stok;
-	private List<ProdukMasuk> produkMasuk;
-	private List<ProdukKeluar> produkKeluar;
+//	private List<ProdukMasuk> produkMasuk;
+//	private List<ProdukKeluar> produkKeluar;
 	
 	
 	@Id 
@@ -81,39 +81,43 @@ public class Produk {
 		Keterangan = keterangan;
 	}
 	
-	@Transient
-	public Integer getStok() {
-		this.stok=0;
-		for(ProdukMasuk produkMasuk: this.produkMasuk) {
-			this.stok+=produkMasuk.getJumlahProdukMasuk();	
-		}
-		
-		for(ProdukKeluar produkKeluar : this.produkKeluar) {
-			this.stok-=produkKeluar.getJumlahProdukKeluar();	
-		}		
-		return this.stok;
-		
-		
-	}
+//	@Transient
+//	public Integer getStok() {
+//		this.stok=0;
+//		for(ProdukMasuk produkMasuk: this.produkMasuk) {
+//			this.stok+=produkMasuk.getJumlahProdukMasuk();	
+//		}
+//		
+//		for(ProdukKeluar produkKeluar : this.produkKeluar) {
+//			this.stok-=produkKeluar.getJumlahProdukKeluar();	
+//		}		
+//		return this.stok;
+//		
+//		
+//	}
 	
 	
 	public void setStok(Integer stok) {
 		this.stok = stok;
 	}
-	@OneToMany(mappedBy = "produk")
-	public List<ProdukMasuk> getProdukMasuk() {
-		return produkMasuk;
+	public Integer getStok() {
+		return stok;
 	}
-	public void setProdukMasuk(List<ProdukMasuk> produkMasuk) {
-		this.produkMasuk = produkMasuk;
-	}
-	@OneToMany (mappedBy = "produk")
-	public List<ProdukKeluar> getProdukKeluar() {
-		return produkKeluar;
-	}
-	public void setProdukKeluar(List<ProdukKeluar> produkKeluar) {
-		this.produkKeluar = produkKeluar;
-	}
+	
+//	@OneToMany(mappedBy = "produk")
+//	public List<ProdukMasuk> getProdukMasuk() {
+//		return produkMasuk;
+//	}
+//	public void setProdukMasuk(List<ProdukMasuk> produkMasuk) {
+//		this.produkMasuk = produkMasuk;
+//	}
+//	@OneToMany (mappedBy = "produk")
+//	public List<ProdukKeluar> getProdukKeluar() {
+//		return produkKeluar;
+//	}
+//	public void setProdukKeluar(List<ProdukKeluar> produkKeluar) {
+//		this.produkKeluar = produkKeluar;
+//	}
 
 	
 

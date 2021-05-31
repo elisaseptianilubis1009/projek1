@@ -35,27 +35,24 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-					<div class="custom-select-box">
-							<div class="login-box">
-								<a class="btn hvr-hover" th:href="@{/index}">Log Admin</a>
-							</div>
-						
+					<div class="our-link">
+                        <ul>
+                        	<i class='fas fa-user-alt' style='font-size:24px'></i>
+                        	<li><a th:href="@{/index}"><i class="fas fa-user-arrow"></i>User ( [[${user.getName()}]] ) </a></li>
+                            <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
+                            
+                        </ul>
                     </div>
                     <div class="right-phone-box">
                         <p>Call US :- <a href="#"> +62 8120 800 560</a></p>
                     </div>
-                    <div class="our-link">
-                        <ul>
-                            <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
-                            <li><a th:href="@{/index}"><i class="fas fa-user-arrow"></i>User </a></li>
-                        </ul>
-                    </div>
+                    
                 </div>
                 
                
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<div class="login-box">
-						<form th:action="@{/logout}" method="post">
+						<form th:action="@{/login}" method="post">
     						<input type="submit" class="btn btn-outline-primary" value="Logout" />
 						</form>
 					</div>
@@ -124,7 +121,7 @@
                             <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">SHOP</a>
                             <ul class="dropdown-menu">
 								<li><a th:href="@{/shop/tampil}">Sidebar Shop</a></li>
-                                <li><a th:href="@{/cart/tampil}">Cart</a></li>
+                                <li><a th:href="@{'/cart/tampil?username='+${user.getName()}}">Cart</a></li>
                                 <li><a th:href="@{/cart/checkout}">Checkout</a></li>
                             </ul>
                         </li>

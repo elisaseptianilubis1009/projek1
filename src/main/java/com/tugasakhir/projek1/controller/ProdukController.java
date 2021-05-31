@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.tugasakhir.projek1.model.Produk;
+import com.tugasakhir.projek1.model.ProdukKeluar;
+import com.tugasakhir.projek1.model.ProdukMasuk;
 import com.tugasakhir.projek1.model.Rasa;
 import com.tugasakhir.projek1.model.Ukuran;
+import com.tugasakhir.projek1.repository.ProdukKeluarRepository;
+import com.tugasakhir.projek1.repository.ProdukMasukRepository;
 import com.tugasakhir.projek1.repository.ProdukRepository;
 import com.tugasakhir.projek1.repository.RasaRepository;
 import com.tugasakhir.projek1.repository.UkuranRepository;
@@ -31,6 +35,11 @@ public class ProdukController {
 	UkuranRepository uk;
 	@Autowired
 	ProdukService ps; 
+	@Autowired
+	private ProdukMasukRepository produkMasukRepository;
+	
+	@Autowired
+	private ProdukKeluarRepository produkKeluarRepository;
 	
 	
 	@RequestMapping (value="/tampil",method = RequestMethod.GET)
@@ -83,21 +92,24 @@ public class ProdukController {
 
 	
 	@GetMapping("/page/{pageNo}")
-	public String findPaginated(@PathVariable (value="pageNo") int pageNo, Model model) {
-		int pageSize = 5;
-	
+	public String findPaginated(@PathVariable (value="pageNo") int pageNo, Model model) {	
 		List<Produk> lproduk=pr.findAll();
+		for(Produk p: lproduk) {
+			List<ProdukMasuk> list = produkMasukRepository.findAllByProduk(p);
+			List<ProdukKeluar> listProdukKeluar = produkKeluarRepository.findAllByProduk(p);
+			Integer stok = 0;
+			for(ProdukMasuk pm:list) {
+				stok+=pm.getJumlahProdukMasuk();
+			}
+			for(ProdukKeluar pk:listProdukKeluar) {
+				stok-=pk.getJumlahProdukKeluar();
+			}
+			p.setStok(stok);
+		}
+		
 		model.addAttribute("produk",lproduk);
 		
-	    Page<Produk> page = ps.findPaginated(pageNo, pageSize);
-	    List<Produk> listProduk = page.getContent();
-	    
-	    model.addAttribute("currentPage",pageNo);
-	    model.addAttribute("totalPages", page.getTotalPages());
-	    model.addAttribute("totalItems", page.getTotalElements());
-	    model.addAttribute("listProduk", listProduk);
-	    
-	    
+		
 	    return "produk";
 	}
 	

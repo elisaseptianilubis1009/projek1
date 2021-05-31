@@ -52,7 +52,7 @@ public class Cart {
 	}
 	public Integer getTotal() {
 		this.total=0;
-		this.total=this.quantity*this.produk.getHargaJual();
+		this.total=this.quantity;
 		
 		return this.total;
 	}
