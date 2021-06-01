@@ -12,13 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tugasakhir.projek1.model.Cart;
 import com.tugasakhir.projek1.model.Login;
 import com.tugasakhir.projek1.model.Pembeli;
-import com.tugasakhir.projek1.model.Produk;
-import com.tugasakhir.projek1.model.ProdukMasuk;
 import com.tugasakhir.projek1.repository.CartRepository;
 import com.tugasakhir.projek1.repository.LoginRepository;
 import com.tugasakhir.projek1.repository.PembeliRepository;
@@ -42,7 +39,7 @@ public class CartController {
 
 	@RequestMapping(value = "/tampil", method = RequestMethod.GET)
 	public String tampilCart(Model model, Principal p, @RequestParam("username") String username) {
-		int sub = 0, disc = 0, grandTotal = 0, shippingCost = 10000;
+		int sub = 0, disc = 0, grandTotal = 0;
 		model.addAttribute("user", p);
 
 		Optional<Login> lg = lr.findByUsername(username);
@@ -53,6 +50,7 @@ public class CartController {
 //		Pembeli pembeli2 = pr.findByLogin(Userlogin).get();
 //		System.out.println("Nama Pmebeli yang login :" + pembeli.getNamaLengkap()); // dapet
 //		System.out.println("LOGIN======:" + lg.get());
+		
 		List<Cart> pembeliCart = new ArrayList<>();
 		Optional<Pembeli> pembeli = Optional.ofNullable(new Pembeli());
 		if (lg.isPresent()) {
@@ -64,7 +62,7 @@ public class CartController {
 				System.out.println("Pembeli tidak ditemukan");	
 			}
 		}else {
-			System.out.println("Login tidakk di temukan");
+			System.out.println("Login tidakk ditemukan");
 		}
 
 		for (Cart cart : pembeliCart) {
@@ -73,18 +71,16 @@ public class CartController {
 
 		if (sub > 100000) {
 			disc = 10;
-			grandTotal = sub + shippingCost - (sub * 10 / 100);
+			grandTotal = sub +  - (sub * 10 / 100);
 		} else {
-			grandTotal = sub + shippingCost;
+			grandTotal = sub;
 		}
 		model.addAttribute("subtotal", sub);
 		model.addAttribute("disc", disc);
-		model.addAttribute("shippingCost", shippingCost);
 		model.addAttribute("grandTotal", grandTotal);
 
-		System.out.println("Subtotallllll cart :" + sub);
+		System.out.println("Subtotal cart :" + sub);
 		System.out.println("Diskon cart :" + disc);
-		System.out.println("ShippingCost :" + shippingCost);
 		System.out.println("GrandTotal cart :" + grandTotal);
 		return "cart";
 		// return pembeliCart.toString;

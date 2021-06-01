@@ -61,6 +61,7 @@
                                     function getAllCartByUser(){
                                         var content = '';
                                         var no=1;
+                                        var defaulQ=1;
                                         var username= getUrlParameter('username');
                                         console.log('==='+username);
                                         $.ajax('http://localhost:9099/api/cart/getCart/'+username,{
@@ -69,14 +70,19 @@
                                                 console.log(JSON.stringify(data))
                                                 data.forEach(function(item){
                                                     content+='<tr>'+
-                                                        '<td>'+no+'</td>'+
-                                                        '<td><img src="data:image/png;base64,'+item.produk.gambar+'" style="width: 115px;height: 115px;"></td>'+
-                                                        '<td>'+item.produk.namaProduk+'</td>'+
-                                                        '<td>'+'Rp. '+item.produk.hargaJual+'</td>'+
-                                                        '<td>8</td>'+
-                                                        '<td>'+'<input type="checkbox"'+
+                                                        '<td style="text-align :center;">'+no+'</td>'+
+                                                        '<td style="text-align :center;"><img src="data:image/png;base64,'+item.produk.gambar+'" style="width: 115px;height: 115px;"></td>'+
+                                                        '<td style="text-align :center;">'+item.produk.namaProduk+'</td>'+
+                                                        '<td style="text-align :center;">'+'Rp. '+item.produk.hargaJual+'</td>'+
+                                                        '<td style="text-align :center;">'+'<input style="text-align :center; width :50px; height:30px;" type="number"'+
+                                                        	'name="quantity"' +
+                                                        	'value='+defaulQ+'>'+'</td>'+
+                                                        '<td style="text-align :center;">'+'<input type="checkbox"'+
                                                             'name="check"' +
                                                             'value='+item.kode+'>'+'</td>'+
+                                                        '<td style="text-align :center;">'+'<i style="background-color: lavender;"'+
+                                                        	'class="fas fa-times" '+
+                                                        	'title="Remove"></i>'+'</td>'+
                                                         '</tr>';
                                                         console.log("STOK======:"+item.stok);
                                                         no++;

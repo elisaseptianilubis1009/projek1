@@ -1,5 +1,6 @@
 package com.tugasakhir.projek1.model;
 
+import java.beans.Transient;
 import java.sql.Date;
 
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ public class ProdukKeluar {
 	private Produk produk;
 	private Date tglKeluar;
 	private Integer jumlahProdukKeluar;
+	private Integer subtotal;
 
 	
 	@Id 
@@ -44,6 +46,13 @@ public class ProdukKeluar {
 	}
 	public void setJumlahProdukKeluar(Integer jumlahProdukKeluar) {
 		this.jumlahProdukKeluar = jumlahProdukKeluar;
+	}
+	
+	public Integer getSubtotal() {
+		return subtotal;
+	}
+	public void setSubtotal(Integer subtotal) {
+		this.subtotal = subtotal;
 	}
 	
 }
