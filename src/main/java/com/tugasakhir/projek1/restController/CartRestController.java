@@ -5,7 +5,9 @@ import java.net.URISyntaxException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -149,11 +152,11 @@ public class CartRestController {
 		return "Success save produk";
 	}
 
-	@GetMapping("/province")
-	public String province() {
+	@GetMapping("/city")
+	public ResponseEntity<String> province() {
 		RestTemplate restTemplate = new RestTemplate();
 	     
-		final String baseUrl = "http://localhost:9099/api/cart/province";
+		final String baseUrl = "https://api.rajaongkir.com/starter/city";
 		URI uri=null;
 		try {
 			uri = new URI(baseUrl);
@@ -169,7 +172,46 @@ public class CartRestController {
 		 
 		ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, String.class);
 		  
-		return "Berhasil";
+		return result;
 	}
+	
+	@PostMapping("/cost")
+	public ResponseEntity<String> cost(@RequestBody CostRequestDto request) {
+		RestTemplate restTemplate = new RestTemplate();
+	    System.out.println("Req++++++++++++++++:"+request);
+		final String baseUrl = "https://api.rajaongkir.com/starter/cost";
+		URI uri=null;
+		try {
+			uri = new URI(baseUrl);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("key", "2fb78e4fd381c4f967b1f4a1b9a1dfd3");  
+		 
+		HttpEntity<?> requestEntity = new HttpEntity<>(request, headers);
+		 
+		ResponseEntity<String> result = restTemplate.postForEntity(uri,  requestEntity, String.class);
+		  
+		return result;
+	}
+	
+	
+	@RequestMapping(value = "/subTotal", method = RequestMethod.POST)
+	public String subTotal(@RequestBody List<TotalRequestDto> request,Principal principal) {
+	
+		List<Cart> list = new ArrayList<>();
+		Integer sum = 0;
+		for (TotalRequestDto req : request) {
+			Cart c = crRepo.findById(req.getCode()).orElse(null);
+			int total = c.getProduk().getHargaJual()*req.getQuantity();
+			sum += total;			
+		}
+		System.out.println("Success : " + list);
+		return "Sub Total : "+sum;
+	}
+
 
 }

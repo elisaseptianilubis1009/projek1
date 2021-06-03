@@ -1,215 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/js/sweetalert.js}"></script>
 <head th:replace="index_user::head"></head>
 
 <body>
-    <div th:replace="index_user::top" class="main-top"></div>
-     <header th:replace="index_user::sidebar" class="main-header"></header>
+	<div th:replace="index_user::top" class="main-top"></div>
+	<header th:replace="index_user::sidebar" class="main-header"></header>
 
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Checkout</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active">Checkout</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End All Title Box -->
+	<div class="all-title-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<h2>Checkout</h2>
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Shop</a></li>
+						<li class="breadcrumb-item active">Checkout</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End All Title Box -->
 
-    <!-- Start Cart  -->
-    <div class="cart-box-main">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-lg-6 mb-3">
-                    <div class="checkout-address">
-                        <div class="title-left">
-                            <h3>Personal Data</h3>
-                        </div>
-                        <div data-theme="light" id="rajaongkir-widget"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-6 mb-3">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12">
-                            <div class="shipping-method-box">
-                                <div class="title-left">
-                                    <h3>Shipping Method</h3>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="custom-control custom-radio">
-                                        <input id="shippingOption1" name="shipping-option" class="custom-control-input" checked="checked" type="radio">
-                                        <label class="custom-control-label" for="shippingOption1">JNE</label> <span class="float-right font-weight-bold">5000</span> </div>
-                                    <div class="ml-4 mb-2 small">(3-7 business days)</div>
-                                    <div class="custom-control custom-radio">
-                                        <input id="shippingOption2" name="shipping-option" class="custom-control-input" type="radio">
-                                        <label class="custom-control-label" for="shippingOption2">TIKI</label> <span class="float-right font-weight-bold">$10.00</span> </div>
-                                    <div class="ml-4 mb-2 small">(2-4 business days)</div>
-                                    <div class="custom-control custom-radio">
-                                        <input id="shippingOption3" name="shipping-option" class="custom-control-input" type="radio">
-                                        <label class="custom-control-label" for="shippingOption3">POS</label> <span class="float-right font-weight-bold">$20.00</span> </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-lg-12">
-                            <div class="odr-box">
-                                <div class="title-left">
-                                    <h3>Shopping cart</h3>
-                                </div>
+	<!-- Start Cart  -->
+	<div class="cart-box-main">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-lg-6 mb-3">
+					<div class="checkout-address">
+						<div class="title-left">
+							<h3>Personal Data</h3>
+						</div>
+						<!-- <div data-theme="light" id="rajaongkir-widget"></div> -->
 
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-lg-12">
-                            <div class="order-box">
-                              
-                                <div class="d-flex">
-                                    <div class="font-weight-bold">Product</div>
-                                    <div class="ml-auto font-weight-bold">Total</div>
-                                </div>
-                                <hr class="my-1">
-                                <div class="d-flex">
-                                    <h4>Sub Total</h4>
-                                    <div class="ml-auto font-weight-bold"> $ 440 </div>
-                                </div>
-                                <div class="d-flex">
-                                    <h4>Discount</h4>
-                                    <div class="ml-auto font-weight-bold"> $ 40 </div>
-                                </div>
-                                <hr class="my-1">
-                           
-                                <div class="d-flex">
-                                    <h4>Shipping Cost</h4>
-                                    <div class="ml-auto font-weight-bold"> Free </div>
-                                </div>
-                                <hr>
-                                <div class="d-flex gr-total">
-                                    <h5>Grand Total</h5>
-                                    <div class="ml-auto h5"> $ 388 </div>
-                                </div>
-                                <hr> </div>
-                        </div>
-                        <div class="col-12 d-flex shopping-box"> <a href="checkout.html" class="ml-auto btn hvr-hover">Place Order</a> </div>
-                    </div>
-                </div>
-            </div>
+						<div class="row">
+							<div class="col-md-12 col-lg-12">
+								Kota Asal <select id="kotaAsal" class="form-control">
+								</select>
+							</div>
+						</div>
 
-        </div>
-    </div>
-    <!-- End Cart -->
+						<div class="row">
+							<div class="col-md-12 col-lg-12">
+								Kota Tujuan <select id="kotaTujuan" class="form-control">
+								</select>
+							</div>
+						</div>
 
-    <!-- Start Instagram Feed  -->
-    <div class="instagram-box">
-        <div class="main-instagram owl-carousel owl-theme">
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-01.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-02.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-03.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-04.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-05.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-06.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-07.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-08.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-09.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-05.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						<div class="row">
+							<div class="col-md-12 col-lg-12">
+								Berat <input type="text" name="beratProduk" id="berat"
+									class="form-control">
+							</div>
+						</div>
+
+
+
+						<div class="row">
+							<div class="col-md-12 col-lg-12">
+								Jasa Pengiriman <select id="courier" class="form-control">
+									<option value="tiki">TIKI</option>
+									<option value="jne">JNE</option>
+									<option value="pos">POST</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="row" style="margin-top: 20px">
+							<div class="col-md-12 col-lg-12">
+								<button type="button" id="checkOngkir"
+									style="background-color: olive; text-align: center; color: white;"
+									class="btn hvr-hover">
+									</i> Cek Ongkir
+								</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-6 mb-3">
+					<div class="row">
+						<div class="col-md-12 col-lg-12">
+							<div class="shipping-method-box">
+								<div class="title-left">
+									<h3>Shipping Method</h3>
+								</div>
+								<div class="mb-4">
+									<div class="row">
+										<div class="col-md-12 col-lg-12">
+											<label for="shippingOption1" class="font-weight-bold">Jasa
+												Pengiriman</label> <span class="float-right font-weight-bold" id="jasaPengiriman">-</span>
+										</div>
+									</div>
+                                    <div id="cost">
+                                        
+                                    </div>
+
+                                    
+
+                                    <!-- <div class="row">
+                                        <div class="col-md-12 col-lg-12">
+                                            <input type="radio" name="oke">
+                                            <label for="oke" class="font-weight-bold">Layanan Pengiriman</label> <span
+                                                class="float-right font-weight-bold">Paket Kilat
+                                                Istimewa</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12">
+                                            <label for="shippingOption1"> - Grand Total</label> <span
+                                                class="float-right font-weight-bold"> Rp. 45000</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12">
+                                            <label or="shippingOption1"> - Jangka Waktu Pengiriman</label> <span
+                                                class="float-right font-weight-bold">3 hari</span>
+                                        </div>
+                                    </div> -->
+
+
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12 col-lg-12">
+							<div class="odr-box">
+								<div class="title-left">
+									<h3>Shopping cart</h3>
+								</div>
+
+							</div>
+						</div>
+						<div class="col-md-12 col-lg-12">
+							<div class="order-box">
+
+								<div class="d-flex">
+									<div class="font-weight-bold">Product</div>
+									<div class="ml-auto font-weight-bold">Total</div>
+								</div>
+								<hr class="my-1">
+								<div class="d-flex">
+									<h4>Sub Total</h4>
+									<div class="ml-auto font-weight-bold">$ 440</div>
+								</div>
+								<div class="d-flex">
+									<h4>Discount</h4>
+									<div class="ml-auto font-weight-bold">$ 40</div>
+								</div>
+								<hr class="my-1">
+
+								<div class="d-flex">
+									<h4>Shipping Cost</h4>
+									<div class="ml-auto font-weight-bold">Free</div>
+								</div>
+								<hr>
+								<div class="d-flex gr-total">
+									<h5>Grand Total</h5>
+									<div class="ml-auto h5">$ 388</div>
+								</div>
+								<hr>
+							</div>
+						</div>
+						<div class="col-12 d-flex shopping-box">
+							<a href="checkout.html" class="ml-auto btn hvr-hover">Place
+								Order</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- End Cart -->
+
+	<!-- Start Instagram Feed  -->
+	<div class="instagram-box">
+		<div class="main-instagram owl-carousel owl-theme">
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-01.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-02.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-03.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-04.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-05.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-06.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-07.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-08.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-09.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-05.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript" src="//rajaongkir.com/script/widget.js"></script>
-  
-    <footer th:replace="index_user::footer"></footer>
-    <div th:replace="index_user::copyright" class="footer-copyright"></div> 
-    <div th:replace="index_user::js"></div>
+
+	<footer th:replace="index_user::footer"></footer>
+	<div th:replace="index_user::copyright" class="footer-copyright"></div>
+	<div th:replace="index_user::js"></div>
 
 </body>
 <script>
-setCountry();
-	function setCountry(){
-		var url ='https://api.rajaongkir.com/starter/province'
-        	$.ajax({
-        		  type: "GET",
-        		  url: url,
-        		  success: function(data){
-        			  console.log(JSON.stringify(data));
-        		  },
-        		  contentType: "application/json",
-        		  headers: {
-        		        "key":"2fb78e4fd381c4f967b1f4a1b9a1dfd3",
-        	            "Access-Control-Allow-Origin":"http://localhost:9099//"
-        		    }
-        		});
+	setKotaAsal();
+	function setKotaAsal() {
+		var kotaAsal = $('#kotaAsal');
+		var url = 'http://localhost:9099/api/cart/city'
+		$.ajax({
+			type : "GET",
+			url : url,
+			success : function(data) {
+				var content = '';
+				var item = data.rajaongkir.results;
+				item.forEach(function(obj) {
+					content += '<option value="'+obj.city_id+'">'
+							+ obj.city_name + '</option>';
+				})
+				kotaAsal.html(content)
+
+			},
+			contentType : "application/json",
+		});
 	}
+
+	setKotaTujuan();
+	function setKotaTujuan() {
+		var kotaTujuan = $('#kotaTujuan');
+		var url = 'http://localhost:9099/api/cart/city'
+		$.ajax({
+			type : "GET",
+			url : url,
+			success : function(data) {
+				var content = '';
+				var item = data.rajaongkir.results;
+				item.forEach(function(obj) {
+					content += '<option value="'+obj.city_id+'">'
+							+ obj.city_name + '</option>';
+				})
+				kotaTujuan.html(content)
+
+			},
+			contentType : "application/json",
+		});
+	}
+
+	function cekBiaya() {
+		var url = 'http://localhost:9099/api/cart/cost'
+		var req = {};
+		req.origin = $('#kotaAsal').val();
+		req.destination = $('#kotaTujuan').val();
+		req.weight = $('#berat').val();
+		req.courier = $('#courier').val();
+		$.ajax({
+			type : "POST",
+			url : url,
+			data : JSON.stringify(req),
+			success : function(data) {
+				var content = '';
+                var item = data.rajaongkir.results[0];
+                $('#jasaPengiriman').html(item.name);
+
+
+                item.costs.forEach(function(response){
+                    content+='<div class="row">'+
+                                        '<div class="col-md-12 col-lg-12">'+
+                                            '<input type="radio" name="reg">'+
+                                            '<label for="reg" class=" font-weight-bold">Layanan '+
+                                            'Pengiriman</label> <span class="float-right font-weight-bold">'+response.description+'</span>'+
+                                        '</div>'+
+                                    '</div>'+
+
+                                    '<div class="row">'+
+                                        '<div class="col-md-12 col-lg-12">'+
+                                            '<label for="shippingOption1"> - Grand Total</label> <span'+
+                                                ' class="float-right font-weight-bold"> Rp. '+response.cost[0].value+'</span>'+
+                                       '</div>'+
+                                    '</div>'+
+
+                                    '<div class="row">'+
+                                        '<div class="col-md-12 col-lg-12">'+
+                                            '<label or="shippingOption1" > - Jangka Waktu Pengiriman</label> <span'+
+                                                ' class="float-right font-weight-bold">'+response.cost[0].etd+' Hari</span>'+
+                                        '</div>'+
+                                    '</div>'
+                })
+                $('#cost').html(content);
+
+
+			},
+			contentType : "application/json",
+		});
+	}
+
+	$('#checkOngkir').click(function() {
+		cekBiaya();
+	})
 </script>
 </html>

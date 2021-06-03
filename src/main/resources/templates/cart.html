@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="table-main table-responsive">
-                        <table class="table">
+                        <table class="table" id="tableCart">
                             <thead>
                                 <tr >
                                 <th style="background-color: olive">No</th>
@@ -57,6 +57,46 @@
 			                            }
 			                            return false;
 			                        };
+			                        
+			                        $(document).ready(function() {
+								        $("#subTotal").click(function(){
+								            var code_cart = [];
+                                           
+                                            $.each($("input[name='quantity']"),function(index,item){
+                                                console.log(index+'.'+item.value);
+                                            })
+								            $.each($("input[name='check']:checked"), function(index,item){
+                                                var obj = {};
+                                                obj.code= $(this).val();
+								            	code_cart.push(obj);
+                                                console.log('check: '+index+'.'+item.value);
+								            });
+
+								            console.log(JSON.stringify(code_cart));
+								            
+								            // var url ='http://localhost:9099/api/cart/s'
+								            // 	$.ajax({
+								            // 		  type: "POST",
+								            // 		  url: url,
+								            // 		  data: JSON.stringify(code_produk),
+								            // 		  success: function(data){
+								            // 			  Swal.fire({
+								            // 				  title:'Good job!',
+							            	// 				  text:'You clicked the button!',
+							            	// 				  type:'success'
+								            			  
+								            // 			  }).then(function(){
+								            // 				  location.reload();
+								            // 			  })
+								            					
+								            // 		  },
+								            // 		  contentType: "application/json",
+								            // 		  //dataType: 'json'
+								            // 		});
+								            //alert("KODE PRODUK=====: " + code_produk.join(", "));
+								        });
+								    });
+
                         
                                     function getAllCartByUser(){
                                         var content = '';
@@ -84,7 +124,6 @@
                                                         	'class="fas fa-times" '+
                                                         	'title="Remove"></i>'+'</td>'+
                                                         '</tr>';
-                                                        console.log("STOK======:"+item.stok);
                                                         no++;
 
                                                 })
@@ -96,26 +135,6 @@
 
                         </script>
                             <tbody id="cart">
-                                <!-- <tr th:each="row,var: ${cartPembeli}">
-                                	<td style="text-align: center; background-color: olive;color: white;" th:text="${var.count}"></td>
-                                    <td class="thumbnail-img">
-									<img alt="" th:src="*{'data:image/jpeg;base64,'+{row.produk.gambar}}" style="width: 115px;height: 115px;">
-                                    </td>
-                                    <td style="background-color: lavender;" class="name-pr" th:text="${row.produk.namaProduk}"></td>
-                                    <td class="price-pr" th:text="${row.produk.hargaJual}"></td>
-                                    <td style="background-color: lavender;" class="price-pr">
-                                    	<input style="text-align: center" class="form-control" name="quantity" th:value="${row.quantity}" min="0" max="20" type="number" onkeypress="changeTotal(this)" onkeyup="changeTotal(this)">
-                                    </td>
-                                    <td class="price-pr" style="text-align: center;">
-                                        <input  type="checkbox" name="check">
-                                    </td>
-
-                                    
-                                    <td class="remove-pr"><center>
-									<a th:href="@{'/cart/delete/' +${row.kode}}" th:id="${row.kode}">
-									<i style="background-color: lavender;" class="fas fa-times" title="Remove"></i></a></center>
-                                    </td>
-                                </tr> -->
                             </tbody> 
                         </table>
                     </div>
@@ -135,7 +154,8 @@
                 </div>
                 <div class="col-lg-6 col-sm-6">
                     <div class="update-box">
-                        <a href="/cart/allUpdate"><input value="Update Cart" type="submit"></a>
+                        <button type="button" id="subTotal" style="background-color: olive; text-align: center;color: white;" class="btn hvr-hover" ><i
+								class="fa fa-shopping-bag  "></i> Cek Subtotal</button>
                     </div>
                 </div>
             </div>
