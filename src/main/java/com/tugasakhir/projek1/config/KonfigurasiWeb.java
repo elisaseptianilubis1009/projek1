@@ -17,7 +17,7 @@ public class KonfigurasiWeb extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login_user");
-		registry.addViewController("/contact-us").setViewName("contact-us");
+		
 	}
 	
 	@Bean

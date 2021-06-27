@@ -54,4 +54,12 @@ public class DashboardController {
 		model.addAttribute("user",p);
 	return "gallery";
 	}
+	
+	@RequestMapping (value="/contact-us", method = RequestMethod.GET)
+	public String contact(Model model,Principal p) {	
+		model.addAttribute("user",p);
+	return "contact-us";
+	}
+	
+	
 }

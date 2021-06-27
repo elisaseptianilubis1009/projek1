@@ -16,6 +16,7 @@ public class Rasa {
 	private Long kode;
 	private String namaRasa;
 	private String gambar;
+	private String Keterangan;
 
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -34,6 +35,12 @@ public class Rasa {
 	}
 	
 	
+	public String getKeterangan() {
+		return Keterangan;
+	}
+	public void setKeterangan(String keterangan) {
+		Keterangan = keterangan;
+	}
 	@Lob
 	@Column(columnDefinition = "MEDIUMBLOB")
 	public String getGambar() {
