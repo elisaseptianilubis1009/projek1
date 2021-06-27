@@ -2,6 +2,7 @@ package com.tugasakhir.projek1.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,6 +48,7 @@ public class ProdukMasukController {
 			
 			List<Produk> prod=pr.findAll();
 			model.addAttribute("produk", prod);
+			
 			return "produkMasuk_Create";
 		}
 		
@@ -63,7 +65,14 @@ public class ProdukMasukController {
 		@RequestMapping (value="/edit/{produkMasuk}", method = RequestMethod.GET)
 		public String edit_pr(Model model, ProdukMasuk produkMasuk,Principal p){
 			model.addAttribute("user",p);
-
+			Produk produk=new Produk();
+			produkMasuk.setProduk(produk);
+			System.out.println("Kode Produk :"+produkMasuk.getProduk().getKode());
+//			Optional<Produk> prod=pr.findById(produkMasuk.getProduk().getKode());
+			List<Produk> prod=pr.findAll();
+			
+		
+			model.addAttribute("produk", prod);
 			return "produkMasuk_Create";
 		}
 		

@@ -43,13 +43,6 @@ public class CartController {
 		model.addAttribute("user", p);
 
 		Optional<Login> lg = lr.findByUsername(username);
-
-//		Login Userlogin = lr.findByUsername(p.getName()).get();
-//		System.out.println("Id User yang login :" + Userlogin.getId());// berhasil
-
-//		Pembeli pembeli2 = pr.findByLogin(Userlogin).get();
-//		System.out.println("Nama Pmebeli yang login :" + pembeli.getNamaLengkap()); // dapet
-//		System.out.println("LOGIN======:" + lg.get());
 		
 		List<Cart> pembeliCart = new ArrayList<>();
 		Optional<Pembeli> pembeli = Optional.ofNullable(new Pembeli());

@@ -2,8 +2,9 @@ package com.tugasakhir.projek1.controller;
 
 import java.security.Principal;
 import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.tugasakhir.projek1.model.Produk;
 import com.tugasakhir.projek1.model.ProdukKeluar;
 import com.tugasakhir.projek1.model.ProdukMasuk;
@@ -64,9 +67,10 @@ public class ProdukController {
 	}
  
 	@RequestMapping (value="/save", method = RequestMethod.POST)
-	public String save(Produk produk, @RequestParam("pfile") MultipartFile file )
+	public String save(Produk produk, @RequestParam("pfile") MultipartFile file,RedirectAttributes redirAttrs )
 	{
 		ps.saveProduct(produk,file);
+		redirAttrs.addFlashAttribute("success", "Data Produk Berhasil Disimpan!");
 		return "redirect:/produk/tampil";
 	}
 
@@ -85,8 +89,9 @@ public class ProdukController {
 	
 	
 	@RequestMapping (value="/delete/{id}", method = RequestMethod.GET)
-	public String delete_mhs(@PathVariable Long id) {
+	public String delete_mhs(@PathVariable Long id,RedirectAttributes redirAttrs) {
 		pr.deleteById(id);
+		redirAttrs.addFlashAttribute("error", "Data Berhasil Dihapus!");
 		return "redirect:/produk/tampil";
 	}
 
