@@ -42,6 +42,9 @@
                                 </tr>
                             </thead>
                             <script>
+                            		var indexGlobal=[]; 
+                            		var hargaJualGlobal=[];
+                            		var beratGlobal=[];
 			                        var getUrlParameter = function getUrlParameter(sParam) {
 			                            var sPageURL = window.location.search.substring(1),
 			                                sURLVariables = sPageURL.split('&'),
@@ -60,40 +63,29 @@
 			                        
 			                        $(document).ready(function() {
 								        $("#subTotal").click(function(){
-								            var code_cart = [];
-                                           
-                                            $.each($("input[name='quantity']"),function(index,item){
-                                                console.log(index+'.'+item.value);
-                                            })
-								            $.each($("input[name='check']:checked"), function(index,item){
-                                                var obj = {};
-                                                obj.code= $(this).val();
-								            	code_cart.push(obj);
-                                                console.log('check: '+index+'.'+item.value);
-								            });
-
-								            console.log(JSON.stringify(code_cart));
-								            
-								            // var url ='http://localhost:9099/api/cart/s'
-								            // 	$.ajax({
-								            // 		  type: "POST",
-								            // 		  url: url,
-								            // 		  data: JSON.stringify(code_produk),
-								            // 		  success: function(data){
-								            // 			  Swal.fire({
-								            // 				  title:'Good job!',
-							            	// 				  text:'You clicked the button!',
-							            	// 				  type:'success'
-								            			  
-								            // 			  }).then(function(){
-								            // 				  location.reload();
-								            // 			  })
-								            					
-								            // 		  },
-								            // 		  contentType: "application/json",
-								            // 		  //dataType: 'json'
-								            // 		});
-								            //alert("KODE PRODUK=====: " + code_produk.join(", "));
+								        	var sum = 0;
+								        	var beratRow=0;
+								        	var ttlBerat=0;
+								        	indexGlobal.forEach(function(item,index){
+								        		var q = $('#q'+index).val();
+								        		var cq = $('#cq'+index);
+								        		if(cq.is(':checked')){
+								        			sum+= parseInt(hargaJualGlobal[index])*parseInt(q);	
+								        			beratRow=parseInt(q)*parseInt(beratGlobal[index]);
+								        			ttlBerat+=beratRow;
+								        			console.log("Total Beart :"+ttlBerat);
+								        		}else{
+								        			console.log('off');
+								        		}
+								        		
+								        		
+								        		
+								        		
+								        		
+								        	});
+								        	
+								        	$('#subResult').html('Rp. '+sum);
+//								           console.log(sum);
 								        });
 								    });
 
@@ -108,24 +100,27 @@
                                             dataType: 'json',
                                             success: function(data){
                                                 console.log(JSON.stringify(data))
-                                                data.forEach(function(item){
+                                                data.forEach(function(item,index){
+                                                	
                                                     content+='<tr>'+
                                                         '<td style="text-align :center;">'+no+'</td>'+
                                                         '<td style="text-align :center;"><img src="data:image/png;base64,'+item.produk.gambar+'" style="width: 115px;height: 115px;"></td>'+
                                                         '<td style="text-align :center;">'+item.produk.namaProduk+'</td>'+
                                                         '<td style="text-align :center;">'+'Rp. '+item.produk.hargaJual+'</td>'+
-                                                        '<td style="text-align :center;">'+'<input style="text-align :center; width :50px; height:30px;" type="number"'+
+                                                        '<td style="text-align :center;">'+'<input style="text-align :center; width :50px; height:30px;" type="number" id=q'+index+' '+
                                                         	'name="quantity"' +
                                                         	'value='+defaulQ+'>'+'</td>'+
                                                         '<td style="text-align :center;">'+'<input type="checkbox"'+
-                                                            'name="check"' +
-                                                            'value='+item.kode+'>'+'</td>'+
+                                                            'name="check" id=cq'+index+' ' +
+                                                            '>'+'</td>'+
                                                         '<td style="text-align :center;">'+'<i style="background-color: lavender;"'+
                                                         	'class="fas fa-times" '+
                                                         	'title="Remove"></i>'+'</td>'+
                                                         '</tr>';
                                                         no++;
-
+														indexGlobal.push(index);
+														hargaJualGlobal.push(item.produk.hargaJual);
+														beratGlobal.push(item.produk.ukuran.berat);
                                                 })
                                         		$('#cart').html(content);
                                           	}
@@ -167,7 +162,7 @@
                         <h3>Order summary</h3>
                         <div class="d-flex">
                             <h4>Sub Total</h4>
-                            <div class="ml-auto font-weight-bold">Rp. [[${subtotal}]]</div>
+                            <div class="ml-auto font-weight-bold" id="subResult"></div>
                         </div>
                         <div class="d-flex">
                             <h4>Discount</h4>
