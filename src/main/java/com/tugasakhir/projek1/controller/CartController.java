@@ -148,9 +148,10 @@ public class CartController {
 	}
 
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public String tampilAdmin(Model model, Principal p) {
+	public String tampilAdmin(Model model, Principal p,@RequestParam("totalBerat") String totalBerat) {
 		model.addAttribute("user", p);
 
+		model.addAttribute("totalBerat",totalBerat);
 		return "checkout";
 
 	}

@@ -42,18 +42,45 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-12 col-lg-12">
+							<div class="col-md-12 col-lg-12" >
 								Kota Tujuan <select id="kotaTujuan" class="form-control">
 								</select>
 							</div>
 						</div>
 
 						<div class="row">
-							<div class="col-md-12 col-lg-12">
-								Berat <input type="text" name="beratProduk" id="berat"
+							<div class="col-md-12 col-lg-12">[[${totalBerat}]]
+								Berat <input type="text" name="beratProduk" id="berat" value="" 
 									class="form-control">
 							</div>
+							
 						</div>
+						<script>
+						
+						
+						function somescript() {
+							var getUrlParameter = function getUrlParameter(sParam) {
+	                            var sPageURL = window.location.search.substring(1),
+	                                sURLVariables = sPageURL.split('&'),
+	                                sParameterName,
+	                                i;
+	
+	                            for (i = 0; i < sURLVariables.length; i++) {
+	                                sParameterName = sURLVariables[i].split('=');
+	
+	                                if (sParameterName[0] === sParam) {
+	                                    return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+	                                }
+	                            }
+	                            return false;
+	                        };
+	                        var totalBerat= getUrlParameter('totalBerat');
+                            console.log('==='+totalBerat);
+							document.getElementById("berat").value=totalBerat;
+							
+		    			}
+						somescript();
+						</script>
 
 
 

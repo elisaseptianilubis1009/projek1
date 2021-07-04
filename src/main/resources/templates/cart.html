@@ -60,12 +60,12 @@
 			                            }
 			                            return false;
 			                        };
-			                        
+			                        var ttlBerat=0;
 			                        $(document).ready(function() {
 								        $("#subTotal").click(function(){
 								        	var sum = 0;
 								        	var beratRow=0;
-								        	var ttlBerat=0;
+								        	
 								        	indexGlobal.forEach(function(item,index){
 								        		var q = $('#q'+index).val();
 								        		var cq = $('#cq'+index);
@@ -85,11 +85,16 @@
 								        	});
 								        	
 								        	$('#subResult').html('Rp. '+sum);
+								        	$('#totalBerat').html(ttlBerat+' gram')
 //								           console.log(sum);
 								        });
 								    });
 
-                        
+			                        function somescript() {
+			                        	var a=100;
+		            					//window.location.href = document.getElementById('ololo').href;
+		            					window.location.href = '/cart/checkout?totalBerat='+ttlBerat;
+		    						}
                                     function getAllCartByUser(){
                                         var content = '';
                                         var no=1;
@@ -129,6 +134,10 @@
                                     getAllCartByUser();
 
                         </script>
+                        
+                        <script language="Javascript" type="text/javascript">
+    						
+						</script>
                             <tbody id="cart">
                             </tbody> 
                         </table>
@@ -165,8 +174,8 @@
                             <div class="ml-auto font-weight-bold" id="subResult"></div>
                         </div>
                         <div class="d-flex">
-                            <h4>Discount</h4>
-                            <div class="ml-auto font-weight-bold">[[${disc}]] % </div>
+                            <h4>Total Berat</h4>
+                            <div class="ml-auto font-weight-bold" id="totalBerat"></div>
                         </div>
                         <hr class="my-1">
                        
@@ -178,7 +187,9 @@
                         </div>
                         <hr> </div>
                 </div>
-                <div class="col-12 d-flex shopping-box"><a th:href="@{/cart/checkout}" class="ml-auto btn hvr-hover">Checkout</a> </div>
+               <!-- <div class="col-12 d-flex shopping-box"><a th:href="@{'/cart/checkout?totalBerat='+ttlBerat}" class="ml-auto btn hvr-hover">Checkout</a> </div>  -->
+               <div class="col-12 d-flex shopping-box"><a href="javascript:somescript()" class="ml-auto btn hvr-hover">Checkout</a> </div>
+             
             </div>
 
         </div>
