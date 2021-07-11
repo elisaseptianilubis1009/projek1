@@ -39,7 +39,6 @@ public class CartController {
 
 	@RequestMapping(value = "/tampil", method = RequestMethod.GET)
 	public String tampilCart(Model model, Principal p, @RequestParam("username") String username) {
-		int sub = 0, disc = 0, grandTotal = 0;
 		model.addAttribute("user", p);
 
 		Optional<Login> lg = lr.findByUsername(username);
@@ -58,25 +57,8 @@ public class CartController {
 			System.out.println("Login tidakk ditemukan");
 		}
 
-		for (Cart cart : pembeliCart) {
-			sub += cart.getTotal();
-		}
-
-		if (sub > 100000) {
-			disc = 10;
-			grandTotal = sub +  - (sub * 10 / 100);
-		} else {
-			grandTotal = sub;
-		}
-		model.addAttribute("subtotal", sub);
-		model.addAttribute("disc", disc);
-		model.addAttribute("grandTotal", grandTotal);
-
-		System.out.println("Subtotal cart :" + sub);
-		System.out.println("Diskon cart :" + disc);
-		System.out.println("GrandTotal cart :" + grandTotal);
+		
 		return "cart";
-		// return pembeliCart.toString;
 	}
 
 //	@RequestMapping(value = "/save/", method = RequestMethod.GET)
@@ -148,10 +130,11 @@ public class CartController {
 	}
 
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public String tampilAdmin(Model model, Principal p,@RequestParam("totalBerat") String totalBerat) {
+	public String tampilAdmin(Model model, Principal p,@RequestParam("totalBerat") String totalBerat,@RequestParam("subTotal") String subTotal) {
 		model.addAttribute("user", p);
 
 		model.addAttribute("totalBerat",totalBerat);
+		model.addAttribute("subTotal",subTotal);
 		return "checkout";
 
 	}

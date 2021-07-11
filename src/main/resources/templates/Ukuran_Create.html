@@ -38,10 +38,6 @@
             <h1 class="mt-3">Tambah Data Ukuran</h1>             
               <form method="post" action="/ukuran/save">
 
-              <input 
-                  type="hidden"                   
-                  th:name="${_csrf.parameterName}"
-                  th:value="${_csrf.token}" />
              
                  <div class="form-group">
                       <input type="hidden" class="form-control" id="id"  name="kode" th:value="${ukuran.kode}">

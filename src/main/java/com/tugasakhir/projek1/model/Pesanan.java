@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Pesanan {
 	private Long kode;
-	private Pembeli namaPelanggan;
-	private Produk namaProduk;
+	private Pembeli pelanggan;
+	private Produk produk;
 	private Integer jumlahPesanan;
 	private Integer totalBayar;
 	private Date tglPesan;
@@ -28,19 +28,18 @@ public class Pesanan {
 		this.kode = kode;
 	}
 	@ManyToOne
-	public Pembeli getNamaPelanggan() {
-		return namaPelanggan;
+	public Pembeli getPelanggan() {
+		return pelanggan;
 	}
-	
-	public void setNamaPelanggan(Pembeli namaPelanggan) {
-		this.namaPelanggan = namaPelanggan;
+	public void setPelanggan(Pembeli pelanggan) {
+		this.pelanggan = pelanggan;
 	}
 	@ManyToOne
-	public Produk getNamaProduk() {
-		return namaProduk;
+	public Produk getProduk() {
+		return produk;
 	}
-	public void setNamaProduk(Produk namaProduk) {
-		this.namaProduk = namaProduk;
+	public void setProduk(Produk produk) {
+		this.produk = produk;
 	}
 	public Integer getJumlahPesanan() {
 		return jumlahPesanan;
