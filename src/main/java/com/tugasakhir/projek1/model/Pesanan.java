@@ -17,6 +17,7 @@ public class Pesanan {
 	private Integer totalBayar;
 	private Date tglPesan;
 	private Date tglBayar;
+	private String token;
 	private boolean confirm;
 	
 	@Id 
@@ -71,6 +72,14 @@ public class Pesanan {
 	public void setConfirm(boolean confirm) {
 		this.confirm = confirm;
 	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	
 	
 	
 

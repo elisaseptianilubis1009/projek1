@@ -70,6 +70,8 @@
 								        	indexGlobal.forEach(function(item,index){
 								        		var q = $('#q'+index).val();
 								        		var cq = $('#cq'+index);
+								        		console.log("quantity====== :"+JSON.stringify(q));
+								        		console.log("check box====== :"+JSON.stringify(cq))
 								        		if(cq.is(':checked')){
 								        			sum+= parseInt(hargaJualGlobal[index])*parseInt(q);	
 								        			beratRow=parseInt(q)*parseInt(beratGlobal[index]);

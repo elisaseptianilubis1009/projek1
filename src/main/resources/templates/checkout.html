@@ -75,10 +75,8 @@
 									return false;
 								};
 								var totalBerat = getUrlParameter('totalBerat');
-								var subTotal = getUrlParameter('subTotal');
 								console.log('===' + totalBerat);
 								document.getElementById("berat").value = totalBerat;
-								document.getElementById("total").value = subTotal;
 
 							}
 							somescript();
@@ -148,12 +146,12 @@
 
 								<div class="d-flex">
 									<h4>Shipping Cost</h4>
-									<div class="ml-auto font-weight-bold">Free</div>
+									<div class="ml-auto font-weight-bold" id="shippingCost">Free</div>
 								</div>
 								<hr>
 								<div class="d-flex gr-total">
 									<h5>Grand Total</h5>
-									<div class="ml-auto h5">Rp. [[${subTotal}]]</div>
+									<div class="ml-auto h5" id="grandTotal">Rp. [[${subTotal}]]</div>
 								</div>
 							</div>
 
@@ -320,23 +318,52 @@
 </body>
 <script>
 	var indexGlobal = [];
+	var ongkirGlobal= [];
+	var grandTotal=0;
 	setKotaAsal();
 
+	var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+        return false;
+    };
+    var subTotal= getUrlParameter('subTotal');
 	$(document).ready(function() {
-		console.log("Data========Global :" + JSON.stringify(indexGlobal));
 		var t = 0;
-		var cq = $('#radioCheck');
+		var setOngkir=0;
+		
 		$("#checkRadio").click(function() {
-			alert("Masuk Cek Radio");
+			
+			setOngkir=0;
 			indexGlobal.forEach(function(response) {
+				var cq = $('#radioCheck'+response);
+				//console.log("Response========Global :" + JSON.stringify(response));
+				console.log("Ongkir========Global :" + JSON.stringify(ongkirGlobal[response]));
 				if (cq.is(':checked')) {
 					console.log("True :");
+					setOngkir=ongkirGlobal[response];
+					grandTotal=parseInt(setOngkir) + parseInt(subTotal);
 				} else {
 					console.log('off');
 				}
-				t = +1;
+				t++;
 			});
-			alert("t :" + t);
+			cekBiaya();
+			ongkirGlobal=[];
+			$('#shippingCost').html('Rp. '+setOngkir);
+			$('#grandTotal').html('Rp. '+grandTotal);
+			
+			
 		});
 	});
 
@@ -398,13 +425,11 @@
 						var item = data.rajaongkir.results[0];
 						$('#jasaPengiriman').html(item.name);
 
-						item.costs
-								.forEach(function(response) {
-									console.log("Data======== :"
-											+ JSON.stringify(response));
+						item.costs.forEach(function(response,index) {
+									console.log("Data======== :"+ JSON.stringify(response));
 									content += '<div class="row">'
 											+ '<div class="col-md-12 col-lg-12">'
-											+ '<input type="radio" name="reg" id="radioCheck">'
+											+ '<input type="radio" name="reg" id=radioCheck'+index+'>'
 											+ '<label for="reg" class=" font-weight-bold">&nbspLayanan '
 											+ 'Pengiriman</label> <span class="float-right font-weight-bold">'
 											+ response.description
@@ -429,7 +454,8 @@
                                                 ' class="float-right font-weight-bold">'
 											+ response.cost[0].etd + '</span>'
 											+ '</div>' + '</div>'
-									indexGlobal.push(response);
+									indexGlobal.push(index);
+									ongkirGlobal.push(response.cost[0].value);
 								})
 						$('#cost').html(content);
 
