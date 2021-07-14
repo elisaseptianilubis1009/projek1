@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -29,6 +30,7 @@ public class Pesanan {
 		this.kode = kode;
 	}
 	@ManyToOne
+	@JoinColumn(name="pelanggan")
 	public Pembeli getPelanggan() {
 		return pelanggan;
 	}
@@ -36,6 +38,7 @@ public class Pesanan {
 		this.pelanggan = pelanggan;
 	}
 	@ManyToOne
+	@JoinColumn(name="produk")
 	public Produk getProduk() {
 		return produk;
 	}

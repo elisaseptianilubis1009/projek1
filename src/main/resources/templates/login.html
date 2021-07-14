@@ -34,11 +34,11 @@
                   th:name="${_csrf.parameterName}"
                   th:value="${_csrf.token}" />-->
 
-					<div th:if="${param.error}" class="alert alert-arror">
-						Invalid Username and Password</div>
+					<div style="color: red" class="alert alert-arror">
+						<label style="color: red">Invalid Username and Password</label></div>
 
 					<div th:if="${param.logout}" class="alert alert-success">You
-						Haved Been Logged Out</div>
+						<label>Haved Been Logged Out</label></div>
 					<div class="input-group mb-3">
 						<input type="email" class="form-control" name="username"
 							placeholder="Email">

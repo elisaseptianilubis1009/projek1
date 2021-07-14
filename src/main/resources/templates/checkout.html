@@ -7,7 +7,6 @@
 <body>
 	<div th:replace="index_user::top" class="main-top"></div>
 	<header th:replace="index_user::sidebar" class="main-header"></header>
-
 	<div class="all-title-box">
 		<div class="container">
 			<div class="row">
@@ -21,9 +20,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- End All Title Box -->
 
-	<!-- Start Cart  -->
 	<div class="cart-box-main">
 		<div class="container">
 			<div class="row">
@@ -151,7 +148,8 @@
 								<hr>
 								<div class="d-flex gr-total">
 									<h5>Grand Total</h5>
-									<div class="ml-auto h5" id="grandTotal">Rp. [[${subTotal}]]</div>
+									<div class="ml-auto h5" id="grandTotal">Rp.
+										[[${subTotal}]]</div>
 								</div>
 							</div>
 
@@ -200,9 +198,6 @@
 								</div>
 							</div>
 
-
-
-
 							<div class="d-flex gr-total">
 								<h5>Metode Pembayaran</h5>
 								<div class="ml-auto h5">
@@ -213,159 +208,172 @@
 						</div>
 
 						<div class="col-12 d-flex shopping-box">
-							<a href="checkout.html" class="ml-auto btn hvr-hover">Buat
-								Pesanan</a>
+							<!-- <a href="checkout.html" class="ml-auto btn hvr-hover" onclick="orde">Buat
+								Pesanan</a> -->
+							<div class="col-12 d-flex shopping-box">
+								<a href="javascript:order()" class="ml-auto btn hvr-hover">Buat
+									Pesanan</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- End Cart -->
+
+		<!-- Start Instagram Feed  -->
+		<div class="instagram-box">
+			<div class="main-instagram owl-carousel owl-theme">
+				<div class="item">
+					<div class="ins-inner-box">
+						<img src="images/instagram-img-01.jpg" alt="" />
+						<div class="hov-in">
+							<a href="#"><i class="fab fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ins-inner-box">
+						<img src="images/instagram-img-02.jpg" alt="" />
+						<div class="hov-in">
+							<a href="#"><i class="fab fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ins-inner-box">
+						<img src="images/instagram-img-03.jpg" alt="" />
+						<div class="hov-in">
+							<a href="#"><i class="fab fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ins-inner-box">
+						<img src="images/instagram-img-04.jpg" alt="" />
+						<div class="hov-in">
+							<a href="#"><i class="fab fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ins-inner-box">
+						<img src="images/instagram-img-05.jpg" alt="" />
+						<div class="hov-in">
+							<a href="#"><i class="fab fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ins-inner-box">
+						<img src="images/instagram-img-06.jpg" alt="" />
+						<div class="hov-in">
+							<a href="#"><i class="fab fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ins-inner-box">
+						<img src="images/instagram-img-07.jpg" alt="" />
+						<div class="hov-in">
+							<a href="#"><i class="fab fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ins-inner-box">
+						<img src="images/instagram-img-08.jpg" alt="" />
+						<div class="hov-in">
+							<a href="#"><i class="fab fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ins-inner-box">
+						<img src="images/instagram-img-09.jpg" alt="" />
+						<div class="hov-in">
+							<a href="#"><i class="fab fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ins-inner-box">
+						<img src="images/instagram-img-05.jpg" alt="" />
+						<div class="hov-in">
+							<a href="#"><i class="fab fa-instagram"></i></a>
 						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
-	</div>
-	<!-- End Cart -->
+		<script type="text/javascript" src="//rajaongkir.com/script/widget.js"></script>
 
-	<!-- Start Instagram Feed  -->
-	<div class="instagram-box">
-		<div class="main-instagram owl-carousel owl-theme">
-			<div class="item">
-				<div class="ins-inner-box">
-					<img src="images/instagram-img-01.jpg" alt="" />
-					<div class="hov-in">
-						<a href="#"><i class="fab fa-instagram"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="ins-inner-box">
-					<img src="images/instagram-img-02.jpg" alt="" />
-					<div class="hov-in">
-						<a href="#"><i class="fab fa-instagram"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="ins-inner-box">
-					<img src="images/instagram-img-03.jpg" alt="" />
-					<div class="hov-in">
-						<a href="#"><i class="fab fa-instagram"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="ins-inner-box">
-					<img src="images/instagram-img-04.jpg" alt="" />
-					<div class="hov-in">
-						<a href="#"><i class="fab fa-instagram"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="ins-inner-box">
-					<img src="images/instagram-img-05.jpg" alt="" />
-					<div class="hov-in">
-						<a href="#"><i class="fab fa-instagram"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="ins-inner-box">
-					<img src="images/instagram-img-06.jpg" alt="" />
-					<div class="hov-in">
-						<a href="#"><i class="fab fa-instagram"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="ins-inner-box">
-					<img src="images/instagram-img-07.jpg" alt="" />
-					<div class="hov-in">
-						<a href="#"><i class="fab fa-instagram"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="ins-inner-box">
-					<img src="images/instagram-img-08.jpg" alt="" />
-					<div class="hov-in">
-						<a href="#"><i class="fab fa-instagram"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="ins-inner-box">
-					<img src="images/instagram-img-09.jpg" alt="" />
-					<div class="hov-in">
-						<a href="#"><i class="fab fa-instagram"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="ins-inner-box">
-					<img src="images/instagram-img-05.jpg" alt="" />
-					<div class="hov-in">
-						<a href="#"><i class="fab fa-instagram"></i></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script type="text/javascript" src="//rajaongkir.com/script/widget.js"></script>
-
-	<footer th:replace="index_user::footer"></footer>
-	<div th:replace="index_user::copyright" class="footer-copyright"></div>
-	<div th:replace="index_user::js"></div>
-
+		<footer th:replace="index_user::footer"></footer>
+		<div th:replace="index_user::copyright" class="footer-copyright"></div>
+		<div th:replace="index_user::js"></div>
 </body>
 <script>
 	var indexGlobal = [];
-	var ongkirGlobal= [];
-	var grandTotal=0;
+	var ongkirGlobal = [];
+	var grandTotal = 0;
 	setKotaAsal();
 
 	var getUrlParameter = function getUrlParameter(sParam) {
-        var sPageURL = window.location.search.substring(1),
-            sURLVariables = sPageURL.split('&'),
-            sParameterName,
-            i;
+		var sPageURL = window.location.search.substring(1), sURLVariables = sPageURL
+				.split('&'), sParameterName, i;
 
-        for (i = 0; i < sURLVariables.length; i++) {
-            sParameterName = sURLVariables[i].split('=');
+		for (i = 0; i < sURLVariables.length; i++) {
+			sParameterName = sURLVariables[i].split('=');
 
-            if (sParameterName[0] === sParam) {
-                return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-            }
-        }
-        return false;
-    };
-    var subTotal= getUrlParameter('subTotal');
-	$(document).ready(function() {
-		var t = 0;
-		var setOngkir=0;
-		
-		$("#checkRadio").click(function() {
-			
-			setOngkir=0;
-			indexGlobal.forEach(function(response) {
-				var cq = $('#radioCheck'+response);
-				//console.log("Response========Global :" + JSON.stringify(response));
-				console.log("Ongkir========Global :" + JSON.stringify(ongkirGlobal[response]));
-				if (cq.is(':checked')) {
-					console.log("True :");
-					setOngkir=ongkirGlobal[response];
-					grandTotal=parseInt(setOngkir) + parseInt(subTotal);
-				} else {
-					console.log('off');
-				}
-				t++;
-			});
-			cekBiaya();
-			ongkirGlobal=[];
-			$('#shippingCost').html('Rp. '+setOngkir);
-			$('#grandTotal').html('Rp. '+grandTotal);
-			
-			
-		});
-	});
+			if (sParameterName[0] === sParam) {
+				return typeof sParameterName[1] === undefined ? true
+						: decodeURIComponent(sParameterName[1]);
+			}
+		}
+		return false;
+	};
+	var subTotal = getUrlParameter('subTotal');
+	$(document)
+			.ready(
+					function() {
+						var t = 0;
+						var setOngkir = 0;
+
+						$("#checkRadio")
+								.click(
+										function() {
+
+											setOngkir = 0;
+											indexGlobal
+													.forEach(function(response) {
+														var cq = $('#radioCheck'
+																+ response);
+														//console.log("Response========Global :" + JSON.stringify(response));
+														console
+																.log("Ongkir========Global :"
+																		+ JSON
+																				.stringify(ongkirGlobal[response]));
+														if (cq.is(':checked')) {
+															console
+																	.log("True :");
+															setOngkir = ongkirGlobal[response];
+															grandTotal = parseInt(setOngkir)
+																	+ parseInt(subTotal);
+														} else {
+															console.log('off');
+														}
+														t++;
+													});
+											cekBiaya();
+											ongkirGlobal = [];
+											$('#shippingCost').html(
+													'Rp. ' + setOngkir);
+											$('#grandTotal').html(
+													'Rp. ' + grandTotal);
+
+										});
+					});
 
 	function setKotaAsal() {
 		var kotaAsal = $('#kotaAsal');
@@ -425,8 +433,10 @@
 						var item = data.rajaongkir.results[0];
 						$('#jasaPengiriman').html(item.name);
 
-						item.costs.forEach(function(response,index) {
-									console.log("Data======== :"+ JSON.stringify(response));
+						item.costs
+								.forEach(function(response, index) {
+									console.log("Data======== :"
+											+ JSON.stringify(response));
 									content += '<div class="row">'
 											+ '<div class="col-md-12 col-lg-12">'
 											+ '<input type="radio" name="reg" id=radioCheck'+index+'>'
@@ -468,5 +478,31 @@
 		cekBiaya();
 
 	})
+	function randomString(length, chars) {
+	    var result = '';
+	    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+	    return result;
+	}
+	function order() {
+		var req= {};
+		req['transaction_details'] = {};
+		req['transaction_details']['order_id']= randomString(9, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+		req['transaction_details']['gross_amount']= grandTotal;
+		
+		req['customer_details'] = {};
+		req['customer_details']['first_name']= $('#firstName').val();
+		req['customer_details']['last_name']= $('#lastName').val();
+		req['customer_details']['email']= $('#email').val();
+		req['customer_details']['phone']= $('#telephone').val();
+		
+		console.log(req);
+		$.ajax({
+			url: 'http://localhost:9099/api/cart/transaction',
+			type:'POST',
+			data: JSON.stringify(req),
+			contentType: 'application/json',
+			success:function(data){
+			})
+	}
 </script>
 </html>

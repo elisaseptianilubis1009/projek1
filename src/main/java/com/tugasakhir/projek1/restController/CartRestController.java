@@ -213,5 +213,29 @@ public class CartRestController {
 		return "Sub Total : "+sum;
 	}
 
+	@PostMapping("/transaction")
+	public ResponseEntity<TransactionResponseDto> orderRequest(@RequestBody OrderRequestDto request) {
+		RestTemplate restTemplate = new RestTemplate();
+		final String baseUrl = "https://app.sandbox.midtrans.com/snap/v1/transactions";
+		URI uri=null;
+		try {
+			uri = new URI(baseUrl);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Basic U0ItTWlkLXNlcnZlci0ya0ViNGFEeXpkdG1uTlo4bVdlNEV1NzM6");  
+		headers.set("Accept", "application/json");  
+		headers.set("Content-Type", "application/json");  
+		 
+		HttpEntity<?> requestEntity = new HttpEntity<>(request, headers);
+		 
+		ResponseEntity<TransactionResponseDto> result = restTemplate.postForEntity(uri,  requestEntity, TransactionResponseDto.class);
+		  
+		return result;
+	}
+	
 
 }
