@@ -28,7 +28,6 @@ public class DashboardController {
 		Login login = loginRepo.cekRole(p.getName());
 		System.out.println("GET NAMEM=========:"+p.getName());
 		System.out.print("NILAI LOGIN========:"+login);
-		
 		if(login!=null)
 			if(login.getAkses().equals("ADMIN")) 
 				return "index";

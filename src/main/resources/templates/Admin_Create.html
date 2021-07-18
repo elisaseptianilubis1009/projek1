@@ -23,19 +23,7 @@
 			<!-- Content Header (Page header) -->
 			<div class="content-header">
 				<div class="container-fluid">
-					<div class="row mb-2">
-						<div class="col-sm-6">
-							<h1 class="m-0 text-dark">Dashboard</h1>
-						</div>
-						<!-- /.col -->
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
-								<li class="breadcrumb-item active">Dashboard v1</li>
-							</ol>
-						</div>
-						<!-- /.col -->
-					</div>
+					<div class="row mb-2"></div>
 					<!-- /.row -->
 				</div>
 				<!-- /.container-fluid -->
@@ -45,7 +33,7 @@
 			<div class="container">
 				<div class="ror">
 					<div class="col-8">
-						<h1 class="mt-3">Tambah Data Admin</h1>
+						<h1 class="mt-3">Ubah Data Admin</h1>
 						<form method="post" action="/admin/save">
 
 
@@ -60,39 +48,78 @@
 									class="form-control" id="id" name="login.active"
 									th:value="${admin.login.active}">
 							</div>
-							<div class="form-group">
-								<label for="nama">Nama Lengkap</label> <input type="text"
-									class="form-control" id="nama" name="namaLengkap"
-									th:value="${admin.namaLengkap}">
+							<div class="col-md-6">
+								<div class="custom-file mb-2">
+									<div class="form-group">
+										<label for="nama">Nama Lengkap</label> <input type="text"
+											class="form-control" id="nama" name="namaLengkap"
+											th:value="${admin.namaLengkap}">
+									</div>
+								</div>
 							</div>
-							<div class="form-group">
-								<label for="alamat">Alamat</label> <input type="text"
-									class="form-control" id="alamat" name="alamat"
-									th:value="${admin.alamat}">
+							<br>
+
+							<div class="col-md-6">
+								<div class="custom-file mb-2">
+									<div class="form-group">
+										<label for="alamat">Alamat</label> <input type="text"
+											class="form-control" id="alamat" name="alamat"
+											th:value="${admin.alamat}">
+									</div>
+								</div>
 							</div>
-							<div class="form-group">
-								<label for="email">Email</label> <input type="email"
-									class="form-control" id="email" name="email"
-									th:value="${admin.email}">
+							<br>
+
+							<div class="col-md-6">
+								<div class="custom-file mb-2">
+									<div class="form-group">
+										<label for="email">Email</label> <input type="email"
+											class="form-control" id="email" name="email"
+											th:value="${admin.email}">
+									</div>
+								</div>
 							</div>
-							<div class="form-group">
-								<label for="tlp">No Telepon</label> <input type="text"
-									class="form-control" id="tlp" name="noTelp"
-									th:value="${admin.noTelp}">
+							<br>
+
+							<div class="col-md-6">
+								<div class="custom-file mb-2">
+									<div class="form-group">
+										<label for="tlp">No Telepon</label> <input type="text"
+											class="form-control" id="tlp" name="noTelp"
+											th:value="${admin.noTelp}">
+									</div>
+								</div>
 							</div>
-							<div class="form-group">
-								<label for="tgl">Username</label> <input type="text"
-									class="form-control" id="tgl" name="login.username"
-									th:value="${admin.login.username}">
+							<br>
+							<div class="col-md-6">
+								<div class="custom-file mb-2">
+									<div class="form-group">
+										<label for="tgl">Username</label> <input type="text"
+											class="form-control" id="tgl" name="login.username"
+											th:value="${admin.login.username}">
+									</div>
+								</div>
 							</div>
-							<div class="form-group">
-								<label for="tgl">Password</label> <input type="text"
-									class="form-control" id="tgl" name="login.password"
-									th:value="${admin.login.password}">
+							<br>
+
+							<div class="col-md-6">
+								<div class="custom-file mb-2">
+									<div class="form-group">
+										<label for="tgl">Password</label> <input type="text"
+											class="form-control" id="tgl" name="login.password"
+											th:value="${admin.login.password}">
+									</div>
+								</div>
 							</div>
-							<button type="submit" class="btn btn-primary">Simpan
-								Data</button>
-							<a th:href="@{'/admin/tampil'}" class="btn btn-danger">Kembali</a>
+							<br>
+
+							<div class="col-md-6">
+								<div class="custom-file mb-2">
+									<button type="submit" class="btn btn-primary">Simpan
+										Data</button>
+									<a th:href="@{'/admin/tampil'}" class="btn btn-danger">Kembali</a>
+								</div>
+							</div>
 						</form>
 					</div>
 				</div>

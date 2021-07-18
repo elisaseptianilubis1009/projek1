@@ -66,17 +66,27 @@
 								        $("#subTotal").click(function(){
 								        	
 								        	var beratRow=0;
-								        	
+								        	var idx=0;
+								        	var code_cart = [];
+								        	var qty=[];
 								        	indexGlobal.forEach(function(item,index){
 								        		var q = $('#q'+index).val();
 								        		var cq = $('#cq'+index);
 								        		console.log("quantity====== :"+JSON.stringify(q));
 								        		console.log("check box====== :"+JSON.stringify(cq))
 								        		if(cq.is(':checked')){
+								        			
+								        			
 								        			sum+= parseInt(hargaJualGlobal[index])*parseInt(q);	
 								        			beratRow=parseInt(q)*parseInt(beratGlobal[index]);
 								        			ttlBerat+=beratRow;
 								        			console.log("Total Beart :"+ttlBerat);
+								        			
+								        			code_cart.push($('#cq'+index).val());
+								        			qty.push($('#q'+index).val());
+								        			alert("code_cart : "+code_cart[idx]);
+								        			alert("qty_cart : "+qty[idx]);
+								        			idx++;
 								        		}else{
 								        			console.log('off');
 								        		}	
@@ -85,7 +95,23 @@
 								        	
 								        	$('#subResult').html('Rp. '+sum);
 								        	$('#totalBerat').html(ttlBerat+' gram')
-//								           console.log(sum);
+								        	
+								        	
+								      
+								            
+								            var url ='http://localhost:9099/api/cart/savePesanan'
+								            	$.ajax({
+								            		  type: "POST",
+								            		  url: url,
+								            		  //data: JSON.stringify({code_cart,qty}),
+								            		  data: JSON.stringify(code_cart,qty),
+								            		  success: function(data){
+								            			
+								            					
+								            		  },
+								            		  contentType: "application/json",
+								            		  //dataType: 'json'
+								            		});
 								        });
 								    });
 
@@ -94,6 +120,8 @@
 		            					//window.location.href = document.getElementById('ololo').href;
 		            					window.location.href = '/cart/checkout?totalBerat='+ttlBerat+'&subTotal='+sum;
 		    						}
+			                        
+			                        
                                     function getAllCartByUser(){
                                         var content = '';
                                         var no=1;
@@ -116,7 +144,7 @@
                                                         	'value='+defaulQ+'>'+'</td>'+
                                                         '<td style="text-align :center;">'+'<input type="checkbox"'+
                                                             'name="check" id=cq'+index+' ' +
-                                                            '>'+'</td>'+
+                                                            'value='+item.kode+'>'+'</td>'+
                                                         '<td style="text-align :center;">'+'<i style="background-color: lavender;"'+
                                                         	'class="fas fa-times" '+
                                                         	'title="Remove"></i>'+'</td>'+
@@ -165,21 +193,14 @@
                 <div class="col-lg-4 col-sm-12">
                     <div class="order-box">
                         <h3>Order summary</h3>
-                        <div class="d-flex">
-                            <h4>Sub Total</h4>
-                            <div class="ml-auto font-weight-bold" id="subResult"></div>
-                        </div>
+                        
                         <div class="d-flex">
                             <h4>Total Berat</h4>
                             <div class="ml-auto font-weight-bold" id="totalBerat"></div>
                         </div>
-                        <hr class="my-1">
-                       
-                        
-                        <hr>
                         <div class="d-flex gr-total">
                             <h5>Grand Total</h5>
-                            <div class="ml-auto h5"> $ [[${grandTotal}]] </div>
+                            <div class="ml-auto h5" id="subResult"> $ [[${grandTotal}]] </div>
                         </div>
                         <hr> </div>
                 </div>

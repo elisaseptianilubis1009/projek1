@@ -113,7 +113,7 @@
 								            $.each($("input[name='check']:checked"), function(){
 								                code_produk.push($(this).val());
 								            });
-								            console.log(JSON.stringify(code_produk));
+								            console.log('CODE PRODUK_________: '+JSON.stringify(code_produk));
 								            
 								            var url ='http://localhost:9099/api/cart/saveCart'
 								            	$.ajax({

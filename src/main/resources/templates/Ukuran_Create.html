@@ -4,77 +4,90 @@
 
 
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+	<div class="wrapper">
 
-<!-- Navbar -->
-<nav th:replace="index::navv"></nav>
-<!-- /.navbar -->
+		<!-- Navbar -->
+		<nav th:replace="index::navv"></nav>
+		<!-- /.navbar -->
 
-<aside th:replace="index::sidebar" ></aside>
+		<aside th:replace="index::sidebar"></aside>
 
-  <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
-<div class="container"> 
-        <div class="ror"> 
-          <div class="col-8"> 
-            <h1 class="mt-3">Tambah Data Ukuran</h1>             
-              <form method="post" action="/ukuran/save">
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</div>
+			<!-- /.content-header -->
+			<!-- Main content -->
+			<div class="container">
+				<div class="ror">
+					<div class="col-8">
+						<h3 class="mt-3">Ubah Kategori Ukuran</h3>
+						<form method="post" action="/ukuran/save">
 
-             
-                 <div class="form-group">
-                      <input type="hidden" class="form-control" id="id"  name="kode" th:value="${ukuran.kode}">
-                </div>
-                              
-                <div class="form-group">
-                     <label for="rasa">Ukuran Produk</label>
-                      <input type="text" class="form-control" id="rasa"  name="namaUkuran" th:value="${ukuran.namaUkuran}">
-                </div>  
 
-                 <div class="form-group">
-                     <label for="rasa">Berat Produk</label>
-                      <input type="text" class="form-control" id="rasa"  name="berat" th:value="${ukuran.berat}">
-                </div>                 
-				                
-                <button type="submit" class="btn btn-primary">Simpan Data</button>
-                <a th:href="@{'/ukuran/tampil'}"  class="btn btn-danger">Kembali</a>
-              </form>
-          </div>
-        </div>
-    </div>                
+							<div class="form-group">
+								<input type="hidden" class="form-control" id="id" name="kode"
+									th:value="${ukuran.kode}">
+							</div>
 
-  </div>
-  <!-- /.content-wrapper -->
-  
-  
-  
-  <footer th:replace="index::foot" class="main-footer"></footer>
+							<div class="col-md-6">
+								<div class="custom-file mb-2">
+									<div class="form-group">
+										<label for="rasa">Ukuran Produk</label> <input type="text"
+											class="form-control" id="rasa" name="namaUkuran"
+											th:value="${ukuran.namaUkuran}">
+									</div>
+								</div>
+							</div>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+							<br>
+							<div class="col-md-6">
+								<div class="custom-file mb-2">
+									<div class="form-group">
+										<label for="rasa">Berat Produk</label> <input type="text"
+											class="form-control" id="rasa" name="berat"
+											th:value="${ukuran.berat}">
+									</div>
+								</div>
+							</div>
 
-<div th:replace="index::js"></div>
+							<br>
+							<div class="col-md-6">
+								<div class="custom-file mb-2">
+									<button type="submit" class="btn btn-primary">Simpan
+										Data</button>
+									<a th:href="@{'/ukuran/tampil'}" class="btn btn-danger">Kembali</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /.content-wrapper -->
+
+
+
+		<footer th:replace="index::foot" class="main-footer"></footer>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+
+	<div th:replace="index::js"></div>
 </body>
 </html>

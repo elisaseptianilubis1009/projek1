@@ -1,7 +1,5 @@
 package com.tugasakhir.projek1.model;
 
-import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,10 +11,8 @@ public class ProdukKeluar {
 	
 	private Long kode;
 	private Produk produk;
-	private Date tglKeluar;
-	private Integer jumlahProdukKeluar;
-	private Integer subtotal;
-	private Pesanan pesanan;
+	private Integer quantity;
+	private boolean confirm;
 
 	
 	@Id 
@@ -28,43 +24,25 @@ public class ProdukKeluar {
 		this.kode = kode;
 	}
 	
-	@ManyToOne
-	public Produk getProduk() {
-		return produk;
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 	public void setProduk(Produk produk) {
 		this.produk = produk;
 	}
-	public Date getTglKeluar() {
-		return tglKeluar;
-	}
-	public void setTglKeluar(Date tglKeluar) {
-		this.tglKeluar = tglKeluar;
-	}
-	public Integer getJumlahProdukKeluar() {
-		return jumlahProdukKeluar;
-	}
-	public void setJumlahProdukKeluar(Integer jumlahProdukKeluar) {
-		this.jumlahProdukKeluar = jumlahProdukKeluar;
-	}
-	
-	public Integer getSubtotal() {
-		return subtotal;
-	}
-	public void setSubtotal(Integer subtotal) {
-		this.subtotal = subtotal;
-	}
-	
 	@ManyToOne
-	public Pesanan getPesanan() {
-		return pesanan;
+	public Produk getProduk() {
+		return produk;
 	}
-	public void setPesanan(Pesanan pesanan) {
-		this.pesanan = pesanan;
+	public boolean isConfirm() {
+		return confirm;
 	}
-	
-	
-	
-	
+	public void setConfirm(boolean confirm) {
+		this.confirm = confirm;
+	}
+
 	
 }

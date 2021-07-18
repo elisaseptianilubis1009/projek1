@@ -27,7 +27,7 @@
 				<div class="container">
 					<div class="ror">
 						<div class="col-8">
-							<h1 class="mt-3">Form Add and Update Rasa Produk</h1>
+							<h1 class="mt-3">Ubah Kategori Rasa </h1>
 							<form method="post" action="/rasa/save"
 								enctype="multipart/form-data">
 								<!-- <input type="hidden" th:name="${_csrf.parameterName}"
@@ -37,25 +37,35 @@
 									<input type="hidden" class="form-control" id="id" name="kode"
 										th:value="${rasa.kode}">
 								</div>
-
-								<div class="form-group">
-									<label for="rasa">Rasa Produk</label> <input type="text"
-										class="form-control" id="rasa" name="namaRasa"
-										th:value="${rasa.namaRasa}">
-								</div>
-
-								<div class="form-group">
+								<div class="col-md-6">
 									<div class="custom-file mb-2">
-										<label for="customFile">Tambah Gambar</label><br> <input
-											type="file" name="pfile" class="custom-file" id="customFile"
-											th:value="${rasa.gambar}">
+										<div class="form-group">
+											<label for="rasa">Rasa Produk</label> <input type="text"
+												class="form-control" id="rasa" name="namaRasa"
+												th:value="${rasa.namaRasa}">
+										</div>
 									</div>
 								</div>
-
-
-								<button type="submit" class="btn btn-primary">Simpan
-									Data</button>
-								<a th:href="@{'/rasa/tampil'}" class="btn btn-danger">Kembali</a>
+								<br>
+								<div class="col-md-6">
+									<div class="custom-file mb-2">
+										<div class="form-group">
+											<div class="custom-file mb-2">
+												<label for="customFile">Tambah Gambar</label><br> <input
+													type="file" name="pfile" class="custom-file"
+													id="customFile" th:value="${rasa.gambar}">
+											</div>
+										</div>
+									</div>
+								</div>
+								<br>
+								<div class="col-md-6">
+									<div class="custom-file mb-2">
+										<button type="submit" class="btn btn-primary">Simpan
+											Data</button>
+										<a th:href="@{'/rasa/tampil'}" class="btn btn-danger">Kembali</a>
+									</div>
+								</div>
 							</form>
 						</div>
 					</div>

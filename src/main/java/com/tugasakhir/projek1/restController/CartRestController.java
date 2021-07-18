@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tugasakhir.projek1.model.Cart;
 import com.tugasakhir.projek1.model.Login;
@@ -62,10 +63,10 @@ public class CartRestController {
 
 	@Autowired
 	ProdukRepository produkRepo;
-	
+
 	@Autowired
 	private ProdukMasukRepository produkMasukRepository;
-	
+
 	@Autowired
 	private ProdukKeluarRepository produkKeluarRepository;
 
@@ -73,7 +74,7 @@ public class CartRestController {
 	RasaRepository rr;
 	@Autowired
 	private ProdukService produkService;
-	
+
 	@Autowired
 	private RestTemplate restTemplate;
 
@@ -92,39 +93,39 @@ public class CartRestController {
 	public List<Produk> allAproduk() {
 		return produkService.findAllProduk();
 	}
-	
+
 	@GetMapping("/getProduk/{rasa}")
 	public List<Produk> allAprodukByRasa(@PathVariable("rasa") Long rasa) {
 		Rasa r = rr.findById(rasa).orElse(null);
 		List<Produk> listP = produkService.findAllProdukByRasa(r);
-		for(Produk p: listP) {
+		for (Produk p : listP) {
 			List<ProdukMasuk> list = produkMasukRepository.findAllByProduk(p);
 			List<ProdukKeluar> listProdukKeluar = produkKeluarRepository.findAllByProduk(p);
 			Integer stok = 0;
-			for(ProdukMasuk pm:list) {
-				stok+=pm.getJumlahProdukMasuk();
+			for (ProdukMasuk pm : list) {
+				stok += pm.getJumlahProdukMasuk();
 			}
-			for(ProdukKeluar pk:listProdukKeluar) {
-				stok-=pk.getJumlahProdukKeluar();
+			for (ProdukKeluar pk : listProdukKeluar) {
+				stok -= pk.getQuantity();
 			}
 			p.setStok(stok);
 		}
 		return listP;
 	}
-	
+
 	@GetMapping("/getCart/{username}")
 	public List<Cart> allCartByUser(@PathVariable("username") String username) {
 
-		Optional<Login> lg=lr.findByUsername(username);
+		Optional<Login> lg = lr.findByUsername(username);
 		Pembeli pl = pr.findByLogin(lg.get()).orElse(null);
 		List<Cart> listCart = cartService.findAllCartByUser(pl);
-		
+
 		return listCart;
 	}
 
 	@RequestMapping(value = "/saveCart", method = RequestMethod.POST)
 	public String saveCart(@RequestBody List<Long> produkId, Principal p) {
-		System.out.println("=====" + produkId);
+		System.out.println("===== Produk Id _____:" + produkId);
 		List<Cart> list = new ArrayList<>();
 		for (Long id : produkId) {
 			System.out.println("ID 1 =" + id);
@@ -134,7 +135,7 @@ public class CartRestController {
 			System.out.println("Id User yang login:" + Userlogin.getId());// berhasil
 
 			Pembeli pembeli = pr.findByLogin(Userlogin).get();
-			System.out.println("Id Pembeli yang login :" + pembeli.getId());// dapat kok
+//			System.out.println("Id Pembeli yang login :" + pembeli.getId());// dapat kok
 			System.out.println("ID 2 =" + id);
 
 			Produk produk = produkRepo.findById(id).orElse(null);
@@ -152,90 +153,147 @@ public class CartRestController {
 		return "Success save produk";
 	}
 
+//	@RequestBody List<Integer> quantity,
+	@RequestMapping(value = "/savePesanan", method = RequestMethod.POST)
+	public String savePesanan(@RequestBody List<Long> cartId, @RequestBody List<Integer> quantity, Principal p) {
+
+		List<ProdukKeluar> list = new ArrayList<>();
+		for (Long id : cartId) {
+			ProdukKeluar produkKeluar = new ProdukKeluar();
+
+			for (Integer qty : quantity) {
+				produkKeluar.setQuantity(qty);
+				System.out.println("cartQty___: " + qty);
+			}
+			Cart cart = crRepo.findById(id).orElse(null);
+			System.out.println("cartId___: " + id);
+			produkKeluar.setConfirm(false);
+			produkKeluar.setProduk(cart.getProduk());
+
+			list.add(produkKeluar);
+
+		}
+		System.out.println("Success : " + list);
+		produkKeluarRepository.saveAll(list);
+		return "Success save produkKeluar";
+	}
+
 	@GetMapping("/city")
 	public ResponseEntity<String> province() {
 		RestTemplate restTemplate = new RestTemplate();
-	     
+
 		final String baseUrl = "https://api.rajaongkir.com/starter/city";
-		URI uri=null;
+		URI uri = null;
 		try {
 			uri = new URI(baseUrl);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		     
+
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("key", "2fb78e4fd381c4f967b1f4a1b9a1dfd3");  
-		 
+		headers.set("key", "2fb78e4fd381c4f967b1f4a1b9a1dfd3");
+
 		HttpEntity<?> requestEntity = new HttpEntity<>(null, headers);
-		 
+
 		ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, String.class);
-		  
+
 		return result;
 	}
-	
+
 	@PostMapping("/cost")
 	public ResponseEntity<String> cost(@RequestBody CostRequestDto request) {
 		RestTemplate restTemplate = new RestTemplate();
-	    System.out.println("Req++++++++++++++++:"+request);
+		System.out.println("Req++++++++++++++++:" + request);
 		final String baseUrl = "https://api.rajaongkir.com/starter/cost";
-		URI uri=null;
+		URI uri = null;
 		try {
 			uri = new URI(baseUrl);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("key", "2fb78e4fd381c4f967b1f4a1b9a1dfd3");  
-		 
+		headers.set("key", "2fb78e4fd381c4f967b1f4a1b9a1dfd3");
+
 		HttpEntity<?> requestEntity = new HttpEntity<>(request, headers);
-		 
-		ResponseEntity<String> result = restTemplate.postForEntity(uri,  requestEntity, String.class);
-		  
+
+		ResponseEntity<String> result = restTemplate.postForEntity(uri, requestEntity, String.class);
+
 		return result;
 	}
-	
-	
+
 	@RequestMapping(value = "/subTotal", method = RequestMethod.POST)
-	public String subTotal(@RequestBody List<TotalRequestDto> request,Principal principal) {
-	
+	public String subTotal(@RequestBody List<TotalRequestDto> request, Principal principal) {
+
 		List<Cart> list = new ArrayList<>();
 		Integer sum = 0;
 		for (TotalRequestDto req : request) {
 			Cart c = crRepo.findById(req.getCode()).orElse(null);
-			int total = c.getProduk().getHargaJual()*req.getQuantity();
-			sum += total;			
+			int total = c.getProduk().getHargaJual() * req.getQuantity();
+			sum += total;
 		}
 		System.out.println("Success : " + list);
-		return "Sub Total : "+sum;
+		return "Sub Total : " + sum;
 	}
 
 	@PostMapping("/transaction")
 	public ResponseEntity<TransactionResponseDto> orderRequest(@RequestBody OrderRequestDto request) {
 		RestTemplate restTemplate = new RestTemplate();
+
 		final String baseUrl = "https://app.sandbox.midtrans.com/snap/v1/transactions";
-		URI uri=null;
+
+		URI uri = null;
 		try {
 			uri = new URI(baseUrl);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "Basic U0ItTWlkLXNlcnZlci0ya0ViNGFEeXpkdG1uTlo4bVdlNEV1NzM6");  
-		headers.set("Accept", "application/json");  
-		headers.set("Content-Type", "application/json");  
-		 
+		headers.set("Authorization", "Basic U0ItTWlkLXNlcnZlci0ya0ViNGFEeXpkdG1uTlo4bVdlNEV1NzM6");
+		headers.set("Accept", "application/json");
+		headers.set("Content-Type", "application/json");
 		HttpEntity<?> requestEntity = new HttpEntity<>(request, headers);
-		 
-		ResponseEntity<TransactionResponseDto> result = restTemplate.postForEntity(uri,  requestEntity, TransactionResponseDto.class);
-		  
+
+		ResponseEntity<TransactionResponseDto> result = restTemplate.postForEntity(uri, requestEntity,
+				TransactionResponseDto.class);
+
 		return result;
 	}
-	
+
+	@GetMapping("/statusOrder")
+	public ResponseEntity<TransactionStatusResponseDto> statusRequest(@RequestParam("orderId") String orderId) {
+		RestTemplate restTemplate = new RestTemplate();
+		System.out.println("SYOUT ORDER ID  : " + orderId);
+		final String baseUrl = "https://api.sandbox.midtrans.com/v2/" + orderId + "/status";
+
+		URI uri = null;
+		try {
+			uri = new URI(baseUrl);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Basic U0ItTWlkLXNlcnZlci0ya0ViNGFEeXpkdG1uTlo4bVdlNEV1NzM6");
+		headers.set("Accept", "application/json");
+		headers.set("Content-Type", "application/json");
+//		Map<String, String> params = new HashMap<String, String>();
+//		params.put(String orderId);
+		HttpEntity<?> requestEntity = new HttpEntity<>( headers);
+
+		//System.out.println("REQUEST_ENTITY :" + requestEntity);
+//		ResponseEntity<TransactionStatusResponseDto> result = restTemplate.postForEntity(uri, requestEntity,
+//				TransactionStatusResponseDto.class);
+		ResponseEntity<TransactionStatusResponseDto> result = restTemplate.exchange(
+                uri,
+                HttpMethod.GET,
+                requestEntity,
+                TransactionStatusResponseDto.class
+        );
+		return result;
+	}
 
 }

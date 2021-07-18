@@ -12,12 +12,13 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Pesanan {
 	private Long kode;
-	private Pembeli pelanggan;
-	private Produk produk;
-	private Integer jumlahPesanan;
-	private Integer totalBayar;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String noTelepon;
+	private String alamat;
+	private Integer totalPesanan;
 	private Date tglPesan;
-	private Date tglBayar;
 	private String token;
 	private boolean confirm;
 	
@@ -29,46 +30,14 @@ public class Pesanan {
 	public void setKode(Long kode) {
 		this.kode = kode;
 	}
-	@ManyToOne
-	@JoinColumn(name="pelanggan")
-	public Pembeli getPelanggan() {
-		return pelanggan;
-	}
-	public void setPelanggan(Pembeli pelanggan) {
-		this.pelanggan = pelanggan;
-	}
-	@ManyToOne
-	@JoinColumn(name="produk")
-	public Produk getProduk() {
-		return produk;
-	}
-	public void setProduk(Produk produk) {
-		this.produk = produk;
-	}
-	public Integer getJumlahPesanan() {
-		return jumlahPesanan;
-	}
-	public void setJumlahPesanan(Integer jumlahPesanan) {
-		this.jumlahPesanan = jumlahPesanan;
-	}
-	public Integer getTotalBayar() {
-		return totalBayar;
-	}
-	public void setTotalBayar(Integer totalBayar) {
-		this.totalBayar = totalBayar;
-	}
+	
 	public Date getTglPesan() {
 		return tglPesan;
 	}
 	public void setTglPesan(Date tglPesan) {
 		this.tglPesan = tglPesan;
 	}
-	public Date getTglBayar() {
-		return tglBayar;
-	}
-	public void setTglBayar(Date tglBayar) {
-		this.tglBayar = tglBayar;
-	}
+	
 	public boolean isConfirm() {
 		return confirm;
 	}
@@ -80,6 +49,42 @@ public class Pesanan {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getNoTelepon() {
+		return noTelepon;
+	}
+	public void setNoTelepon(String noTelepon) {
+		this.noTelepon = noTelepon;
+	}
+	public String getAlamat() {
+		return alamat;
+	}
+	public void setAlamat(String alamat) {
+		this.alamat = alamat;
+	}
+	public Integer getTotalPesanan() {
+		return totalPesanan;
+	}
+	public void setTotalPesanan(Integer totalPesanan) {
+		this.totalPesanan = totalPesanan;
 	}
 	
 	

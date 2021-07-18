@@ -2,81 +2,101 @@
 <html lang="en">
 <head th:replace="index::head"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
-	<!-- Navbar -->
-	<nav th:replace="index::navv"></nav>
-	<!-- /.navbar -->
+	<div class="wrapper">
+		<!-- Navbar -->
+		<nav th:replace="index::navv"></nav>
+		<!-- /.navbar -->
 
-	<aside th:replace="index::sidebar" ></aside>
-	
-	  <!-- Content Wrapper. Contains page content -->
-	    <div class="content-wrapper">
-		    <!-- Content Header (Page header) -->
-		    <div class="content-header">
-		      <div class="container-fluid">
-		        <div class="row mb-2">
-		          <div class="col-sm-6">
-		            <h1 class="m-0 text-dark">Dashboard</h1>
-		          </div><!-- /.col -->
-		          <div class="col-sm-6">
-		            <ol class="breadcrumb float-sm-right">
-		              <li class="breadcrumb-item"><a href="#">Home</a></li>
-		              <li class="breadcrumb-item active">Dashboard v1</li>
-		            </ol>
-		          </div><!-- /.col -->
-		        </div><!-- /.row -->
-		      </div><!-- /.container-fluid -->
-		    </div>
-		    <!-- /.content-header -->
-		    <!-- Main content -->
-		<div class="container"> 
-		        <div class="ror"> 
-		          <div class="col-8"> 
-		            <center><h1 class="mt-3">Kelola Produk Masuk</h1></center>             
-		              <form method="post" action="/produkMasuk/save" enctype="multipart/form-data">
-		                 <!-- <input 
+		<aside th:replace="index::sidebar"></aside>
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2"></div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</div>
+			<!-- /.content-header -->
+			<!-- Main content -->
+			<div class="container">
+				<div class="ror">
+					<div class="col-8">
+						
+							<h3 class="mt-3">Ubah Produk Masuk</h3>
+						<br>
+						<form method="post" action="/produkMasuk/save"
+							enctype="multipart/form-data">
+							<!-- <input 
 		                  type="hidden" 
 		                  th:name="${_csrf.parameterName}"
 		                  th:value="${_csrf.token}" /> -->
-		                    
-		                <div class="form-group">
-		                     <input type="hidden" th class="form-control" id="id"  name="kode" th:value="${produkMasuk.kode}">
-		              
-		                     <label for="nama">Kode Produk</label>
-		                     <!-- <input type="text" class="form-control" id="nama" placeholder="Kode Produk" name="produk" th:value="${produkMasuk.produk.kode}"> -->
-		                
-		                	 <select name="produk" class="form-control">
-		                      		<option  th:each="row :${produk}" th:value="${row.kode}" th:text="${row.namaProduk}"></option>
-		                     </select>
-		                     <label for="hrg">Jumlah</label>
-		                     <input type="text" class="form-control" id="hrg" placeholder="Jumlah Produk" name="jumlahProdukMasuk" th:value="${produkMasuk.jumlahProdukMasuk}">
-		              
-		                     <label for="stok">Tanggal Masuk</label>
-		                     <input type="date" class="form-control" id="stok" placeholder="Tanggal" name="tglMasuk" th:value="${produkMasuk.tglMasuk}">
-		                
-		                	 <label for="stok">Tanggal Expayed</label>
-		                     <input type="date" class="form-control" id="stok" placeholder="Expayed" name="expayed" th:value="${produkMasuk.expayed}">
-		                	
-		                  </div>
 
-		                <button type="submit" class="btn btn-primary">Save</button>
-		                <a th:href="@{'/produkMasuk/tampil'}"  class="btn btn-danger">Kembali</a>
-		              </form>
-		          </div>
-		        </div>
-		    </div>                  
-	  </div>
-  <!-- /.content-wrapper -->
-  
-  
-  
-	  <footer th:replace="index::foot" class="main-footer"></footer>
-	  <aside class="control-sidebar control-sidebar-dark">
-	  </aside>
-	  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+							<div class="form-group">
+								<input type="hidden" th class="form-control" id="id" name="kode"
+									th:value="${produkMasuk.kode}">
 
-<div th:replace="index::js"></div>
+								<div class="col-md-6">
+									<div class="custom-file mb-2">
+										<label for="nama">Kode Produk</label>
+										<!-- <input type="text" class="form-control" id="nama" placeholder="Kode Produk" name="produk" th:value="${produkMasuk.produk.kode}"> -->
+
+										<select name="produk" class="form-control">
+											<option th:each="row :${produk}" th:value="${row.kode}"
+												th:text="${row.namaProduk}"></option>
+										</select>
+									</div>
+								</div>
+								<br>
+								<div class="col-md-6">
+									<div class="custom-file mb-2">
+										<label for="hrg">Jumlah</label> <input type="text"
+											class="form-control" id="hrg" placeholder="Jumlah Produk"
+											name="jumlahProdukMasuk"
+											th:value="${produkMasuk.jumlahProdukMasuk}">
+									</div>
+								</div>
+								<br>
+								<div class="col-md-6">
+									<div class="custom-file mb-2">
+										<label for="stok">Tanggal Masuk</label> <input type="date"
+											class="form-control" id="stok" placeholder="Tanggal"
+											name="tglMasuk" th:value="${produkMasuk.tglMasuk}">
+									</div>
+								</div>
+
+								<br>
+								<div class="col-md-6">
+									<div class="custom-file mb-2">
+										<label for="stok">Tanggal Expayed</label> <input type="date"
+											class="form-control" id="stok" placeholder="Expayed"
+											name="expayed" th:value="${produkMasuk.expayed}">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="custom-file mb-2">
+									<button type="submit" class="btn btn-primary">Save</button>
+									<a th:href="@{'/produkMasuk/tampil'}" class="btn btn-danger">Kembali</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.content-wrapper -->
+
+
+
+		<footer th:replace="index::foot" class="main-footer"></footer>
+		<aside class="control-sidebar control-sidebar-dark"></aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+
+	<div th:replace="index::js"></div>
 </body>
 </html>
