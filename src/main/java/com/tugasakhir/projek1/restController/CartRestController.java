@@ -66,9 +66,11 @@ public class CartRestController {
 
 	@Autowired
 	private ProdukMasukRepository produkMasukRepository;
-
+	
 	@Autowired
 	private ProdukKeluarRepository produkKeluarRepository;
+
+	
 
 	@Autowired
 	RasaRepository rr;
@@ -153,30 +155,7 @@ public class CartRestController {
 		return "Success save produk";
 	}
 
-//	@RequestBody List<Integer> quantity,
-	@RequestMapping(value = "/savePesanan", method = RequestMethod.POST)
-	public String savePesanan(@RequestBody List<Long> cartId, @RequestBody List<Integer> quantity, Principal p) {
 
-		List<ProdukKeluar> list = new ArrayList<>();
-		for (Long id : cartId) {
-			ProdukKeluar produkKeluar = new ProdukKeluar();
-
-			for (Integer qty : quantity) {
-				produkKeluar.setQuantity(qty);
-				System.out.println("cartQty___: " + qty);
-			}
-			Cart cart = crRepo.findById(id).orElse(null);
-			System.out.println("cartId___: " + id);
-			produkKeluar.setConfirm(false);
-			produkKeluar.setProduk(cart.getProduk());
-
-			list.add(produkKeluar);
-
-		}
-		System.out.println("Success : " + list);
-		produkKeluarRepository.saveAll(list);
-		return "Success save produkKeluar";
-	}
 
 	@GetMapping("/city")
 	public ResponseEntity<String> province() {
@@ -267,33 +246,34 @@ public class CartRestController {
 	public ResponseEntity<TransactionStatusResponseDto> statusRequest(@RequestParam("orderId") String orderId) {
 		RestTemplate restTemplate = new RestTemplate();
 		System.out.println("SYOUT ORDER ID  : " + orderId);
-		final String baseUrl = "https://api.sandbox.midtrans.com/v2/" + orderId + "/status";
+		final String baseUrl = "https://api.sandbox.midtrans.com/v2/"+orderId+"/status";
 
 		URI uri = null;
 		try {
 			uri = new URI(baseUrl);
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Basic U0ItTWlkLXNlcnZlci0ya0ViNGFEeXpkdG1uTlo4bVdlNEV1NzM6");
 		headers.set("Accept", "application/json");
 		headers.set("Content-Type", "application/json");
-//		Map<String, String> params = new HashMap<String, String>();
-//		params.put(String orderId);
 		HttpEntity<?> requestEntity = new HttpEntity<>( headers);
-
-		//System.out.println("REQUEST_ENTITY :" + requestEntity);
-//		ResponseEntity<TransactionStatusResponseDto> result = restTemplate.postForEntity(uri, requestEntity,
-//				TransactionStatusResponseDto.class);
-		ResponseEntity<TransactionStatusResponseDto> result = restTemplate.exchange(
-                uri,
-                HttpMethod.GET,
-                requestEntity,
-                TransactionStatusResponseDto.class
-        );
-		return result;
+		try {
+			ResponseEntity<TransactionStatusResponseDto> result = restTemplate.exchange(
+	                uri,
+	                HttpMethod.GET,
+	                requestEntity,
+	                TransactionStatusResponseDto.class
+	        );	
+			return result;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+			// TODO: handle exception
+		}
+		
+		
 	}
 
 }

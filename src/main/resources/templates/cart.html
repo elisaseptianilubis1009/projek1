@@ -97,25 +97,25 @@
 								        	$('#totalBerat').html(ttlBerat+' gram')
 								        	
 								        	
-								      
-								            
-								            var url ='http://localhost:9099/api/cart/savePesanan'
+								      //Save Pesanan
+								      		var req = {};
+								        	req['cartId'] = code_cart;
+								        	req['quantity'] = qty;
+								        	console.log("Request Produk keluar____: "+JSON.stringify(req));
+								            var url ='http://localhost:9099/api/pesanan/savePesanan'
 								            	$.ajax({
 								            		  type: "POST",
 								            		  url: url,
-								            		  //data: JSON.stringify({code_cart,qty}),
-								            		  data: JSON.stringify(code_cart,qty),
-								            		  success: function(data){
-								            			
-								            					
+								            		  data: JSON.stringify(req),
+								            		  success: function(data){			
 								            		  },
 								            		  contentType: "application/json",
-								            		  //dataType: 'json'
 								            		});
 								        });
 								    });
 
 			                        function somescript() {
+			                        	
 			                        	var a=100;
 		            					//window.location.href = document.getElementById('ololo').href;
 		            					window.location.href = '/cart/checkout?totalBerat='+ttlBerat+'&subTotal='+sum;
