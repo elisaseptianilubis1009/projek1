@@ -17,10 +17,10 @@ public class Pesanan {
 	private String email;
 	private String noTelepon;
 	private String alamat;
-	private Integer totalPesanan;
-	private Date tglPesan;
-	private String token;
-	private boolean confirm;
+	private String totalPesanan;
+	private String tglPesan;
+	private String orderId;
+	private String statusTransaction;
 	
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -31,24 +31,19 @@ public class Pesanan {
 		this.kode = kode;
 	}
 	
-	public Date getTglPesan() {
+	
+	public String getTglPesan() {
 		return tglPesan;
 	}
-	public void setTglPesan(Date tglPesan) {
+	public void setTglPesan(String tglPesan) {
 		this.tglPesan = tglPesan;
 	}
 	
-	public boolean isConfirm() {
-		return confirm;
+	public String getOrderId() {
+		return orderId;
 	}
-	public void setConfirm(boolean confirm) {
-		this.confirm = confirm;
-	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -80,12 +75,19 @@ public class Pesanan {
 	public void setAlamat(String alamat) {
 		this.alamat = alamat;
 	}
-	public Integer getTotalPesanan() {
+	public String getTotalPesanan() {
 		return totalPesanan;
 	}
-	public void setTotalPesanan(Integer totalPesanan) {
+	public void setTotalPesanan(String totalPesanan) {
 		this.totalPesanan = totalPesanan;
 	}
+	public String getStatusTransaction() {
+		return statusTransaction;
+	}
+	public void setStatusTransaction(String statusTransaction) {
+		this.statusTransaction = statusTransaction;
+	}
+	
 	
 	
 	

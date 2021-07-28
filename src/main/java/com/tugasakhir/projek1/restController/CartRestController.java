@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tugasakhir.projek1.model.Cart;
 import com.tugasakhir.projek1.model.Login;
 import com.tugasakhir.projek1.model.Pembeli;
+import com.tugasakhir.projek1.model.Pesanan;
 import com.tugasakhir.projek1.model.Produk;
 import com.tugasakhir.projek1.model.ProdukKeluar;
 import com.tugasakhir.projek1.model.ProdukMasuk;
@@ -38,6 +39,7 @@ import com.tugasakhir.projek1.model.Rasa;
 import com.tugasakhir.projek1.repository.CartRepository;
 import com.tugasakhir.projek1.repository.LoginRepository;
 import com.tugasakhir.projek1.repository.PembeliRepository;
+import com.tugasakhir.projek1.repository.PesananRepository;
 import com.tugasakhir.projek1.repository.ProdukKeluarRepository;
 import com.tugasakhir.projek1.repository.ProdukMasukRepository;
 import com.tugasakhir.projek1.repository.ProdukRepository;
@@ -54,6 +56,9 @@ public class CartRestController {
 
 	@Autowired
 	CartRepository crRepo;
+	
+	@Autowired
+	PesananRepository pesananRepository;
 
 	@Autowired
 	LoginRepository lr;
@@ -243,7 +248,7 @@ public class CartRestController {
 	}
 
 	@GetMapping("/statusOrder")
-	public ResponseEntity<TransactionStatusResponseDto> statusRequest(@RequestParam("orderId") String orderId) {
+	public ResponseEntity<Object> statusRequest(@RequestParam("orderId") String orderId) {
 		RestTemplate restTemplate = new RestTemplate();
 		System.out.println("SYOUT ORDER ID  : " + orderId);
 		final String baseUrl = "https://api.sandbox.midtrans.com/v2/"+orderId+"/status";
@@ -260,11 +265,11 @@ public class CartRestController {
 		headers.set("Content-Type", "application/json");
 		HttpEntity<?> requestEntity = new HttpEntity<>( headers);
 		try {
-			ResponseEntity<TransactionStatusResponseDto> result = restTemplate.exchange(
+			ResponseEntity<Object> result = restTemplate.exchange(
 	                uri,
 	                HttpMethod.GET,
 	                requestEntity,
-	                TransactionStatusResponseDto.class
+	                Object.class
 	        );	
 			return result;
 		} catch (Exception e) {
@@ -272,6 +277,42 @@ public class CartRestController {
 			return null;
 			// TODO: handle exception
 		}
+		
+		
+	}
+	
+	@RequestMapping(value = "/saveStatusOrder", method = RequestMethod.POST)
+	public String saveStatusOrder(@RequestBody SaveStatusRequestDto request, Principal p) {
+		
+			System.out.println("getGross_amount() :"+request.getGross_amount());
+			System.out.println("getTransaction_status() :"+request.getTransaction_status());
+			System.out.println("getTransaction_time() :"+request.getTransaction_time());
+		
+
+			Pesanan pesanan = new Pesanan();
+
+			pesanan.setTotalPesanan(request.getGross_amount());
+			pesanan.setStatusTransaction(request.getTransaction_status());
+			pesanan.setTglPesan(request.getTransaction_time());
+			pesanan.setAlamat(request.getAlamat());
+			pesanan.setEmail(request.getEmail());
+			pesanan.setFirstName(request.getFirs_name());
+			pesanan.setLastName(request.getLast_name());
+			pesanan.setNoTelepon(request.getTelephone());
+			pesanan.setOrderId(request.getOrder_id());
+			
+			 String status="settlement";
+
+		if(pesanan.getStatusTransaction().equals("settlement")) {
+			System.out.println("Masuk if dong");
+			pesananRepository.save(pesanan);
+			return pesanan.getStatusTransaction();
+		}else {
+			System.out.println("Masuk else dong");
+			return pesanan.getStatusTransaction();
+			
+		}
+
 		
 		
 	}

@@ -222,18 +222,15 @@
 							<div class="col-md-12 col-lg-12">
 								<button type="button" id="pesanan"
 									style="background-color: olive; text-align: center; color: white;"
-									class="btn hvr-hover">
-									Buat Pesanan
-								</button>
+									class="btn hvr-hover">Buat Pesanan</button>
 							</div>
-						</div>&nbsp
+						</div>
+						&nbsp
 						<div class="row" style="margin-top: 20px">
 							<div class="col-md-12 col-lg-12">
 								<button type="button" id="cekStatusOrder"
 									style="background-color: olive; text-align: center; color: white;"
-									class="btn hvr-hover">
-									 Saya Sudah Transfer
-								</button>
+									class="btn hvr-hover">Saya Sudah Transfer</button>
 							</div>
 						</div>
 					</div>
@@ -338,7 +335,22 @@
 	var indexGlobal = [];
 	var ongkirGlobal = [];
 	var grandTotal = 0;
-	var orderId;
+	
+	var orderId = 'BCgtNhJBZ';
+	var firsName = 'JUlia Ningsih';
+	var lastName = 'Lubis';
+	var email = 'julianingsih1107@gmail.com';
+	var telephone = '085217279985';
+	var alamat = 'Sidadi II, Kec.Batang Angkola, Kab.Tapsel';
+	
+	/*var orderId;
+	var firsName;
+	var lastName;
+	var email;
+	var telephone;
+	var alamat;*/
+	
+
 	setKotaAsal();
 
 	var getUrlParameter = function getUrlParameter(sParam) {
@@ -507,28 +519,88 @@
 		order();
 
 	})
-	
+
 	$('#cekStatusOrder').click(function() {
 		cekStatusOrder();
 
 	})
-	
+
 	function randomString(length, chars) {
 		var result = '';
 		for (var i = length; i > 0; --i)
 			result += chars[Math.round(Math.random() * (chars.length - 1))];
 		return result;
 	}
-	function cekStatusOrder(){
+	
+	//function saveStatusOrder(){
+		
+	//}
+
+	
+
+	function cekStatusOrder() {
+		
+
 		$.ajax({
-			url : 'http://localhost:9099/api/cart/statusOrder?orderId='+orderId,
+			url : 'http://localhost:9099/api/cart/statusOrder?orderId='
+					+ orderId,
 			type : 'GET',
 			contentType : 'application/json',
+
 			success : function(data) {
 				alert("success");
 				console.log("Data Status======== :" + JSON.stringify(data));
+				
+				
+				
+				
+				var request = {};
+				request['gross_amount'] = data.gross_amount;
+				request['transaction_status'] = data.transaction_status;
+				request['transaction_time'] = data.transaction_time;
+				request['firs_name'] = firsName;
+				request['last_name'] = lastName;
+				request['email'] = email;
+				request['telephone'] = telephone;
+				request['alamat'] = alamat;
+				request['order_id'] = orderId;
+				console.log("Requessttt_______:"+JSON.stringify(request));
+				$.ajax({
+					url : 'http://localhost:9099/api/cart/saveStatusOrder',
+					type : 'POST',
+					data : JSON.stringify(request),
+					contentType : 'application/json',
+
+					success : function(data) {
+						console.log('Cek Status Transaksi Kita :'+JSON.stringify(data))
+						alert("success");
+						if(data =='settlement'){
+							Swal.fire({
+		          				  title:'Transaksi anda berhasil!',
+		      					  text:'You clicked the button!',
+		      					  type:'success'
+		          			  
+		          			  }).then(function(){
+		          				  location.reload();
+		          			  })
+						}else{
+							Swal.fire({
+		          				  title:'Transaksi anda gagal!',
+		      					  text:'Silahkan cek kembali transaksi anda!',
+		      					  type:'error'
+		          			  
+		          			  }).then(function(){
+		          				  location.reload();
+		          			  })
+						}
+						
+
+					},
+
+				});
+
 			},
-		
+
 		});
 	}
 	function order() {
@@ -546,9 +618,19 @@
 		req['customer_details']['email'] = $('#email').val();
 		req['customer_details']['phone'] = $('#telephone').val();
 
-		orderId=req['transaction_details']['order_id'];
-		console.log("ORDER_ID_TAMPUNG :"+orderId);
-		console.log(req);
+		orderId = req['transaction_details']['order_id'];
+		firsName = req['customer_details']['first_name'];
+		lastName = req['customer_details']['last_name'];
+		email = req['customer_details']['email'];
+		telephone = req['customer_details']['phone'];
+		alamat = $('#alamat').val();
+		console.log("ORDER_ID_VARIABEL :" + orderId);
+		console.log("firsName_VARIABEL :" + firsName);
+		console.log("lastName_VARIABEL :" + lastName);
+		console.log("email_VARIABEL :" + email);
+		console.log("telephone_VARIABEL :" + telephone);
+		console.log("alamat_VARIABEL :" + alamat);
+		
 		$.ajax({
 			url : 'http://localhost:9099/api/cart/transaction',
 			type : 'POST',
@@ -556,11 +638,10 @@
 			contentType : 'application/json',
 			success : function(data) {
 				alert("Masuk transaksi dong");
-				console.log("Data_TOKEN======== :" + JSON.stringify(data.token));
+				console.log("Data_TOKEN======== :"+ JSON.stringify(data.token));
 				console.log("Data======== :" + JSON.stringify(data));
-				
 				window.open(data.redirect_url, '_blank')
-				
+
 			}
 		});
 	}
