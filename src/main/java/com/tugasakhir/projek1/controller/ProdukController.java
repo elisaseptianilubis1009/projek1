@@ -107,7 +107,10 @@ public class ProdukController {
 				stok+=pm.getJumlahProdukMasuk();
 			}
 			for(ProdukKeluar pk:listProdukKeluar) {
-				stok-=pk.getQuantity();
+				if(pk.isStatus()) {
+					stok-=pk.getQuantity();
+				}
+				
 			}
 			p.setStok(stok);
 		}
