@@ -21,6 +21,8 @@ public class Pesanan {
 	private String tglPesan;
 	private String orderId;
 	private String statusTransaction;
+	private String statusConfirmation;
+	private String color;
 	
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -86,6 +88,18 @@ public class Pesanan {
 	}
 	public void setStatusTransaction(String statusTransaction) {
 		this.statusTransaction = statusTransaction;
+	}
+	public String getStatusConfirmation() {
+		return statusConfirmation;
+	}
+	public void setStatusConfirmation(String statusConfirmation) {
+		this.statusConfirmation = statusConfirmation;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 	
 	

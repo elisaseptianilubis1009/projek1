@@ -12,7 +12,8 @@ public class ProdukKeluar {
 	private Long kode;
 	private Produk produk;
 	private Integer quantity;
-	private boolean confirm;
+	private String orderId;
+	private boolean status;
 
 	
 	@Id 
@@ -37,12 +38,19 @@ public class ProdukKeluar {
 	public Produk getProduk() {
 		return produk;
 	}
-	public boolean isConfirm() {
-		return confirm;
+	public String getOrderId() {
+		return orderId;
 	}
-	public void setConfirm(boolean confirm) {
-		this.confirm = confirm;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
 
 	
 }

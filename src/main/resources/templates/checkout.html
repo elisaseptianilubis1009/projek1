@@ -72,7 +72,10 @@
 									return false;
 								};
 								var totalBerat = getUrlParameter('totalBerat');
-								console.log('===' + totalBerat);
+								var cartId = getUrlParameter('cartId');
+								var quantity = getUrlParameter('quantity');
+								console.log('totalBerat===' + totalBerat);
+								
 								document.getElementById("berat").value = totalBerat;
 
 							}
@@ -335,8 +338,11 @@
 	var indexGlobal = [];
 	var ongkirGlobal = [];
 	var grandTotal = 0;
+	var cartId = [];
+	var quantity = [];
+	var colective={};
 	
-	var orderId = 'BCgtNhJBZ';
+	var orderId = 'cwsLQFnoR';
 	var firsName = 'JUlia Ningsih';
 	var lastName = 'Lubis';
 	var email = 'julianingsih1107@gmail.com';
@@ -533,7 +539,7 @@
 	}
 	
 	//function saveStatusOrder(){
-		
+
 	//}
 
 	
@@ -575,22 +581,51 @@
 						console.log('Cek Status Transaksi Kita :'+JSON.stringify(data))
 						alert("success");
 						if(data =='settlement'){
-							Swal.fire({
-		          				  title:'Transaksi anda berhasil!',
-		      					  text:'You clicked the button!',
-		      					  type:'success'
-		          			  
-		          			  }).then(function(){
-		          				  location.reload();
-		          			  })
+							
+							// API save produk keluar
+								
+								cartId = getUrlParameter('cartId');
+								quantity = getUrlParameter('quantity');
+								var cart=cartId.toString();
+								var q=quantity.toString();
+								var cartIdArr = cart.split(",");
+								var qtyArr=q.split(",");
+								colective['cartId'] = cartIdArr;
+								colective['quantity'] = qtyArr;
+								
+								$.ajax({
+								url : 'http://localhost:9099/api/pesanan/savePesanan?orderId='+ orderId,
+								type : 'POST',
+								data : JSON.stringify(cartIdArr),
+								contentType : 'application/json',
+			
+								success : function(data) {
+									console.log('Cek Status Transaksi Kita :'+JSON.stringify(data))
+										Swal.fire({
+					          				  title:'Transaksi anda berhasil!',
+					      					  text:'You clicked the button!',
+					      					  type:'success'
+					          			  
+					          			  }).then(function(){
+					          				  location.reload();
+					          			  })
+								
+									
+			
+								},
+			
+							});
+							
+							
+							// End API save produk keluar
+							
+							
 						}else{
 							Swal.fire({
 		          				  title:'Transaksi anda gagal!',
 		      					  text:'Silahkan cek kembali transaksi anda!',
 		      					  type:'error'
 		          			  
-		          			  }).then(function(){
-		          				  location.reload();
 		          			  })
 						}
 						
@@ -605,7 +640,6 @@
 	}
 	function order() {
 		alert("elisa");
-
 		var req = {};
 		req['transaction_details'] = {};
 		req['transaction_details']['order_id'] = randomString(9,
@@ -631,8 +665,12 @@
 		console.log("telephone_VARIABEL :" + telephone);
 		console.log("alamat_VARIABEL :" + alamat);
 		
+		console.log("Request Pakai Json :" + JSON.stringify(req));
+		console.log("Request without Json :" + req);
+		
 		$.ajax({
-			url : 'http://localhost:9099/api/cart/transaction',
+			url : 'http://localhost:9099/api/cart/transaction?orderId='
+				+ orderId,
 			type : 'POST',
 			data : JSON.stringify(req),
 			contentType : 'application/json',

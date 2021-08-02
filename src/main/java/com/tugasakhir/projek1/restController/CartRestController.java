@@ -28,6 +28,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tugasakhir.projek1.Dto.CostRequestDto;
+import com.tugasakhir.projek1.Dto.OrderRequestDto;
+import com.tugasakhir.projek1.Dto.SaveStatusRequestDto;
+import com.tugasakhir.projek1.Dto.TransactionResponseDto;
 import com.tugasakhir.projek1.model.Cart;
 import com.tugasakhir.projek1.model.Login;
 import com.tugasakhir.projek1.model.Pembeli;
@@ -228,6 +232,7 @@ public class CartRestController {
 
 		final String baseUrl = "https://app.sandbox.midtrans.com/snap/v1/transactions";
 
+
 		URI uri = null;
 		try {
 			uri = new URI(baseUrl);
@@ -300,6 +305,8 @@ public class CartRestController {
 			pesanan.setLastName(request.getLast_name());
 			pesanan.setNoTelepon(request.getTelephone());
 			pesanan.setOrderId(request.getOrder_id());
+			pesanan.setStatusConfirmation("waiting for confirmation");
+			pesanan.setColor("#ff0000");
 			
 			 String status="settlement";
 
@@ -316,5 +323,7 @@ public class CartRestController {
 		
 		
 	}
+	
+	
 
 }

@@ -21,7 +21,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard Pesanan </h1>
+            <h1 class="m-0 text-dark">Dashboard Produk Keluar </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -47,16 +47,9 @@
                                             <tr>
                                                 <th bgcolor="grey" style="text-align: center;">No</th>
                                                 <th bgcolor="grey" style="text-align: center;">Order Id</th>
-                                                <th bgcolor="grey" style="text-align: center;">First Name</th>
-                                                <th bgcolor="grey" style="text-align: center;">Last Name</th>
-                                                <th bgcolor="grey" style="text-align: center;">Alamat</th>
-                                                <th bgcolor="grey" style="text-align: center;">Email</th>
-                                                <th bgcolor="grey" style="text-align: center;">Telephone</th>
-                                                <th bgcolor="grey" style="text-align: center;">Total</th>
-                                                <th bgcolor="grey" style="text-align: center;">Tanggal Order</th>
-                                                <th bgcolor="grey" style="text-align: center;">Status Transaction</th>
-                                                <th bgcolor="grey" style="text-align: center;">Status Confirmation</th>
-                                                <th bgcolor="grey" style="text-align: center;">Action</th>
+                                                <th bgcolor="grey" style="text-align: center;">Produk Kode</th>
+                                                <th bgcolor="grey" style="text-align: center;">Quantity</th>
+                                                <th bgcolor="grey" style="text-align: center;">Status</th>
                                                 
                                             </tr>
                                         </thead>
@@ -111,84 +104,11 @@
 <div th:replace="index::js"></div>
 </body>
 <script>
-var test='';
-
-function GFG_click(clicked) {
-	var param='#'+clicked;
-	alert(clicked);
-	console.log("tanpa Json :"+clicked);
-	console.log("pakai Json :"+JSON.stringify(clicked));
-	console.log("param : "+param);
-	$(param).html('Confirmed');
-	$.ajax({
-		url : 'http://localhost:9099/api/pesanan/updateConfirm',
-		type : 'POST',
-		data : clicked,
-		contentType : 'application/json',
-
-		success : function(data) {
-			//Update Status Confirmation Pesanan
-				$.ajax({
-						url : 'http://localhost:9099/api/pesanan/updateConfirmPesanan',
-						type : 'POST',
-						data : clicked,
-						contentType : 'application/json',
-				
-						success : function(data) {
-							console.log('Cek Status Transaksi Kita :'+JSON.stringify(data))
-							if(data){
-								$(param).html('Confirmed');
-							}
-							
-							console.log('status confirmation :'+data);
-								Swal.fire({
-				      				  title:'Transaksi berhasil dikonfirmasi!',
-				  					  text:'You clicked the button!',
-				  					  type:'success'
-				      			  
-				      			  }).then(function(){
-				      				  location.reload();
-				      			  })
-						},
-				
-					});	
-				//Update Status Confirmation Pesanan
-			console.log('Cek Status Transaksi Kita :'+JSON.stringify(data))
-				Swal.fire({
-      				  title:'Transaksi berhasil dikonfirmasi!',
-  					  text:'You clicked the button!',
-  					  type:'success'
-      			  
-      			  }).then(function(){
-      				  location.reload();
-      			  })
-		},
-
-	});
-    alert(clicked);
-}   
-
-/*$(document).ready(function() {
-    $(".confirm").click(function(){
-    	var n=1;
-    	
-    	alert('masuk');
-    	//$(".confirm").attr('value', 'Confirmed');
-    	$(".confirm").html('Confirmed');
-    	//$("#c").html('Save');
-    	$(document).ready(function() {
-            $('.confirm').click(function() {
-                alert($(this).attr("value"));
-            });
-        });
-  		
-    });
-});*/
 	
-    function getAllOrder(){
+    function getAllProdukKeluar(){
     var content = '';
     var no=1;
-    $.ajax('http://localhost:9099/api/pesanan/getPesanan',{
+    $.ajax('http://localhost:9099/api/produkkeluar/getAll',{
         dataType: 'json',
         success: function(data){
             console.log("Data======== :"+JSON.stringify(data))
@@ -198,31 +118,21 @@ function GFG_click(clicked) {
                 content+='<tr>'+
                     '<td style="text-align :center;">'+no+'</td>'+
                     '<td style="text-align :center;">'+item.orderId+'</td>'+
-                    '<td style="text-align :center;">'+item.firstName+'</td>'+
-                    '<td style="text-align :center;">'+item.lastName+'</td>'+
+                    '<td style="text-align :center;">'+item.produk.namaProduk+'</td>'+
+                    '<td style="text-align :center;">'+item.quantity+'</td>'+
                     
-                    '<td style="text-align :center;">'+item.alamat+'</td>'+
-                    '<td style="text-align :center;">'+item.email+'</td>'+
-                    '<td style="text-align :center;">'+item.noTelepon+'</td>'+
-                    '<td style="text-align :center;">'+item.totalPesanan+'</td>'+
-                    '<td style="text-align :center;">'+item.tglPesan+'</td>'+
-                    '<td style="text-align :center;">'+item.statusTransaction+'</td>'+
-                    '<td style="text-align :center;">'+item.statusConfirmation+'</td>'+
+                    '<td style="text-align :center;">'+item.status+'</td>'+
                   
-                    '<td style="text-align :center;">'+'<button type="button" id="'+item.orderId+'" class="confirm" style="background-color: '+item.color+'; text-align: center;color: white;" class="btn hvr-hover" value="'+item.orderId+'" onClick="GFG_click(this.id)">'+item.statusConfirmation+'</button>'+
-                    '</td>'+
+                    
                     '</tr>';
                     no++;
 					
-                    
             })
     		$('#order').html(content);
       	}
     });
 }
     
-getAllOrder();
-
-
+    getAllProdukKeluar();
 </script>
 </html>

@@ -45,6 +45,10 @@
                             		var indexGlobal=[]; 
                             		var hargaJualGlobal=[];
                             		var beratGlobal=[];
+                            		var cartId=[];
+                            		var quantity=[];
+                            		var code_cart = [];
+						        	var qty=[];
 			                        var getUrlParameter = function getUrlParameter(sParam) {
 			                            var sPageURL = window.location.search.substring(1),
 			                                sURLVariables = sPageURL.split('&'),
@@ -67,8 +71,7 @@
 								        	
 								        	var beratRow=0;
 								        	var idx=0;
-								        	var code_cart = [];
-								        	var qty=[];
+								        	
 								        	indexGlobal.forEach(function(item,index){
 								        		var q = $('#q'+index).val();
 								        		var cq = $('#cq'+index);
@@ -99,10 +102,14 @@
 								        	
 								      //Save Pesanan
 								      		var req = {};
-								        	req['cartId'] = code_cart;
-								        	req['quantity'] = qty;
-								        	console.log("Request Produk keluar____: "+JSON.stringify(req));
-								            var url ='http://localhost:9099/api/pesanan/savePesanan'
+								        	cartId = code_cart;
+								        	quantity = qty;
+								        	//req['cartId'] = code_cart;
+								        	//req['quantity'] = qty;
+								        	//console.log("Request Produk keluar____: "+JSON.stringify(req));
+								        	console.log("cartId________: "+cartId);
+								        	console.log("quantity________: "+quantity);
+								            /*var url ='http://localhost:9099/api/pesanan/savePesanan'
 								            	$.ajax({
 								            		  type: "POST",
 								            		  url: url,
@@ -110,7 +117,7 @@
 								            		  success: function(data){			
 								            		  },
 								            		  contentType: "application/json",
-								            		});
+								            		});*/
 								        });
 								    });
 
@@ -118,7 +125,7 @@
 			                        	
 			                        	var a=100;
 		            					//window.location.href = document.getElementById('ololo').href;
-		            					window.location.href = '/cart/checkout?totalBerat='+ttlBerat+'&subTotal='+sum;
+		            					window.location.href = '/cart/checkout?totalBerat='+ttlBerat+'&subTotal='+sum+'&cartId='+code_cart+'&quantity='+qty;
 		    						}
 			                        
 			                        

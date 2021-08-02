@@ -1,4 +1,4 @@
-package com.tugasakhir.projek1.restController;
+package com.tugasakhir.projek1.Dto;
 
 import java.util.List;
 

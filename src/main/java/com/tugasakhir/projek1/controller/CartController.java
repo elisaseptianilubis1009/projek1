@@ -130,11 +130,13 @@ public class CartController {
 	}
 
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public String tampilAdmin(Model model, Principal p,@RequestParam("totalBerat") String totalBerat,@RequestParam("subTotal") String subTotal) {
+	public String tampilAdmin(Model model, Principal p,@RequestParam("totalBerat") String totalBerat,@RequestParam("subTotal") String subTotal,@RequestParam("cartId") List cartId,@RequestParam("quantity") List quantity) {
 		model.addAttribute("user", p);
 
 		model.addAttribute("totalBerat",totalBerat);
 		model.addAttribute("subTotal",subTotal);
+		model.addAttribute("cartId",cartId);
+		model.addAttribute("quantity",quantity);
 		return "checkout";
 
 	}
