@@ -111,6 +111,8 @@ public class PesananRestController {
 			produkKeluar.setProduk(cart.getProduk());
 			produkKeluar.setOrderId(orderId);
 			produkKeluar.setStatus(false);
+			produkKeluar.setStatusConfirmation("Waiting for Confirmation");
+			produkKeluar.setColor("#ff0000");
 			produkKeluar.setQuantity(2);
 			list.add(produkKeluar);
 
@@ -133,6 +135,8 @@ public class PesananRestController {
 
 			System.out.println("Order Id" + data.getOrderId());
 			produkKel.setStatus(true);
+			produkKel.setStatusConfirmation("Confirmed");
+			produkKel.setColor("#2962fb");
 
 			produkKeluarRepository.save(produkKel);
 			System.out.println("Status : " + produkKel.isStatus());

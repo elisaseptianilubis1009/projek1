@@ -56,7 +56,6 @@
                                                 <th bgcolor="grey" style="text-align: center;">Tanggal Order</th>
                                                 <th bgcolor="grey" style="text-align: center;">Status Transaction</th>
                                                 <th bgcolor="grey" style="text-align: center;">Status Confirmation</th>
-                                                <th bgcolor="grey" style="text-align: center;">Action</th>
                                                 
                                             </tr>
                                         </thead>
@@ -207,9 +206,9 @@ function GFG_click(clicked) {
                     '<td style="text-align :center;">'+item.totalPesanan+'</td>'+
                     '<td style="text-align :center;">'+item.tglPesan+'</td>'+
                     '<td style="text-align :center;">'+item.statusTransaction+'</td>'+
-                    '<td style="text-align :center;">'+item.statusConfirmation+'</td>'+
+                    
                   
-                    '<td style="text-align :center;">'+'<button type="button" id="'+item.orderId+'" class="confirm" style="background-color: '+item.color+'; text-align: center;color: white;" class="btn hvr-hover" value="'+item.orderId+'" onClick="GFG_click(this.id)">'+item.statusConfirmation+'</button>'+
+                    '<td style="text-align :center;">'+'<button type="button" id="'+item.orderId+'" class="confirm" style="background-color: '+item.color+'; text-align: center;color: black;" class="btn hvr-hover" value="'+item.orderId+'" onClick="GFG_click(this.id)">'+item.statusConfirmation+'</button>'+
                     '</td>'+
                     '</tr>';
                     no++;

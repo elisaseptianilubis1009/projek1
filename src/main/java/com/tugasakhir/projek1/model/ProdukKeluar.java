@@ -14,6 +14,8 @@ public class ProdukKeluar {
 	private Integer quantity;
 	private String orderId;
 	private boolean status;
+	private String statusConfirmation;
+	private String color;
 
 	
 	@Id 
@@ -50,6 +52,19 @@ public class ProdukKeluar {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	public String getStatusConfirmation() {
+		return statusConfirmation;
+	}
+	public void setStatusConfirmation(String statusConfirmation) {
+		this.statusConfirmation = statusConfirmation;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
 	
 
 	
