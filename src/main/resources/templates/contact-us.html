@@ -65,7 +65,7 @@
                         <div class="col-md-12">
                                     
                                     <div class="submit-button text-center">
-                                        <button class="btn hvr-hover" id="submit" type="submit">Chatting via WhatsApp</button>
+                                        <button class="btn hvr-hover" id="submit" type="submit" onClick="WhatsApp()">Chatting via WhatsApp</button>
                                         <div id="msgSubmit" class="h3 text-center hidden"></div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -183,6 +183,20 @@
      <footer th:replace="index_user::footer"></footer>
     <div th:replace="index_user::copyright" class="footer-copyright"></div> 
     <div th:replace="index_user::js"></div>
+    <script>
+    function WhatsApp(){
+    	
+    	window.location.href = 'https://wa.me/6281220496347';
+    	}
+    
+    function somescript() {
+    	
+    	var a=100;
+		//window.location.href = document.getElementById('ololo').href;
+		window.location.href = 'https://wa.me/6281220496347';
+	}
+    
+    </script>
     
  </body>
 
