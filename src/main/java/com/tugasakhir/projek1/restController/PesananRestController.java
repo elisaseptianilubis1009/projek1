@@ -162,15 +162,17 @@ public class PesananRestController {
     public void exportToExcel(HttpServletResponse response) throws IOException {
 		List<Object[]> produkKeluar = produkKeluarRepository.reportProduk();
 		List<ExportToExcelRequestDto> dtos = new ArrayList<ExportToExcelRequestDto>();
+		Integer granTotal=0;
 		for (Object[] objects : produkKeluar) {
 			ExportToExcelRequestDto dto= new ExportToExcelRequestDto();
 			dto.setNamaProduk(objects[0].toString());
 			dto.setQuantity(Integer.parseInt(objects[1].toString()));
 			dto.setTotal(Integer.parseInt(objects[2].toString()));
 			
+			granTotal+=dto.getTotal();
 			dtos.add(dto);
 		}
-		
+		System.out.println("GRAND TOTAL : "+granTotal);
         response.setContentType("application/octet-stream");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -181,7 +183,7 @@ public class PesananRestController {
 
 //        List<User> listUsers = service.listAll();
 //        ExcellExporter excelExporter = new ExcelExporter(dtos);
-        ExcellExporter excelExporter = new ExcellExporter(dtos);
+        ExcellExporter excelExporter = new ExcellExporter(dtos,granTotal);
 
         excelExporter.export(response);
     }
