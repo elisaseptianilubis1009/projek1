@@ -173,7 +173,7 @@ public class PesananRestController {
 	}
 	
 	@GetMapping("/export")
-    public void exportToExcel(HttpServletResponse response) throws IOException {
+    public void exportToExcel(HttpServletResponse response, @RequestParam("month") Integer month1,@RequestParam("year") Integer year1) throws IOException {
 		List<Object[]> produkKeluar = produkKeluarRepository.reportProduk(month1,year1);
 		List<ExportToExcelRequestDto> dtos = new ArrayList<ExportToExcelRequestDto>();
 		Integer granTotal=0;
