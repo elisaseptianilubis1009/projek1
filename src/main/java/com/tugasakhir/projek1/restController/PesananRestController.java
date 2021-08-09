@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,6 +31,8 @@ import com.tugasakhir.projek1.repository.PesananRepository;
 import com.tugasakhir.projek1.repository.ProdukKeluarRepository;
 import com.tugasakhir.projek1.service.PesananService;
 
+
+
 @RestController
 @RequestMapping(value = "api/pesanan")
 public class PesananRestController {
@@ -46,15 +48,18 @@ public class PesananRestController {
 
 	@Autowired
 	private ProdukKeluarRepository produkKeluarRepository;
+	
+	Integer month1=7;
+	Integer year1=2021;
 
 	@GetMapping("/getPesanan")
 	public List<Pesanan> allAPesanan() {
 		return pesananRepository.findAll();
 	}
 
-	@GetMapping("/getProdukKeluarByKode")
+	/*@GetMapping("/getProdukKeluarByKode")
 	public List<ExportToExcelRequestDto> produkKeluar() {
-		List<Object[]> produkKeluar = produkKeluarRepository.reportProduk();
+		List<Object[]> produkKeluar = produkKeluarRepository.reportProduk(month1,year1);
 		List<ExportToExcelRequestDto> dtos = new ArrayList<ExportToExcelRequestDto>();
 		for (Object[] objects : produkKeluar) {
 			ExportToExcelRequestDto dto= new ExportToExcelRequestDto();
@@ -65,7 +70,7 @@ public class PesananRestController {
 			dtos.add(dto);
 		}
 		return dtos;
-	}
+	}*/
 
 	/*
 	 * @RequestMapping(value = "/savePesanan", method = RequestMethod.POST) public
@@ -99,8 +104,14 @@ public class PesananRestController {
 //@RequestParam("orderId") String orderId,
 //@RequestBody List<Integer> 
 	@RequestMapping(value = "/savePesanan", method = RequestMethod.POST)
-	public String savePesanan(@RequestBody List<Long> cartId, @RequestParam("orderId") String orderId, Principal p) {
+	public String savePesanan(@RequestBody List<Long> cartId, @RequestParam("orderId") String orderId,@RequestParam("tgl") String tgl, Principal p) {
 
+		System.out.println("tgl :"+tgl);
+		String year=tgl.substring(0, 4);
+		String month=tgl.substring(5, 7);
+		LocalDate date = LocalDate.parse(tgl);
+		System.out.println("year :"+year);
+		System.out.println("month :"+month);
 		List<ProdukKeluar> list = new ArrayList<>();
 
 		for (Long cartIdx : cartId) {
@@ -114,6 +125,9 @@ public class PesananRestController {
 			produkKeluar.setStatusConfirmation("Waiting for Confirmation");
 			produkKeluar.setColor("#ff0000");
 			produkKeluar.setQuantity(2);
+			produkKeluar.setTgl(date);
+			produkKeluar.setMonth(Integer.parseInt(month));
+			produkKeluar.setYear(Integer.parseInt(year));
 			list.add(produkKeluar);
 
 		}
@@ -160,14 +174,15 @@ public class PesananRestController {
 	
 	@GetMapping("/export")
     public void exportToExcel(HttpServletResponse response) throws IOException {
-		List<Object[]> produkKeluar = produkKeluarRepository.reportProduk();
+		List<Object[]> produkKeluar = produkKeluarRepository.reportProduk(month1,year1);
 		List<ExportToExcelRequestDto> dtos = new ArrayList<ExportToExcelRequestDto>();
 		Integer granTotal=0;
 		for (Object[] objects : produkKeluar) {
 			ExportToExcelRequestDto dto= new ExportToExcelRequestDto();
 			dto.setNamaProduk(objects[0].toString());
-			dto.setQuantity(Integer.parseInt(objects[1].toString()));
-			dto.setTotal(Integer.parseInt(objects[2].toString()));
+			dto.setKode(objects[1].toString());
+			dto.setQuantity(Integer.parseInt(objects[2].toString()));
+			dto.setTotal(Integer.parseInt(objects[3].toString()));
 			
 			granTotal+=dto.getTotal();
 			dtos.add(dto);

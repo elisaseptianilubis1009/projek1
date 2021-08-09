@@ -3,6 +3,7 @@ package com.tugasakhir.projek1.Dto;
 public class ExportToExcelRequestDto {
 	
 	private String namaProduk;
+	private String kode;
 	private Integer quantity;
 	private Integer total;
 	public String getNamaProduk() {
@@ -22,6 +23,12 @@ public class ExportToExcelRequestDto {
 	}
 	public void setTotal(Integer total) {
 		this.total = total;
+	}
+	public String getKode() {
+		return kode;
+	}
+	public void setKode(String kode) {
+		this.kode = kode;
 	}
 	
 	

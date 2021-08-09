@@ -1,0 +1,46 @@
+<form action="login.php" method="POST" id="form1">
+
+<input class="form-control" placeholder="Enter username" name="username" id="username">
+<input class="form-control" placeholder="Enter password" name="password" id="password">
+
+<input type="button" name="btn" value="Submit" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="btn btn-default" /> 
+
+</form>
+
+<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Confirm Submit
+            </div>
+            <div class="modal-body">
+                is your username and password correct?
+                <table class="table">
+                    <tr>
+                        <th>username</th>
+                        <td id="uname"></td>
+                    </tr>
+                    <tr>
+                        <th>password</th>
+                        <td id="psw"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a href="#" id="submit" class="btn btn-success success">Submit</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$('#submitBtn').click(function() {
+     $('#uname').text($('#username').val());
+     $('#psw').text($('#password').val());
+});
+
+$('#submit').click(function(){
+    $('#form1').submit();
+});
+</script>

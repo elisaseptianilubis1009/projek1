@@ -341,8 +341,9 @@
 	var cartId = [];
 	var quantity = [];
 	var colective={};
+	var tgl='';
 	
-	var orderId = 'nAPKQrvAB';
+	var orderId = 'YwBuU6Kkl';
 	var firsName = 'JUlia Ningsih';
 	var lastName = 'Lubis';
 	var email = 'julianingsih1107@gmail.com';
@@ -571,6 +572,10 @@
 				request['alamat'] = alamat;
 				request['order_id'] = orderId;
 				console.log("Requessttt_______:"+JSON.stringify(request));
+				tgl=request['transaction_time'] = data.transaction_time;
+				var tglConvert = tgl.substring(0, 10); 
+				console.log("tgl : "+tgl);
+				console.log("tglConvert : "+tglConvert);
 				$.ajax({
 					url : 'http://localhost:9099/api/cart/saveStatusOrder',
 					type : 'POST',
@@ -593,8 +598,10 @@
 								colective['cartId'] = cartIdArr;
 								colective['quantity'] = qtyArr;
 								
+								
 								$.ajax({
-								url : 'http://localhost:9099/api/pesanan/savePesanan?orderId='+ orderId,
+								//url : 'http://localhost:9099/api/pesanan/savePesanan?orderId='+ orderId+'&tgl='+ tgl,
+								url : 'http://localhost:9099/api/pesanan/savePesanan?orderId='+ orderId+'&tgl='+ tglConvert,
 								type : 'POST',
 								data : JSON.stringify(cartIdArr),
 								contentType : 'application/json',

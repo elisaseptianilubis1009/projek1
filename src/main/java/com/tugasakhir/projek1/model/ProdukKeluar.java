@@ -1,5 +1,8 @@
 package com.tugasakhir.projek1.model;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +19,10 @@ public class ProdukKeluar {
 	private boolean status;
 	private String statusConfirmation;
 	private String color;
+	private LocalDate tgl;
+	
+	private Integer month;
+	private Integer year;
 
 	
 	@Id 
@@ -64,6 +71,25 @@ public class ProdukKeluar {
 	public void setColor(String color) {
 		this.color = color;
 	}
+	public LocalDate getTgl() {
+		return tgl;
+	}
+	public void setTgl(LocalDate tgl) {
+		this.tgl = tgl;
+	}
+	public Integer getMonth() {
+		return month;
+	}
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+	public Integer getYear() {
+		return year;
+	}
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+	
 	
 	
 

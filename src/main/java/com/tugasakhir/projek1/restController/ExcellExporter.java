@@ -49,7 +49,6 @@ public class ExcellExporter {
 		Row row2 = sheet.createRow(2);
 		Row row3 = sheet.createRow(3);
 		
-
 		
 		CellStyle style = workbook.createCellStyle();
 		XSSFFont font = workbook.createFont();
@@ -61,8 +60,9 @@ public class ExcellExporter {
 		createCell(row2, 0, "Laporan Penjualan Bulanan", style);
 		createCell(row3, 0, "Periode 31 September 2021", style);
 		createCell(row, 0, "Nama produk", style);
-		createCell(row, 1, "Quantity", style);
-		createCell(row, 2, "Total", style);
+		createCell(row, 1, "Kode produk", style);
+		createCell(row, 2, "Quantity", style);
+		createCell(row, 3, "Total", style);
 
 	}
 
@@ -92,6 +92,7 @@ public class ExcellExporter {
 			int columnCount = 0;
 
 			createCell(row, columnCount++, dto.getNamaProduk(), style);
+			createCell(row, columnCount++, dto.getKode(), style);
 			createCell(row, columnCount++, dto.getQuantity(), style);
 			createCell(row, columnCount++, dto.getTotal(), style);
 

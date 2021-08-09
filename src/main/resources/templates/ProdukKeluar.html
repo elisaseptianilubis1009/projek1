@@ -49,6 +49,9 @@
                                                 <th bgcolor="grey" style="text-align: center;">Order Id</th>
                                                 <th bgcolor="grey" style="text-align: center;">Produk Kode</th>
                                                 <th bgcolor="grey" style="text-align: center;">Quantity</th>
+                                                <th bgcolor="grey" style="text-align: center;">Tanggal Order</th>
+                                                <th bgcolor="grey" style="text-align: center;">Bulan</th>
+                                                <th bgcolor="grey" style="text-align: center;">Tahun</th>
                                                 <th bgcolor="grey" style="text-align: center;">Status Confirmation</th>
                                                 
                                             </tr>
@@ -120,7 +123,9 @@
                     '<td style="text-align :center;">'+item.orderId+'</td>'+
                     '<td style="text-align :center;">'+item.produk.namaProduk+'</td>'+
                     '<td style="text-align :center;">'+item.quantity+'</td>'+
-                    
+                    '<td style="text-align :center;">'+item.tgl+'</td>'+
+                    '<td style="text-align :center;">'+item.month+'</td>'+
+                    '<td style="text-align :center;">'+item.year+'</td>'+
                     '<td style="text-align :center; color : '+item.color+';font-weight: bold; font-family: Georgia;font-size: 18px;">'+item.statusConfirmation+'</td>'+
                   
                     

@@ -27,5 +27,11 @@ public class PesananControler {
 		model.addAttribute ("pesanan", lpesanan);
 		return "pesanan";
 	}
+	
+	@RequestMapping (value="/modal", method = RequestMethod.GET)
+	public String modal(Model model,Principal p) {
+		model.addAttribute("user",p);
+		return "modalTime";
+	}
 
 }

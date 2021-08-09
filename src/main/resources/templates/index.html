@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/js/sweetalert.js}"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+
+
 <head th:fragment="head">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,6 +57,22 @@
 </head>
 
 
+<script type="text/javascript">
+	$(function() {
+		$("a[class='Update']").click(function() {
+			$("#MyPopup").modal("show");
+			return false;
+		});
+	});
+
+	$("#datepicker").datepicker({
+		format : "yyyy",
+		viewMode : "years",
+		minViewMode : "years"
+	});
+</script>
+
+
 <body class="sb-nav-fixed">
 	<div class="wrapper">
 
@@ -64,8 +87,8 @@
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a th:href="@{/}"
 					class="nav-link">Home</a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a href="https://wa.me/6281220496347"
-					class="nav-link">Contact</a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a
+					href="https://wa.me/6281220496347" class="nav-link">Contact</a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a href="/login"
 					class="nav-link">Login</a></li>
 			</ul>
@@ -247,24 +270,41 @@
 								<p>
 									Laporan <i class="fas fa-angle-left right"></i>
 								</p>
-						</a>
+
+						</a> <br>
+
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a
-									href="http://localhost:9099/api/pesanan/export"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>Laporan Penjualan</p>
-								</a></li>
+								<li class="nav-item">
+									<div class="form-group">
+										<div class="container">
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#exampleModal"
+												data-whatever="@mdo">
+												<p>Laporan Penjualan</p>
+											</button>
+										</div>
+									</div>
+								</li>
 							</ul>
 
 							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<div class="form-group">
+										<div class="container">
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#exampleModal"
+												data-whatever="@mdo">
+												<p>Laporan Laba Rugi</p>
+											</button>
+										</div>
+									</div>
+								</li>
+							</ul> <!-- <ul class="nav nav-treeview">
 								<li class="nav-item"><a href="/produk/tampil"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>Laporan Laba Rugi</p>
 								</a></li>
-							</ul></li>
-
-
-
+							</ul></li> -->
 						<li class="nav-item"><a href="#" class="nav-link"> <i
 								class="nav-icon fas fa-table"></i>
 								<p>
@@ -338,7 +378,6 @@
 			</div>
 			<!-- /.sidebar -->
 		</aside>
-
 
 
 
@@ -940,6 +979,104 @@
 		<!-- /.content-wrapper -->
 
 
+		<!-- Modal 2 -->
+
+		<div id="MyPopup" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							&times;</button>
+						<h4 class="modal-title">Greetings</h4>
+					</div>
+					<div class="modal-body">Welcome to ASPSnippets.com</div>
+					<div class="modal-footer">
+						<input type="button" id="btnClosePopup" value="Close"
+							class="btn btn-danger" data-dismiss="modal" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal 3 -->
+
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Filter Bulan &
+							Tahun</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Bulan:</label>
+								<select class="form-control" id="bulan-name" name="month">
+									<option value="1">Januari</option>
+									<option value="2">February</option>
+									<option value="3">Maret</option>
+									<option value="4">April</option>
+									<option value="5">Mei</option>
+									<option value="6">Juni</option>
+									<option value="7">Juli</option>
+									<option value="8">Agustus</option>
+									<option value="9">September</option>
+									<option value="10">Oktober</option>
+									<option value="11">November</option>
+									<option value="12">Desember</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="message-text" class="col-form-label">Tahun:</label>
+								<input type="text" id="datepicker1" class="form-control" />
+							
+							</div>
+						</form>
+					</div>
+					<script type="text/javascript">
+						var m = $('#bulan-name').val();
+						var y = document.getElementById("datepicker1");
+						var m2;
+						
+						
+						$('select').on('change', function () {
+							  //ways to retrieve selected option and text outside handler
+							  m2=this.value;
+							  
+							  console.log('Changed option value ' + this.value);
+							  console.log('Changed option text ' + $(this).find('option').filter(':selected').text());
+							});
+						function myFunction() {
+							alert('month :'+m2);
+							alert( 'year :'+y.value);
+							
+							$(document).ready(function(){
+							    $("select.form-control").change(function(){
+							        var selectedCountry = $(this).children("option:selected").val();
+							        alert("You have selected the country - " + selectedCountry);
+							    });
+							});
+					
+							}
+						
+					</script>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary"
+							onclick="myFunction()">Download Laporan</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Coba Datepicker Year -->
+
 
 
 
@@ -1002,6 +1139,7 @@
 		<script th:src="@{dist/js/demo.js}"></script>
 		<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 		<script th:src="@{dist/js/pages/dashboard.js}"></script>
+
 	</div>
 
 	<script>
@@ -1009,6 +1147,12 @@
 
 			window.location.href = 'https://wa.me/6281220496347';
 		}
+
+		$(function() {
+			$("#datepicker1").datepicker({
+				dateFormat : 'yy'
+			});
+		});
 	</script>
 </body>
 </html>

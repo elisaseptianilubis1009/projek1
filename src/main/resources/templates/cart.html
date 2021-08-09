@@ -5,345 +5,507 @@
 
 <head th:replace="index_user::head"></head>
 <body>
-    <div  th:replace="index_user::top" class="main-top"></div>
-    <header th:replace="index_user::sidebar" class="main-header"></header>
+	<div th:replace="index_user::top" class="main-top"></div>
+	<header th:replace="index_user::sidebar" class="main-header"></header>
 
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Cart</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active">Cart</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+	<div class="all-title-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<h2>Cart</h2>
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Shop</a></li>
+						<li class="breadcrumb-item active">Cart</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <!-- Start Cart  -->
-    <div class="cart-box-main">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="table-main table-responsive">
-                        <table class="table" id="tableCart">
-                            <thead>
-                                <tr >
-                                <th style="background-color: olive">No</th>
-                                <th style="text-align: center;background-color: olive">Images</th>
-                                <th style="text-align: center;background-color: olive">Product Name</th>
-                                <th style="text-align: center;background-color: olive">Price</th>
-                                <th style="text-align: center;background-color: olive">Quantity</th>
-                                <th style="text-align: center;background-color: olive">Check</th>
-                                <th style="text-align: center;background-color: olive">Remove</th>
-                                </tr>
-                            </thead>
-                            <script>
-                            		var indexGlobal=[]; 
-                            		var hargaJualGlobal=[];
-                            		var beratGlobal=[];
-                            		var cartId=[];
-                            		var quantity=[];
-                            		var code_cart = [];
-						        	var qty=[];
-			                        var getUrlParameter = function getUrlParameter(sParam) {
-			                            var sPageURL = window.location.search.substring(1),
-			                                sURLVariables = sPageURL.split('&'),
-			                                sParameterName,
-			                                i;
-			
-			                            for (i = 0; i < sURLVariables.length; i++) {
-			                                sParameterName = sURLVariables[i].split('=');
-			
-			                                if (sParameterName[0] === sParam) {
-			                                    return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-			                                }
-			                            }
-			                            return false;
-			                        };
-			                        var ttlBerat=0;
-			                        var sum = 0;
-			                        $(document).ready(function() {
-								        $("#subTotal").click(function(){
-								        	
-								        	var beratRow=0;
-								        	var idx=0;
-								        	
-								        	indexGlobal.forEach(function(item,index){
-								        		var q = $('#q'+index).val();
-								        		var cq = $('#cq'+index);
-								        		console.log("quantity====== :"+JSON.stringify(q));
-								        		console.log("check box====== :"+JSON.stringify(cq))
-								        		if(cq.is(':checked')){
-								        			
-								        			
-								        			sum+= parseInt(hargaJualGlobal[index])*parseInt(q);	
-								        			beratRow=parseInt(q)*parseInt(beratGlobal[index]);
-								        			ttlBerat+=beratRow;
-								        			console.log("Total Beart :"+ttlBerat);
-								        			
-								        			code_cart.push($('#cq'+index).val());
-								        			qty.push($('#q'+index).val());
-								        			alert("code_cart : "+code_cart[idx]);
-								        			alert("qty_cart : "+qty[idx]);
-								        			idx++;
-								        		}else{
-								        			console.log('off');
-								        		}	
-								        		
-								        	});
-								        	
-								        	$('#subResult').html('Rp. '+sum);
-								        	$('#totalBerat').html(ttlBerat+' gram')
-								        	
-								        	
-								      //Save Pesanan
-								      		var req = {};
-								        	cartId = code_cart;
-								        	quantity = qty;
-								        	//req['cartId'] = code_cart;
-								        	//req['quantity'] = qty;
-								        	//console.log("Request Produk keluar____: "+JSON.stringify(req));
-								        	console.log("cartId________: "+cartId);
-								        	console.log("quantity________: "+quantity);
-								            /*var url ='http://localhost:9099/api/pesanan/savePesanan'
-								            	$.ajax({
-								            		  type: "POST",
-								            		  url: url,
-								            		  data: JSON.stringify(req),
-								            		  success: function(data){			
-								            		  },
-								            		  contentType: "application/json",
-								            		});*/
-								        });
-								    });
 
-			                        function somescript() {
-			                        	
-			                        	var a=100;
-		            					//window.location.href = document.getElementById('ololo').href;
-		            					window.location.href = '/cart/checkout?totalBerat='+ttlBerat+'&subTotal='+sum+'&cartId='+code_cart+'&quantity='+qty;
-		    						}
-			                        
-			                        
-                                    function getAllCartByUser(){
-                                        var content = '';
-                                        var no=1;
-                                        var defaulQ=1;
-                                        var username= getUrlParameter('username');
-                                        console.log('==='+username);
-                                        $.ajax('http://localhost:9099/api/cart/getCart/'+username,{
-                                            dataType: 'json',
-                                            success: function(data){
-                                                console.log("DATA====== :"+JSON.stringify(data))
-                                                data.forEach(function(item,index){
-                                                	
-                                                    content+='<tr>'+
-                                                        '<td style="text-align :center;">'+no+'</td>'+
-                                                        '<td style="text-align :center;"><img src="data:image/png;base64,'+item.produk.gambar+'" style="width: 115px;height: 115px;"></td>'+
-                                                        '<td style="text-align :center;">'+item.produk.namaProduk+'</td>'+
-                                                        '<td style="text-align :center;">'+'Rp. '+item.produk.hargaJual+'</td>'+
-                                                        '<td style="text-align :center;">'+'<input style="text-align :center; width :50px; height:30px;" type="number" id=q'+index+' '+
+	<!-- Start Cart  -->
+	<div class="cart-box-main">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="table-main table-responsive">
+						<table class="table" id="tableCart">
+							<thead>
+								<tr>
+									<th style="background-color: olive">No</th>
+									<th style="text-align: center; background-color: olive">Images</th>
+									<th style="text-align: center; background-color: olive">Product
+										Name</th>
+									<th style="text-align: center; background-color: olive">Price</th>
+									<th style="text-align: center; background-color: olive">Quantity</th>
+									<th style="text-align: center; background-color: olive">Check</th>
+									<th style="text-align: center; background-color: olive">Remove</th>
+								</tr>
+							</thead>
+							<script>
+								var indexGlobal = [];
+								var hargaJualGlobal = [];
+								var beratGlobal = [];
+								var cartId = [];
+								var quantity = [];
+								var code_cart = [];
+								var qty = [];
+								var getUrlParameter = function getUrlParameter(
+										sParam) {
+									var sPageURL = window.location.search
+											.substring(1), sURLVariables = sPageURL
+											.split('&'), sParameterName, i;
+
+									for (i = 0; i < sURLVariables.length; i++) {
+										sParameterName = sURLVariables[i]
+												.split('=');
+
+										if (sParameterName[0] === sParam) {
+											return typeof sParameterName[1] === undefined ? true
+													: decodeURIComponent(sParameterName[1]);
+										}
+									}
+									return false;
+								};
+								var ttlBerat = 0;
+								var sum = 0;
+								$(document)
+										.ready(
+												function() {
+													$("#subTotal")
+															.click(
+																	function() {
+
+																		var beratRow = 0;
+																		var idx = 0;
+
+																		indexGlobal
+																				.forEach(function(
+																						item,
+																						index) {
+																					var q = $(
+																							'#q'
+																									+ index)
+																							.val();
+																					var cq = $('#cq'
+																							+ index);
+																					console
+																							.log("quantity====== :"
+																									+ JSON
+																											.stringify(q));
+																					console
+																							.log("check box====== :"
+																									+ JSON
+																											.stringify(cq))
+																					if (cq
+																							.is(':checked')) {
+
+																						sum += parseInt(hargaJualGlobal[index])
+																								* parseInt(q);
+																						beratRow = parseInt(q)
+																								* parseInt(beratGlobal[index]);
+																						ttlBerat += beratRow;
+																						console
+																								.log("Total Beart :"
+																										+ ttlBerat);
+
+																						code_cart
+																								.push($(
+																										'#cq'
+																												+ index)
+																										.val());
+																						qty
+																								.push($(
+																										'#q'
+																												+ index)
+																										.val());
+																						alert("code_cart : "
+																								+ code_cart[idx]);
+																						alert("qty_cart : "
+																								+ qty[idx]);
+																						idx++;
+																					} else {
+																						console
+																								.log('off');
+																					}
+
+																				});
+
+																		$(
+																				'#subResult')
+																				.html(
+																						'Rp. '
+																								+ sum);
+																		$(
+																				'#totalBerat')
+																				.html(
+																						ttlBerat
+																								+ ' gram')
+
+																		//Save Pesanan
+																		var req = {};
+																		cartId = code_cart;
+																		quantity = qty;
+																		//req['cartId'] = code_cart;
+																		//req['quantity'] = qty;
+																		//console.log("Request Produk keluar____: "+JSON.stringify(req));
+																		console
+																				.log("cartId________: "
+																						+ cartId);
+																		console
+																				.log("quantity________: "
+																						+ quantity);
+																		/*var url ='http://localhost:9099/api/pesanan/savePesanan'
+																			$.ajax({
+																				  type: "POST",
+																				  url: url,
+																				  data: JSON.stringify(req),
+																				  success: function(data){			
+																				  },
+																				  contentType: "application/json",
+																				});*/
+																	});
+												});
+
+								function somescript() {
+
+									var a = 100;
+									//window.location.href = document.getElementById('ololo').href;
+									window.location.href = '/cart/checkout?totalBerat='
+											+ ttlBerat
+											+ '&subTotal='
+											+ sum
+											+ '&cartId='
+											+ code_cart
+											+ '&quantity=' + qty;
+								}
+
+								function getAllCartByUser() {
+									var content = '';
+									var no = 1;
+									var defaulQ = 1;
+									var username = getUrlParameter('username');
+									console.log('===' + username);
+									$
+											.ajax(
+													'http://localhost:9099/api/cart/getCart/'
+															+ username,
+													{
+														dataType : 'json',
+														success : function(data) {
+															console
+																	.log("DATA====== :"
+																			+ JSON
+																					.stringify(data))
+															data
+																	.forEach(function(
+																			item,
+																			index) {
+
+																		content += '<tr>'
+																				+ '<td style="text-align :center;">'
+																				+ no
+																				+ '</td>'
+																				+ '<td style="text-align :center;"><img src="data:image/png;base64,'+item.produk.gambar+'" style="width: 115px;height: 115px;"></td>'
+																				+ '<td style="text-align :center;">'
+																				+ item.produk.namaProduk
+																				+ '</td>'
+																				+ '<td style="text-align :center;">'
+																				+ 'Rp. '
+																				+ item.produk.hargaJual
+																				+ '</td>'
+																				+ '<td style="text-align :center;">'
+																				+ '<input style="text-align :center; width :50px; height:30px;" type="number" id=q'+index+' '+
                                                         	'name="quantity"' +
-                                                        	'value='+defaulQ+'>'+'</td>'+
-                                                        '<td style="text-align :center;">'+'<input type="checkbox"'+
+                                                        	'value='+defaulQ+'>'
+																				+ '</td>'
+																				+ '<td style="text-align :center;">'
+																				+ '<input type="checkbox"'+
                                                             'name="check" id=cq'+index+' ' +
-                                                            'value='+item.kode+'>'+'</td>'+
-                                                        '<td style="text-align :center;">'+'<i style="background-color: lavender;"'+
+                                                            'value='+item.kode+'>'
+																				+ '</td>'
+																				+ '<td style="text-align :center;">'
+																				+ '<i style="background-color: lavender;"'+
                                                         	'class="fas fa-times" '+
-                                                        	'title="Remove"></i>'+'</td>'+
-                                                        '</tr>';
-                                                        no++;
-														indexGlobal.push(index);
-														hargaJualGlobal.push(item.produk.hargaJual);
-														beratGlobal.push(item.produk.ukuran.berat);
-                                                })
-                                        		$('#cart').html(content);
-                                          	}
-                                        });
-                                    }
-                                    getAllCartByUser();
+                                                        	'title="Remove"></i>'
+																				+ '</td>'
+																				+ '</tr>';
+																		no++;
+																		indexGlobal
+																				.push(index);
+																		hargaJualGlobal
+																				.push(item.produk.hargaJual);
+																		beratGlobal
+																				.push(item.produk.ukuran.berat);
+																	})
+															$('#cart').html(
+																	content);
+														}
+													});
+								}
+								getAllCartByUser();
+							</script>
 
-                        </script>
-                        
-                            <tbody id="cart">
-                            </tbody> 
-                        </table>
-                    </div>
-                </div>
-            </div>
+							<tbody id="cart">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 
-            <div class="row my-5">
-                <div class="col-lg-6 col-sm-6">
-                    <div class="coupon-box">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control" placeholder="Enter your coupon code" aria-label="Coupon code" type="text">
-                            <div class="input-group-append">
-                                <button class="btn btn-theme" type="button">Apply Coupon</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-sm-6">
-                    <div class="update-box">
-                        <button type="button" id="subTotal" style="background-color: olive; text-align: center;color: white;" class="btn hvr-hover" ><i
-								class="fa fa-shopping-bag  "></i> Cek Subtotal</button>
-                    </div>
-                </div>
-            </div>
+			<div class="row my-5">
+				<div class="col-lg-6 col-sm-6">
+					<div class="coupon-box">
+						<div class="input-group input-group-sm">
+							<input class="form-control" placeholder="Enter your coupon code"
+								aria-label="Coupon code" type="text">
+							<div class="input-group-append">
+								<button class="btn btn-theme" type="button">Apply
+									Coupon</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-sm-6">
+					<div class="update-box">
+						<button type="button" id="subTotal"
+							style="background-color: olive; text-align: center; color: white;"
+							class="btn hvr-hover">
+							<i class="fa fa-shopping-bag  "></i> Cek Subtotal
+						</button>
+					</div>
+				</div>
+			</div>
 
-            <div class="row my-5">
-                <div class="col-lg-8 col-sm-12"></div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="order-box">
-                        <h3>Order summary</h3>
-                        
-                        <div class="d-flex">
-                            <h4>Total Berat</h4>
-                            <div class="ml-auto font-weight-bold" id="totalBerat"></div>
-                        </div>
-                        <div class="d-flex gr-total">
-                            <h5>Grand Total</h5>
-                            <div class="ml-auto h5" id="subResult"> $ [[${grandTotal}]] </div>
-                        </div>
-                        <hr> </div>
-                </div>
-               <!-- <div class="col-12 d-flex shopping-box"><a th:href="@{'/cart/checkout?totalBerat='+ttlBerat}" class="ml-auto btn hvr-hover">Checkout</a> </div>  -->
-               <div class="col-12 d-flex shopping-box">
+			<div class="row my-5">
+				<div class="col-lg-8 col-sm-12"></div>
+				<div class="col-lg-4 col-sm-12">
+					<div class="order-box">
+						<h3>Order summary</h3>
+
+						<div class="d-flex">
+							<h4>Total Berat</h4>
+							<div class="ml-auto font-weight-bold" id="totalBerat"></div>
+						</div>
+						<div class="d-flex gr-total">
+							<h5>Grand Total</h5>
+							<div class="ml-auto h5" id="subResult">$ [[${grandTotal}]]
+							</div>
+						</div>
+						<hr>
+					</div>
+				</div>
+				<!-- <div class="col-12 d-flex shopping-box"><a th:href="@{'/cart/checkout?totalBerat='+ttlBerat}" class="ml-auto btn hvr-hover">Checkout</a> </div>  -->
+				<div class="col-12 d-flex shopping-box">
 					<a href="javascript:somescript()" class="ml-auto btn hvr-hover">Checkout</a>
 				</div>
-             
-            </div>
+				<div class="container">
+					<li class="nav-item"><a href="#myModal" class="btn">I want
+							this</a></li>
+				</div>
+				<center>
+					<a class="Update" href=""><i
+						class="ace-icon fa fa-pencil-square-o"></i>Show Modal</a>
+				</center>
 
-        </div>
-    </div>
-    <!-- End Cart -->
-    
-    
-    <!-- Modal -->
-        <div class="modal fade" id="editCartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabel">Cart Edit</h4>
-                                
-                              </div>
-                              <div class="modal-body">
-                                <form action="${pageContext.request.contextPath}/cart/update" method="post">
-                                    <center><label>Jumlah Produk</label></center>
-                                    <center><input type="number" id="kuantitas" name="kuantitas" min="0"></center>
-                              </div>
+			</div>
 
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <input type="submit" name="save" class="btn btn-primary" value="Save changes">
-                                <input type="hidden" name="kode" id="id">
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-    <!-- Modal -->
-    
-    <!-- Start Instagram Feed  -->
-    <div class="instagram-box">
-        <div class="main-instagram owl-carousel owl-theme">
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-01.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-02.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-03.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-04.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-05.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-06.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-07.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-08.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-09.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-05.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Instagram Feed  -->
+		</div>
+	</div>
+	<!-- End Cart -->
 
 
-    <footer th:replace="index_user::footer"></footer>
-    <div  th:replace="index_user::copyright" class="footer-copyright"></div>
-    <div th:replace="index_user::js"></div>
- 
+	<!-- Modal -->
+	<div class="modal fade" id="editCartModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Cart Edit</h4>
+
+				</div>
+				<div class="modal-body">
+					<form action="${pageContext.request.contextPath}/cart/update"
+						method="post">
+						<center>
+							<label>Jumlah Produk</label>
+						</center>
+						<center>
+							<input type="number" id="kuantitas" name="kuantitas" min="0">
+						</center>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" name="save" class="btn btn-primary"
+						value="Save changes"> <input type="hidden" name="kode"
+						id="id">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">Close</span>
+					</button>
+
+				</div>
+				<div class="modal-body">
+
+
+
+					<iframe width="100%" height="700" style="overflow: hidden;"
+						src="https://docs.google.com/forms/d/e/1FAIpQLSez3GlqtSHjfJuuHWiut4e9mEnhVrGx2XbcYf-5922TS7FmeA/viewform?embedded=true"
+						frameborder="0" marginheight="0" marginwidth="0" scrolling="no">Loading&amp;#8230;</iframe>
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 2 -->
+
+	<div id="MyPopup" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						&times;</button>
+					<h4 class="modal-title">Greetings</h4>
+				</div>
+				<div class="modal-body">Welcome to ASPSnippets.com</div>
+				<div class="modal-footer">
+					<input type="button" id="btnClosePopup" value="Close"
+						class="btn btn-danger" data-dismiss="modal" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Start Instagram Feed  -->
+	<div class="instagram-box">
+		<div class="main-instagram owl-carousel owl-theme">
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-01.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-02.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-03.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-04.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-05.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-06.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-07.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-08.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-09.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ins-inner-box">
+					<img src="images/instagram-img-05.jpg" alt="" />
+					<div class="hov-in">
+						<a href="#"><i class="fab fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Instagram Feed  -->
+
+
+	<footer th:replace="index_user::footer"></footer>
+	<div th:replace="index_user::copyright" class="footer-copyright"></div>
+	<div th:replace="index_user::js"></div>
+
 </body>
 <script>
-	function changeTotal(obj){
-		console.log('value: '+obj.value);
+	function changeTotal(obj) {
+		console.log('value: ' + obj.value);
 	}
-</script>	
+
+	jQuery(document).ready(function() {
+		// executes when HTML-Document is loaded and DOM is ready
+		console.log("document is ready");
+
+		jQuery('.btn[href^=#]').click(function(e) {
+			e.preventDefault();
+			var href = jQuery(this).attr('href');
+			jQuery(href).modal('toggle');
+		});
+	});
+
+	$(function() {
+		$("a[class='Update']").click(function() {
+			$("#MyPopup").modal("show");
+			return false;
+		});
+	});
+</script>
 </html>
