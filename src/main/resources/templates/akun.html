@@ -61,6 +61,7 @@
 									<th bgcolor="grey" style="text-align: center;">No</th>
 									<th bgcolor="grey" style="text-align: center;">Kode Akun</th>
 									<th bgcolor="grey" style="text-align: center;">Nama Akun</th>
+									<th bgcolor="grey" style="text-align: center;">Nominal</th>
 									<th bgcolor="grey" style="text-align: center;">Keterangan
 										Akun</th>
 									<th bgcolor="grey" style="text-align: center;">Action</th>
@@ -135,7 +136,10 @@
 						<div class="form-group">
 							<label for="message-text" class="col-form-label">Nama Akun</label> 
 							<input type="text" id="namaAkun" class="form-control" />
-
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="col-form-label">Nominal</label> 
+							<input type="text" id="nominal" class="form-control" />
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="col-form-label">Keterangan Akun</label> 
@@ -170,6 +174,7 @@
 					var y = document.getElementById("datepicker1");
 					var m2;
 					var namaAkun= document.getElementById("namaAkun");
+					var nominal= document.getElementById("nominal");
 					var ketAkun= document.getElementById("ketAkun");
 
 					$('select').on(
@@ -186,10 +191,41 @@
 							});
 					function myFunction() {
 						alert('nama akun :'+ namaAkun.value);
+						alert('nominal :'+ nominal.value);
 						alert('ket akun :'+ ketAkun.value);
 						alert('month :' + m2);
 						alert('year :' + y.value);
-
+						
+						var request = {};
+						request['nama_akun'] = namaAkun.value;
+						request['nominal'] = nominal.value;
+						request['ket_akun'] = ketAkun.value;
+						request['month'] = m2;
+						request['year'] = y.value;
+						
+						console.log("request akun :"+JSON.stringify(request));
+						$.ajax({
+							url : 'http://localhost:9099/api/akun/saveAkun',
+							type : 'POST',
+							data : JSON.stringify(request),
+							contentType : 'application/json',
+		
+							success : function(data) {
+								console.log('Cek Status Transaksi Kita :'+JSON.stringify(data))
+									Swal.fire({
+				          				  title:'Transaksi anda berhasil!',
+				      					  text:'You clicked the button!',
+				      					  type:'success'
+				          			  
+				          			  }).then(function(){
+				          				  location.reload();
+				          			  })
+							
+								
+		
+							},
+		
+						});
 					}
 				</script>
 				<div class="modal-footer">
@@ -225,6 +261,9 @@
 													+ '</td>'
 													+ '<td style="text-align :center;">'
 													+ item.namaAkun
+													+ '</td>'
+													+ '<td style="text-align :center;">Rp. '
+													+ item.nominal
 													+ '</td>'
 													+ '<td style="text-align :center;">'
 													+ item.keteranganAkun

@@ -14,6 +14,7 @@ public class Akun {
 	private String keteranganAkun;
 	private String bulan;
 	private String tahun;
+	private Integer nominal;
 	
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -46,6 +47,12 @@ public class Akun {
 	}
 	public void setTahun(String tahun) {
 		this.tahun = tahun;
+	}
+	public Integer getNominal() {
+		return nominal;
+	}
+	public void setNominal(Integer nominal) {
+		this.nominal = nominal;
 	}
 	
 	
