@@ -308,7 +308,6 @@ public class CartRestController {
 			pesanan.setStatusConfirmation("waiting for confirmation");
 			pesanan.setColor("#ff0000");
 			
-			 String status="settlement";
 
 		if(pesanan.getStatusTransaction().equals("settlement")) {
 			System.out.println("Masuk if dong");
