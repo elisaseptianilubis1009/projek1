@@ -2,7 +2,8 @@
 <html lang="en">
 <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
 <script th:src="@{/js/sweetalert.js}"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 <head th:replace="index::head"></head>
 
@@ -42,7 +43,7 @@
 			<!-- Main content -->
 			<div class="card mb-4">
 				<div class="card-header">
-					 <button style="height: 40px" type="button"
+					<button style="height: 40px" type="button"
 						class="btn btn-primary text white mt-2" data-toggle="modal"
 						data-target="#exampleModal1" data-whatever="@mdo">
 						<p>Tambah Data</p>
@@ -120,12 +121,13 @@
 	<div th:replace="index::js"></div>
 	<!-- Modal 3 -->
 
-	    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
+	<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Form Tambah Data Akun</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Form Tambah
+						Data Akun</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -134,16 +136,16 @@
 				<div class="modal-body">
 					<form>
 						<div class="form-group">
-							<label for="message-text" class="col-form-label">Nama Akun</label> 
-							<input type="text" id="namaAkun" class="form-control" />
+							<label for="message-text" class="col-form-label">Nama
+								Akun</label> <input type="text" id="namaAkun" class="form-control" />
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="col-form-label">Nominal</label> 
+							<label for="message-text" class="col-form-label">Nominal</label>
 							<input type="text" id="nominal" class="form-control" />
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="col-form-label">Keterangan Akun</label> 
-							<input type="text" id="ketAkun" class="form-control" />
+							<label for="message-text" class="col-form-label">Keterangan
+								Akun</label> <input type="text" id="ketAkun" class="form-control" />
 
 						</div>
 						<div class="form-group">
@@ -173,9 +175,10 @@
 				<script type="text/javascript">
 					var y = document.getElementById("datepicker1");
 					var m2;
-					var namaAkun= document.getElementById("namaAkun");
-					var nominal= document.getElementById("nominal");
-					var ketAkun= document.getElementById("ketAkun");
+					var namaAkun = document.getElementById("namaAkun");
+					var nominal = document.getElementById("nominal");
+					var ketAkun = document.getElementById("ketAkun");
+					var idAkun = 0;
 
 					$('select').on(
 							'change',
@@ -190,41 +193,40 @@
 												':selected').text());
 							});
 					function myFunction() {
-						alert('nama akun :'+ namaAkun.value);
-						alert('nominal :'+ nominal.value);
-						alert('ket akun :'+ ketAkun.value);
+						alert('nama akun :' + namaAkun.value);
+						alert('nominal :' + nominal.value);
+						alert('ket akun :' + ketAkun.value);
 						alert('month :' + m2);
 						alert('year :' + y.value);
-						
+
 						var request = {};
 						request['nama_akun'] = namaAkun.value;
 						request['nominal'] = nominal.value;
 						request['ket_akun'] = ketAkun.value;
 						request['month'] = m2;
 						request['year'] = y.value;
-						
-						console.log("request akun :"+JSON.stringify(request));
+
+						console.log("request akun :" + JSON.stringify(request));
 						$.ajax({
 							url : 'http://localhost:9099/api/akun/saveAkun',
 							type : 'POST',
 							data : JSON.stringify(request),
 							contentType : 'application/json',
-		
+
 							success : function(data) {
-								console.log('Cek Status Transaksi Kita :'+JSON.stringify(data))
-									Swal.fire({
-				          				  title:'Transaksi anda berhasil!',
-				      					  text:'You clicked the button!',
-				      					  type:'success'
-				          			  
-				          			  }).then(function(){
-				          				  location.reload();
-				          			  })
-							
-								
-		
+								console.log('Cek Status Transaksi Kita :'
+										+ JSON.stringify(data))
+								Swal.fire({
+									title : 'Data akun berhasil disimpan!',
+									text : 'You clicked the button!',
+									type : 'success'
+
+								}).then(function() {
+									location.reload();
+								})
+
 							},
-		
+
 						});
 					}
 				</script>
@@ -233,6 +235,160 @@
 						data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary"
 						onclick="myFunction()">Simpan Data</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 2 -->
+	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Form Edit Data
+						Akun</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+
+						<div class="form-group">
+							<label for="message-text" class="col-form-label">Nominal</label>
+							<input type="text" id="nominal2" class="form-control" />
+
+						</div>
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Bulan:</label>
+							<select class="form-control" id="bulan-name2" name="month">
+								<option value="1">Januari</option>
+								<option value="2">February</option>
+								<option value="3">Maret</option>
+								<option value="4">April</option>
+								<option value="5">Mei</option>
+								<option value="6">Juni</option>
+								<option value="7">Juli</option>
+								<option value="8">Agustus</option>
+								<option value="9">September</option>
+								<option value="10">Oktober</option>
+								<option value="11">November</option>
+								<option value="12">Desember</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="col-form-label">Tahun:</label> <input
+								type="text" id="datepicker2" class="form-control" />
+
+						</div>
+					</form>
+				</div>
+				<script type="text/javascript">
+					var year2 = document.getElementById("datepicker2");
+					var month2;
+					var nominal2 = document.getElementById("nominal2");
+
+					$('select').on(
+							'change',
+							function() {
+								//ways to retrieve selected option and text outside handler
+								month2 = this.value;
+
+								console.log('Changed option value '
+										+ this.value);
+								console.log('Changed option text '
+										+ $(this).find('option').filter(
+												':selected').text());
+							});
+					function myFunctionUpdate(id) {
+						$('#exampleModal2').modal({
+							show : true
+						});
+						idAkun = id;
+
+					}
+
+					function apiFunctionUpdate() {
+
+						var request = {};
+						request['nominal'] = nominal2.value;
+						request['month'] = month2;
+						request['year'] = year2.value;
+
+						console.log("request akun :" + JSON.stringify(request));
+						$
+								.ajax({
+									url : 'http://localhost:9099/api/akun/updateAkun?idAkun='
+											+ idAkun,
+									type : 'POST',
+									data : JSON.stringify(request),
+									contentType : 'application/json',
+
+									success : function(data) {
+										console
+												.log('Cek Status Transaksi Kita :'
+														+ JSON.stringify(data))
+										Swal
+												.fire(
+														{
+															title : 'Data akun berhasil diupdate!',
+															text : 'You clicked the button!',
+															type : 'success'
+
+														}).then(function() {
+													location.reload();
+												})
+
+									},
+
+								});
+
+					}
+
+					function myFunctionDelete(idAkun) {
+						var x = confirm("Are you sure you want to delete?");
+						  if (x){
+
+								$.ajax({
+											url : 'http://localhost:9099/api/akun/deleteAkun?idAkun='
+													+ idAkun,
+											type : 'POST',
+											contentType : 'application/json',
+
+											success : function(data) {
+												console
+														.log('Cek Status Transaksi Kita :'
+																+ JSON.stringify(data))
+												Swal
+														.fire(
+																{
+																	title : 'Data akun berhasil dihapus!',
+																	text : 'You clicked the button!',
+																	type : 'success'
+
+																}).then(function() {
+															location.reload();
+														})
+
+											},
+
+										});
+						  }else{
+							  return false;
+						  }
+						    
+						
+
+
+					}
+				</script>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary"
+						onclick="apiFunctionUpdate()">Simpan Data</button>
 				</div>
 			</div>
 		</div>
@@ -250,7 +406,8 @@
 							success : function(data) {
 								console.log("Data======== :"
 										+ JSON.stringify(data))
-								data.forEach(function(item, index) {
+								data
+										.forEach(function(item, index) {
 
 											content += '<tr>'
 													+ '<td style="text-align :center;">'
@@ -271,8 +428,16 @@
 													+
 
 													'<td style="text-align :center;">'
-													+ '<button type="button" id="'+item.kodeAkun+'" class="btn btn-sm btn-danger text white" style=" text-align: center;" class="btn hvr-hover" value="'+item.kodeAkun+'" >Update</button>&nbsp'
-													+ '<button type="button" id="'+item.kodeAkun+'" class="btn btn-sm btn-success text white" style=" text-align: center;" class="btn hvr-hover" value="'+item.kodeAkun+'" >Delete</button>'
+													+ '<button type="button" id="'
+													+ item.kodeAkun
+													+ '" class="btn btn-sm btn-danger text white" style=" text-align: center;" class="btn hvr-hover" value="'
+													+ item.kodeAkun
+													+ '"  onClick="myFunctionUpdate(this.id)">Update</button>&nbsp'
+													+ '<button type="button" id="'
+													+ item.kodeAkun
+													+ '" class="btn btn-sm btn-success text white" style=" text-align: center;" class="btn hvr-hover" value="'
+													+ item.kodeAkun
+													+ '" onClick="myFunctionDelete(this.id)">Delete</button>'
 													+ '</td>' + '</tr>';
 											no++;
 
@@ -283,9 +448,15 @@
 	}
 
 	getAllOrder();
-	
+
 	$(function() {
 		$("#datepicker1").datepicker({
+			dateFormat : 'yy'
+		});
+	});
+
+	$(function() {
+		$("#datepicker2").datepicker({
 			dateFormat : 'yy'
 		});
 	});

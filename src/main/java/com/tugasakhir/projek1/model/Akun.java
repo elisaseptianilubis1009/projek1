@@ -12,8 +12,8 @@ public class Akun {
 	private Long kodeAkun;
 	private String namaAkun;
 	private String keteranganAkun;
-	private String bulan;
-	private String tahun;
+	private Integer bulan;
+	private Integer tahun;
 	private Integer nominal;
 	
 	@Id 
@@ -36,23 +36,24 @@ public class Akun {
 	public void setKeteranganAkun(String keteranganAkun) {
 		this.keteranganAkun = keteranganAkun;
 	}
-	public String getBulan() {
-		return bulan;
-	}
-	public void setBulan(String bulan) {
-		this.bulan = bulan;
-	}
-	public String getTahun() {
-		return tahun;
-	}
-	public void setTahun(String tahun) {
-		this.tahun = tahun;
-	}
+	
 	public Integer getNominal() {
 		return nominal;
 	}
 	public void setNominal(Integer nominal) {
 		this.nominal = nominal;
+	}
+	public Integer getBulan() {
+		return bulan;
+	}
+	public void setBulan(Integer bulan) {
+		this.bulan = bulan;
+	}
+	public Integer getTahun() {
+		return tahun;
+	}
+	public void setTahun(Integer tahun) {
+		this.tahun = tahun;
 	}
 	
 	
