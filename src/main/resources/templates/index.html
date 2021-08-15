@@ -292,7 +292,7 @@
 									<div class="form-group">
 										<div class="container">
 											<button type="button" class="btn btn-primary"
-												data-toggle="modal" data-target="#exampleModal"
+												data-toggle="modal" data-target="#exampleModalLabaRugi"
 												data-whatever="@mdo">
 												<p>Laporan Laba Rugi</p>
 											</button>
@@ -1003,7 +1003,7 @@
 			</div>
 		</div>
 
-		<!-- Modal 3 -->
+		<!-- Modal Laporan Penjualan -->
 
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1011,7 +1011,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Filter Bulan &
-							Tahun</h5>
+							Tahun (Laporan Penjualan)</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -1077,6 +1077,77 @@
 			</div>
 		</div>
 
+		<!-- Modal Laporan Laba Rugi -->
+				<div class="modal fade" id="exampleModalLabaRugi" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Filter Bulan &
+							Tahun (Laporan Laba Rugi)</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Bulan:</label>
+								<select class="form-control" id="bulan-name-lap-laba-rugi" name="month">
+									<option value="1">Januari</option>
+									<option value="2">February</option>
+									<option value="3">Maret</option>
+									<option value="4">April</option>
+									<option value="5">Mei</option>
+									<option value="6">Juni</option>
+									<option value="7">Juli</option>
+									<option value="8">Agustus</option>
+									<option value="9">September</option>
+									<option value="10">Oktober</option>
+									<option value="11">November</option>
+									<option value="12">Desember</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="message-text" class="col-form-label">Tahun:</label>
+								<input type="text" id="datepicker2" class="form-control" />
+							
+							</div>
+						</form>
+					</div>
+					<script type="text/javascript">
+						var yearLabaRugi = document.getElementById("datepicker2");
+						var monthLabaRugi;
+						
+						
+						$('select').on('change', function () {
+							  //ways to retrieve selected option and text outside handler
+							  monthLabaRugi=this.value;
+							  
+							  console.log('Changed option value ' + this.value);
+							  console.log('Changed option text ' + $(this).find('option').filter(':selected').text());
+							});
+						function myFunctionLabaRugi() {
+							alert('monthLabaRugi :'+monthLabaRugi);
+							alert( 'yearLabaRugi :'+yearLabaRugi.value);
+							
+							window.location.href = 'http://localhost:9099/api/pesanan/exportLabaRugi?month='
+								+ monthLabaRugi
+								+ '&year='
+								+ yearLabaRugi.value;
+							}
+						
+					</script>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary"
+							onclick="myFunctionLabaRugi()">Download Laporan</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- Coba Datepicker Year -->
 
 
@@ -1152,6 +1223,13 @@
 
 		$(function() {
 			$("#datepicker1").datepicker({
+				dateFormat : 'yy'
+			});
+		});
+		
+
+		$(function() {
+			$("#datepicker2").datepicker({
 				dateFormat : 'yy'
 			});
 		});

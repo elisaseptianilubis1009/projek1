@@ -34,5 +34,16 @@ public interface ProdukKeluarRepository extends JpaRepository<ProdukKeluar, Long
 			@Param("month1") Integer month1,
             @Param("year1") Integer year1
 			);
+	
+	@Modifying
+    @Transactional
+	@Query(nativeQuery = true,value = "SELECT p.nama_produk,SUM(p.harga_jual) AS Total \r\n" + 
+			"FROM produk p,produk_keluar pk WHERE p.kode=pk.produk_kode AND pk.status=TRUE AND pk.month=:month1 AND pk.year=:year1 \r\n" + 
+			"GROUP BY pk.produk_kode;")
+	List<Object[]> reportProdukLabaRugi(
+			@Param("month1") Integer month1,
+            @Param("year1") Integer year1
+			);
+
 
 }

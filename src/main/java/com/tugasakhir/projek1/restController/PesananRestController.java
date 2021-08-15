@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tugasakhir.projek1.Dto.ExportToExcelAkunRequestDto;
+import com.tugasakhir.projek1.Dto.ExportToExcelPrdKeluarRequestDto;
 import com.tugasakhir.projek1.Dto.ExportToExcelRequestDto;
 import com.tugasakhir.projek1.model.Cart;
 import com.tugasakhir.projek1.model.Login;
@@ -26,6 +28,7 @@ import com.tugasakhir.projek1.model.Pembeli;
 import com.tugasakhir.projek1.model.Pesanan;
 import com.tugasakhir.projek1.model.Produk;
 import com.tugasakhir.projek1.model.ProdukKeluar;
+import com.tugasakhir.projek1.repository.AkunRepository;
 import com.tugasakhir.projek1.repository.CartRepository;
 import com.tugasakhir.projek1.repository.PesananRepository;
 import com.tugasakhir.projek1.repository.ProdukKeluarRepository;
@@ -37,8 +40,6 @@ import com.tugasakhir.projek1.service.PesananService;
 @RequestMapping(value = "api/pesanan")
 public class PesananRestController {
 
-	@Autowired
-	private PesananService pesananService;
 
 	@Autowired
 	private PesananRepository pesananRepository;
@@ -48,6 +49,9 @@ public class PesananRestController {
 
 	@Autowired
 	private ProdukKeluarRepository produkKeluarRepository;
+	
+	@Autowired
+	private AkunRepository akunRepository;
 	
 	Integer month1=7;
 	Integer year1=2021;
@@ -196,11 +200,54 @@ public class PesananRestController {
         String headerValue = "attachment; filename=Laporan_Penjualan_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
 
-//        List<User> listUsers = service.listAll();
-//        ExcellExporter excelExporter = new ExcelExporter(dtos);
         ExcellExporter excelExporter = new ExcellExporter(dtos,granTotal);
 
         excelExporter.export(response);
     }
+	
+	@GetMapping("/exportLabaRugi")
+    public void exportToExcelLapLabaRugi(HttpServletResponse response, @RequestParam("month") Integer monthLabaRugi,@RequestParam("year") Integer yearLabaRugi) throws IOException {
+
+		List<Object[]> produkKeluar = produkKeluarRepository.reportProdukLabaRugi(monthLabaRugi,yearLabaRugi);
+		List<Object[]> listAkun = akunRepository.reportAkun(monthLabaRugi,yearLabaRugi);
+		
+		List<ExportToExcelPrdKeluarRequestDto> dtosProdukKeluar = new ArrayList<ExportToExcelPrdKeluarRequestDto>();
+		List<ExportToExcelAkunRequestDto> dtosAkun = new ArrayList<ExportToExcelAkunRequestDto>();
+		Integer granTotal=0;
+		for (Object[] objects : produkKeluar) {
+			ExportToExcelPrdKeluarRequestDto dto= new ExportToExcelPrdKeluarRequestDto();
+			dto.setNamaProduk(objects[0].toString());
+			dto.setTotal(Integer.parseInt(objects[1].toString()));
+			
+			granTotal+=dto.getTotal();
+			dtosProdukKeluar.add(dto);
+		}
+		
+		for (Object[] objects : listAkun) {
+			ExportToExcelAkunRequestDto dto= new ExportToExcelAkunRequestDto();
+			dto.setNama_akun(objects[0].toString());
+			dto.setNominal(Integer.parseInt(objects[1].toString()));
+			
+			System.out.println("nama akun :"+dto.getNama_akun());
+			System.out.println("nominal :"+dto.getNominal());
+			
+			dtosAkun.add(dto);
+		}
+		
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Laporan_Laba_Rugi" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+//        List<User> listUsers = service.listAll();
+//        ExcellExporter excelExporter = new ExcelExporter(dtos);
+        ExcellExporterLabaRugi excellExporterLabaRugi = new ExcellExporterLabaRugi(dtosProdukKeluar,dtosAkun,granTotal,monthLabaRugi,yearLabaRugi);
+
+        excellExporterLabaRugi.export(response);
+    }
+
 
 }
