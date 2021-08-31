@@ -18,6 +18,7 @@ public class Cart {
 	private Integer quantity;
 	private Integer total;
 	private Integer subtotal;
+	private Boolean status;
 
 
 	@Id 
@@ -66,6 +67,12 @@ public class Cart {
 	}
 	public void setSubtotal(Integer subtotal) {
 		this.subtotal = subtotal;
+	}
+	public Boolean getStatus() {
+		return status;
+	}
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 	
 	

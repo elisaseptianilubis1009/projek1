@@ -30,8 +30,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tugasakhir.projek1.Dto.CostRequestDto;
 import com.tugasakhir.projek1.Dto.OrderRequestDto;
+import com.tugasakhir.projek1.Dto.ParamCartDto;
 import com.tugasakhir.projek1.Dto.SaveStatusRequestDto;
 import com.tugasakhir.projek1.Dto.TransactionResponseDto;
+import com.tugasakhir.projek1.model.Akun;
 import com.tugasakhir.projek1.model.Cart;
 import com.tugasakhir.projek1.model.Login;
 import com.tugasakhir.projek1.model.Pembeli;
@@ -126,10 +128,15 @@ public class CartRestController {
 
 	@GetMapping("/getCart/{username}")
 	public List<Cart> allCartByUser(@PathVariable("username") String username) {
-
+		
+		
+		Boolean status=true;
 		Optional<Login> lg = lr.findByUsername(username);
 		Pembeli pl = pr.findByLogin(lg.get()).orElse(null);
-		List<Cart> listCart = cartService.findAllCartByUser(pl);
+		
+		List<Cart> listCart = crRepo.findByPembeliAndStatus(pl, status);
+		
+		//List<Object[]> listAllCart = crRepo.getAllCart(pl.getId());
 
 		return listCart;
 	}
@@ -146,7 +153,6 @@ public class CartRestController {
 			System.out.println("Id User yang login:" + Userlogin.getId());// berhasil
 
 			Pembeli pembeli = pr.findByLogin(Userlogin).get();
-//			System.out.println("Id Pembeli yang login :" + pembeli.getId());// dapat kok
 			System.out.println("ID 2 =" + id);
 
 			Produk produk = produkRepo.findById(id).orElse(null);
@@ -155,8 +161,8 @@ public class CartRestController {
 			c.setPembeli(pembeli);
 			c.setQuantity(1);
 			c.setTotal(6);
+			c.setStatus(true);
 			list.add(c);
-//			System.out.println("Total Produkkkkk :" + cart.getTotal());// dapat kok
 
 		}
 		System.out.println("Success : " + list);
@@ -321,6 +327,20 @@ public class CartRestController {
 
 		
 		
+	}
+	
+
+	@RequestMapping(value = "/updateStatusCart", method = RequestMethod.POST)
+	public String updateConfirmPesanan(@RequestBody List<Long> cartId, Principal p) {
+		
+		for (Long cartIdx : cartId) {
+			Cart cart = crRepo.findById(cartIdx).orElse(null);
+
+			cart.setStatus(false);
+			crRepo.save(cart);
+
+		}
+		return "Success save produk";
 	}
 	
 	

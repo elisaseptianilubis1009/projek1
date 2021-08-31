@@ -145,19 +145,13 @@ public class ExcellExporterLabaRugi {
 		XSSFFont font = workbook.createFont();
 		font.setBold(true);
 		font.setFontHeight(15);
-		style.setFont(font);
-
-	
-		
+		style.setFont(font);	
 			Row row = sheet.createRow(rows++);
-			 row_global=rows;
-			Row row3=sheet.createRow(row_global);
-			
+			row_global=rows;
+			Row row3=sheet.createRow(row_global);			
 			createCell(row, 1, "Total Penjualan :", style);
 			createCell(row, 2, "Rp. "+ grandTotal, style);
 			createCell(row3, 1, "Pengeluaran Beban-beban :", style);
-
-
 	}
 	
 	private void writeAkunLabaRugi() {

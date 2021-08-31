@@ -343,19 +343,19 @@
 	var colective={};
 	var tgl='';
 	
-	var orderId = 'YwBuU6Kkl';
+	/*var orderId = 'jrUr7DkVf';
 	var firsName = 'JUlia Ningsih';
 	var lastName = 'Lubis';
 	var email = 'julianingsih1107@gmail.com';
 	var telephone = '085217279985';
-	var alamat = 'Sidadi II, Kec.Batang Angkola, Kab.Tapsel';
+	var alamat = 'Sidadi II, Kec.Batang Angkola, Kab.Tapsel';*/
 	
-	/*var orderId;
+	var orderId;
 	var firsName;
 	var lastName;
 	var email;
 	var telephone;
-	var alamat;*/
+	var alamat;
 	
 
 	setKotaAsal();
@@ -554,11 +554,7 @@
 			contentType : 'application/json',
 
 			success : function(data) {
-				alert("success");
-				console.log("Data Status======== :" + JSON.stringify(data));
-				
-				
-				
+				alert("success");	
 				
 				var request = {};
 				request['gross_amount'] = data.gross_amount;
@@ -585,7 +581,6 @@
 						console.log('Cek Status Transaksi Kita :'+JSON.stringify(data))
 						alert("success");
 						if(data =='settlement'){
-							
 							// API save produk keluar
 								
 								cartId = getUrlParameter('cartId');
@@ -597,16 +592,45 @@
 								colective['cartId'] = cartIdArr;
 								colective['quantity'] = qtyArr;
 								
+								console.log("request id Cart & Qty : "+JSON.stringify(colective));
+								console.log("cartIdArr : "+cartIdArr);
+								//API Update Cart
+								$.ajax({
+										url : 'http://localhost:9099/api/cart/updateStatusCart',
+										type : 'POST',
+										data : JSON.stringify(cartIdArr),
+										contentType : 'application/json',
+								
+										success : function(data) {
+											console.log('Update Status Cart Berhasil');
+										},
+								
+									});	
+								
+								//API Update detail transaksi
+								$.ajax({
+										url : 'http://localhost:9099/api/transaksi/updateTransaksi?orderId='+ orderId,
+										type : 'POST',
+										contentType : 'application/json',
+								
+										success : function(data) {
+											console.log('Update Status Detail Transaksi Berhasil!');
+										},
+								
+									});	
+								
+								
+								
+								//API Save pesanan
 								
 								$.ajax({
-								//url : 'http://localhost:9099/api/pesanan/savePesanan?orderId='+ orderId+'&tgl='+ tgl,
 								url : 'http://localhost:9099/api/pesanan/savePesanan?orderId='+ orderId+'&tgl='+ tglConvert,
 								type : 'POST',
-								data : JSON.stringify(cartIdArr),
-								contentType : 'application/json',
+								data : JSON.stringify(colective), //collective= {cartId :[45,46], qty:[4,5]}
+								contentType : 'application/json', //[{cartId:45,qty:4},{cartId:45,qty:4},{cartId:45,qty:4}]
 			
 								success : function(data) {
-									console.log('Cek Status Transaksi Kita :'+JSON.stringify(data))
+									
 										Swal.fire({
 					          				  title:'Transaksi anda berhasil!',
 					      					  text:'You clicked the button!',
@@ -615,16 +639,10 @@
 					          			  }).then(function(){
 					          				  location.reload();
 					          			  })
-								
-									
-			
 								},
 			
 							});
-							
-							
 							// End API save produk keluar
-							
 							
 						}else{
 							Swal.fire({
@@ -645,7 +663,6 @@
 		});
 	}
 	function order() {
-		alert("elisa");
 		var req = {};
 		req['transaction_details'] = {};
 		req['transaction_details']['order_id'] = randomString(9,
@@ -674,6 +691,14 @@
 		console.log("Request Pakai Json :" + JSON.stringify(req));
 		console.log("Request without Json :" + req);
 		
+		
+		var reqTransaksi = {};
+		reqTransaksi['gross_amount'] = grandTotal;
+		reqTransaksi['firs_name'] = firsName;
+		reqTransaksi['last_name'] = lastName;
+		reqTransaksi['email'] = email;
+		reqTransaksi['telephone'] = telephone;
+		reqTransaksi['alamat'] = alamat;
 		$.ajax({
 			url : 'http://localhost:9099/api/cart/transaction?orderId='
 				+ orderId,
@@ -681,9 +706,39 @@
 			data : JSON.stringify(req),
 			contentType : 'application/json',
 			success : function(data) {
-				alert("Masuk transaksi dong");
-				console.log("Data_TOKEN======== :"+ JSON.stringify(data.token));
-				console.log("Data======== :" + JSON.stringify(data));
+				//API Save ke Table Transaksi
+				
+				$.ajax({
+					url : 'http://localhost:9099/api/transaksi/saveTransaksi?orderId='+ orderId,
+					type : 'POST',
+					data : JSON.stringify(reqTransaksi),
+					contentType : 'application/json',
+	
+					success : function(data) {
+						console.log('Berhasil Save ke table Transaksi :'+JSON.stringify(data))
+					},
+
+				});
+				
+				//API Save ke Table Transaksi Detail
+				cartId = getUrlParameter('cartId');
+				quantity = getUrlParameter('quantity');
+				var cart=cartId.toString();
+				var q=quantity.toString();
+				var cartIdArr = cart.split(",");
+				
+				$.ajax({
+					url : 'http://localhost:9099/api/transaksi/saveTransaksiDetail?orderId='+ orderId,
+					type : 'POST',
+					data : JSON.stringify(cartIdArr),
+					contentType : 'application/json',
+	
+					success : function(data) {
+						console.log('Berhasil Save ke table Transaksi Detail :'+JSON.stringify(data))
+					},
+
+				});
+			
 				window.open(data.redirect_url, '_blank')
 
 			}

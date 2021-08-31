@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tugasakhir.projek1.Dto.CartQuantityDto;
+import com.tugasakhir.projek1.Dto.CartQuantityRequestDto;
 import com.tugasakhir.projek1.Dto.ExportToExcelAkunRequestDto;
 import com.tugasakhir.projek1.Dto.ExportToExcelPrdKeluarRequestDto;
 import com.tugasakhir.projek1.Dto.ExportToExcelRequestDto;
@@ -108,7 +110,7 @@ public class PesananRestController {
 //@RequestParam("orderId") String orderId,
 //@RequestBody List<Integer> 
 	@RequestMapping(value = "/savePesanan", method = RequestMethod.POST)
-	public String savePesanan(@RequestBody List<Long> cartId, @RequestParam("orderId") String orderId,@RequestParam("tgl") String tgl, Principal p) {
+	public String savePesanan(@RequestBody CartQuantityDto cartQuantity, @RequestParam("orderId") String orderId,@RequestParam("tgl") String tgl, Principal p) {
 
 		System.out.println("tgl :"+tgl);
 		String year=tgl.substring(0, 4);
@@ -117,22 +119,29 @@ public class PesananRestController {
 		System.out.println("year :"+year);
 		System.out.println("month :"+month);
 		List<ProdukKeluar> list = new ArrayList<>();
-
-		for (Long cartIdx : cartId) {
+		
+		System.out.println("Size DTO : "+cartQuantity.getCartId().size());
+		
+		int i = 0;
+		for (String dto : cartQuantity.getCartId()) {
+			System.out.println("LIST ID CART : "+dto);
+			System.out.println("LIST Qty : "+cartQuantity.getQuantity().get(i));
 			ProdukKeluar produkKeluar = new ProdukKeluar();
-
+			Long cartIdx = Long.parseLong(dto);
+			Integer qtyIdx = Integer.parseInt(cartQuantity.getQuantity().get(i));
 			Cart cart = crRepo.findById(cartIdx).orElse(null);
-
 			produkKeluar.setProduk(cart.getProduk());
 			produkKeluar.setOrderId(orderId);
 			produkKeluar.setStatus(false);
 			produkKeluar.setStatusConfirmation("Waiting for Confirmation");
 			produkKeluar.setColor("#ff0000");
-			produkKeluar.setQuantity(2);
+			produkKeluar.setQuantity(qtyIdx);
 			produkKeluar.setTgl(date);
 			produkKeluar.setMonth(Integer.parseInt(month));
 			produkKeluar.setYear(Integer.parseInt(year));
 			list.add(produkKeluar);
+			
+			i++;
 
 		}
 		System.out.println("Success save produk keluar: " + list);

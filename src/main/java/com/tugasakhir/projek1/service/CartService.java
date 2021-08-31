@@ -54,8 +54,8 @@ public Cart find(Long id) {
 	
 }
 
-public List<Cart> findAllCartByUser(Pembeli pb){
-	return cartRepository.findByPembeli(pb);
+public List<Cart> findAllCartByUser(Pembeli pb, Boolean st){
+	return cartRepository.findByPembeliAndStatus(pb, st);
 }
 
 

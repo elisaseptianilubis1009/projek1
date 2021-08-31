@@ -48,7 +48,7 @@ public class CartController {
 		if (lg.isPresent()) {
 			pembeli = pr.findByLogin(lg.get());
 			if (pembeli.isPresent()) {
-				pembeliCart = cr.findByPembeli(pembeli.get());
+				//pembeliCart = cr.findByPembeli(pembeli.get());
 				model.addAttribute("cartPembeli", pembeliCart);
 			}else {
 				System.out.println("Pembeli tidak ditemukan");	
