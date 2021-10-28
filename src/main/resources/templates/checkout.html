@@ -554,7 +554,7 @@
 			contentType : 'application/json',
 
 			success : function(data) {
-				alert("success");	
+					
 				
 				var request = {};
 				request['gross_amount'] = data.gross_amount;
@@ -579,7 +579,7 @@
 
 					success : function(data) {
 						console.log('Cek Status Transaksi Kita :'+JSON.stringify(data))
-						alert("success");
+						
 						if(data =='settlement'){
 							// API save produk keluar
 								

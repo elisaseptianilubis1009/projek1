@@ -343,6 +343,20 @@ public class CartRestController {
 		return "Success save produk";
 	}
 	
+	@RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
+	public String deleteAkun(@RequestParam("idCart") Long idCart,Principal p) {
+		
+			Cart cart = crRepo.findById(idCart).orElse(null);
+			
+			
+			crRepo.delete(cart);
+			
+
+			return "Success";	
+		
+	}
+
+	
 	
 
 }

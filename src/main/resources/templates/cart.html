@@ -213,9 +213,9 @@
                                                                                     'value=' + item.kode + '>'
                                                                                     + '</td>'
                                                                                     + '<td style="text-align :center;">'
-                                                                                    + '<i style="background-color: lavender;"' +
+                                                                                    + '<button type="button" id="'+item.kode+'" style="background-color: lavender;"' +
                                                                                     'class="fas fa-times" ' +
-                                                                                    'title="Remove"></i>'
+                                                                                    'title="Remove" onClick="myFunctionDelete(this.id)"></button>'
                                                                                     + '</td>'
                                                                                     + '</tr>';
                                                                             no++;
@@ -474,6 +474,38 @@
 
     </body>
     <script>
+	function myFunctionDelete(idAkun) {
+		var x = confirm("Are you sure you want to delete?");
+		  if (x){
+
+				$.ajax({
+							url : 'http://localhost:9099/api/cart/deleteCart?idCart='
+									+ idAkun,
+							type : 'POST',
+							contentType : 'application/json',
+
+							success : function(data) {
+								console
+										.log('Cek Status Transaksi Kita :'
+												+ JSON.stringify(data))
+								Swal
+										.fire(
+												{
+													title : 'Cart berhasil dihapus!',
+													text : 'You clicked the button!',
+													type : 'success'
+
+												}).then(function() {
+											location.reload();
+										})
+
+							},
+
+						});
+		  }else{
+			  return false;
+		  }
+	}
         function changeTotal(obj) {
             console.log('value: ' + obj.value);
         }

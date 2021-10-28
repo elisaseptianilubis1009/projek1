@@ -73,8 +73,8 @@
 													<b>Total Pesanan</b> :<br>
 													<h5>
 														Rp.[[${row.totalPesanan}]]</h5><p></p>
-													<a class="btn btn-danger" th:href="@{/cart/save}">[[${row.status}]]</a>
-													<a class="btn btn-primary" th:href="@{/cart/save}">Batalkan Pesanan</a>
+													<a class="btn btn-danger" th:href="@{/cart/save}">[[${row.status}]]</a>&nbsp &nbsp
+													<a class="btn btn-primary" th:href="@{#}">Batalkan Pesanan</a>&nbsp &nbsp
 													<a  class="btn btn-primary" th:href="@{'/transaksi/detail/' +${row.orderId}}">Detail Pesanan</a>
 												</div>
 											</div>

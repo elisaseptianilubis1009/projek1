@@ -29,7 +29,7 @@ public class DashboardController {
 		System.out.println("GET NAMEM=========:"+p.getName());
 		System.out.print("NILAI LOGIN========:"+login);
 		if(login!=null)
-			if(login.getAkses().equals("ADMIN")) 
+			if(login.getAkses().equals("PEMILIK") || login.getAkses().equals("ADMIN")) 
 				return "index";
 		
 	return "index_user";

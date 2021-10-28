@@ -51,6 +51,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter{
 	    http.authorizeRequests()
 	        
 	        .antMatchers("/index").hasAnyAuthority("ADMIN")
+	        .antMatchers("/index").hasAnyAuthority("PEMILIK")
 	        .antMatchers("/admin/create").hasAuthority("ADMIN")
 	        .antMatchers("/pembeli/tampil").hasAuthority("ADMIN")
 	       .antMatchers("/detail/tampil").hasAuthority("ADMIN")
